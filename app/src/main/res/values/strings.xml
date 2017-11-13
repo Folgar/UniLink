@@ -15,4 +15,6 @@
         completions."
     </string>
     <string name="facebook_app_id">156575761620882</string>
+    <string name="date_picker_title">Select Date</string>
+    <string name="time_picker_title">Select Time</string>
 </resources>
