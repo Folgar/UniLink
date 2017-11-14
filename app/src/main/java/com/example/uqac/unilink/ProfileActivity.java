@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -56,6 +57,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         if(view == buttonLogout){
             //logging out the user
             firebaseAuth.signOut();
+            LoginManager.getInstance().logOut();
             //closing activity
             finish();
             //starting login activity
