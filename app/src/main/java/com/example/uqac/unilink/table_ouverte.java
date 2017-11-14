@@ -19,7 +19,7 @@ public class table_ouverte extends AppCompatActivity implements DatePickerFragme
     private EditText nombre;
     private EditText lieu;
     private Button button;
-    private DatabaseReference mDatabase;
+    //private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +29,7 @@ public class table_ouverte extends AppCompatActivity implements DatePickerFragme
         nombre = (EditText)findViewById(R.id.nombre_participants);
         lieu = (EditText)findViewById(R.id.lieu);
         button = (Button)findViewById(R.id.validate);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        //mDatabase = FirebaseDatabase.getInstance().getReference();
 
         datePickerAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +52,7 @@ public class table_ouverte extends AppCompatActivity implements DatePickerFragme
             @Override
             public void onClick(View v) {
                 tableOuverte table = new tableOuverte(datePickerAlertDialog.getText().toString(),timePickerAlertDialog.getText().toString(),nombre.getText().toString(),lieu.getText().toString());
-                mDatabase.child("tables").child(1).setValue(table);
+                //mDatabase.child("tables").child(1).setValue(table);
             }
         });
 
