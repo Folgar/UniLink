@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
+
 public class table_ouverte extends AppCompatActivity implements DatePickerFragment.DateDialogListener,TimePickerFragment.TimeDialogListener{
 
     private static final String DIALOG_DATE = "table_ouverte.DateDialog";
@@ -18,6 +19,7 @@ public class table_ouverte extends AppCompatActivity implements DatePickerFragme
     private EditText nombre;
     private EditText lieu;
     private Button button;
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +28,9 @@ public class table_ouverte extends AppCompatActivity implements DatePickerFragme
         timePickerAlertDialog = (EditText)findViewById(R.id.alert_dialog_time_picker);
         nombre = (EditText)findViewById(R.id.nombre_participants);
         lieu = (EditText)findViewById(R.id.lieu);
-
         button = (Button)findViewById(R.id.validate);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         datePickerAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,12 +48,11 @@ public class table_ouverte extends AppCompatActivity implements DatePickerFragme
                 dialog.show(getSupportFragmentManager(),"TimePickerFragment");
             }
         });
-        timePickerAlertDialog.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                TimePickerFragment dialog = new TimePickerFragment();
-                dialog.show(getSupportFragmentManager(),"TimePickerFragment");
+                tableOuverte table = new tableOuverte(datePickerAlertDialog.getText().toString(),timePickerAlertDialog.getText().toString(),nombre.getText().toString(),lieu.getText().toString());
+                mDatabase.child("tables").child(1).setValue(table);
             }
         });
 
