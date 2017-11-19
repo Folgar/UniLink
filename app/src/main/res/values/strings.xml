@@ -45,4 +45,9 @@
 
     <string name="facebook_app_id">156575761620882</string>
     <string name="fb_login_protocol_scheme">fb156575761620882</string>
+    <string name="action_settings">settings</string>
+    <string name="title_activity_profile2">Profile2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
