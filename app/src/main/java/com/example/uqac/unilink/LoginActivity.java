@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -35,7 +34,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button buttonSignIn;
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private TextView textViewSignup;
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
@@ -70,7 +68,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         buttonSignIn = (Button) findViewById(R.id.buttonSignin);
-        textViewSignup  = (TextView) findViewById(R.id.textViewSignUp);
 
         buttonFacebook = (LoginButton) findViewById(R.id.buttonFacebook);
 
@@ -78,7 +75,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         //attaching click listener
         buttonSignIn.setOnClickListener(this);
-        textViewSignup.setOnClickListener(this);
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -86,21 +82,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                //Log.i(TAG,"Hello"+loginResult.getAccessToken().getToken());
-                //Toast.makeText(LoginActivity.this, "Token:"+loginResult.getAccessToken(), Toast.LENGTH_SHORT).show();
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
             @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-            }
+            public void onCancel() {}
 
             @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-            }
+            public void onError(FacebookException error) {}
         });
     }
 
@@ -119,21 +108,59 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(getApplicationContext(), "Erreur d'authentication",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Erreur d'authentication", Toast.LENGTH_SHORT).show();
                             LoginManager.getInstance().logOut();
                         }
                     }
                 });
     }
 
-    //method for user login
+    private void registerUser(){
+
+        //getting email and password from edit texts
+        String email = editTextEmail.getText().toString().trim();
+        String password  = editTextPassword.getText().toString().trim();
+
+        //checking if email and passwords are empty
+        if(TextUtils.isEmpty(email)){
+            Toast.makeText(this,"Please enter email",Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if(TextUtils.isEmpty(password)){
+            Toast.makeText(this,"Please enter password",Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        //if the email and password are not empty
+        //displaying a progress dialog
+
+        progressDialog.setMessage("Registering Please Wait...");
+        progressDialog.show();
+
+        //creating a new user
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        //checking if success
+                        if(task.isSuccessful()){
+                            //finish();
+                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        }else{
+                            //display some message here
+                            Toast.makeText(LoginActivity.this,"Registration Error",Toast.LENGTH_LONG).show();
+                        }
+                        progressDialog.dismiss();
+                    }
+                });
+
+    }
+
     private void userLogin(){
         String email = editTextEmail.getText().toString().trim();
         String password  = editTextPassword.getText().toString().trim();
@@ -161,13 +188,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
                         //if the task is successfull
                         if(task.isSuccessful()){
                             //start the profile activity
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        }else{
+                            //display some message here
+                            Toast.makeText(LoginActivity.this,"This account doesn't exist. We're creating it.",Toast.LENGTH_LONG).show();
+                            registerUser();
                         }
+                        progressDialog.dismiss();
                     }
                 });
 
@@ -177,11 +208,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         if(view == buttonSignIn){
             userLogin();
-        }
-
-        if(view == textViewSignup){
-            finish();
-            startActivity(new Intent(this, MainActivity.class));
         }
     }
 }
