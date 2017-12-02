@@ -45,4 +45,25 @@
 
     <string name="facebook_app_id">156575761620882</string>
     <string name="fb_login_protocol_scheme">fb156575761620882</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <!-- Strings related to main drawer -->
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="navigation_drawer_accueil">Accueil</string>
+    <string name="navigation_drawer__mes_links">Mes Links</string>
+    <string name="navigation_drawer_tables">Tables</string>
+    <string name="navigation_drawer_sorties">Sorties</string>
+    <string name="navigation_drawer_trajets">Trajets</string>
+    <string name="navigation_drawer_covoiturage">Covoiturage</string>
+    <string name="navigation_drawer_calendrier">Calendrier</string>
+
+    <string name="navigation_drawer_parametres">Paramètres</string>
+
+    <string name="navigation_drawer_mon_mon_profil">Mon Profil</string>
+    <string name="navigation_drawer_deconnection">Déconnexion</string>
+
+    <string name="action_deconnection">Déconnexion</string>
 </resources>
