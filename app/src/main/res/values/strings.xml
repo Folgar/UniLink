@@ -29,6 +29,12 @@
     <string name="btn_sign_out">Sign Out</string>
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
+    <string name="date_picker_title">Choisissez une date</string>
+    <string name="time_picker_title">Choisissez l\'heure</string>
+    <string name="lieu">Saisissez le lieu</string>
+    <string name="description">Entrez une description</string>
+    <string name="nombre">Choisissez le nombre de participants maximum</string>
+
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.nav_tables:
                 fragment = new TablesFragment();
+
                 break;
 
             case R.id.nav_sorties:
