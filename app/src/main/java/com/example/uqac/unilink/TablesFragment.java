@@ -66,7 +66,7 @@ public class TablesFragment extends Fragment {
                 links.clear();
                 for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
                     TableOuverteStructure table = noteDataSnapshot.getValue(TableOuverteStructure.class);
-                    links.add("Lieu : " + table.lieu + "  Date : " + table.date+" "+table.heure);
+                    links.add(0,"Lieu : " + table.lieu + "  Date : " + table.date+" "+table.heure);
                 }
                 // Pour update la list view (ne marche pas sans)
                 adapter.add("");
