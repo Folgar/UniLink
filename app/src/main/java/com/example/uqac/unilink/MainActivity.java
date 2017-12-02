@@ -144,4 +144,6 @@ public class MainActivity extends AppCompatActivity
         //starting login activity
         startActivity(new Intent(this, LoginActivity.class));
     }
+
+
 }
