@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
+import static com.example.uqac.unilink.CustomAdapter.SORTIE;
 import static com.example.uqac.unilink.CustomAdapter.TABLE;
 
 public class MainActivity extends AppCompatActivity
@@ -29,6 +30,10 @@ public class MainActivity extends AppCompatActivity
     // Data temporaires pour Tables
     private String[] mDatasetTables = {"Table1", "Table2", "Table3", "Table4", "Table5", "Table6"};
     private int mDatasetTypesTables[] = {TABLE, TABLE, TABLE, TABLE, TABLE, TABLE}; //view types
+
+    // Data temporaires pour Tables
+    private String[] mDatasetSorties = {"Sortie1", "Sortie2", "Sortie3", "Sortie4", "Sortie5", "Sortie6"};
+    private int mDatasetTypesSorties[] = {SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE}; //view types
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +110,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_sorties:
-                onSortieLaunch();
+                onSortieLaunch(mDatasetSorties,mDatasetTypesSorties);
                 break;
 
             case R.id.nav_trajets:
@@ -155,20 +160,30 @@ public class MainActivity extends AppCompatActivity
 
         fragment = new TablesFragment();
         bundle = new Bundle();
-        bundle.putStringArray("dataset",dataset);
+        bundle.putStringArray("dataset", dataset);
         bundle.putIntArray("datasetTypes", detasetTypes);
         fragment.setArguments(bundle);
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
 
     }
 
-    public void onSortieLaunch(){
-        fragment = new SortiesFragment();
-        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-    }
-
     public void onResearchTableLaunch(){
         fragment = new ResearchTablesFragment();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
+
+    public void onSortieLaunch(String[] dataset, int[] detasetTypes){
+        fragment = new SortiesFragment();
+        bundle = new Bundle();
+        bundle.putStringArray("dataset", dataset);
+        bundle.putIntArray("datasetTypes", detasetTypes);
+        fragment.setArguments(bundle);
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+    }
+
+    public void onResearchSortieLaunch(){
+        fragment = new ResearchSortiesFragment();
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+    }
+
 }

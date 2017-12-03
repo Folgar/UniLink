@@ -2,6 +2,7 @@ package com.example.uqac.unilink;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,19 +19,21 @@ import static com.example.uqac.unilink.CustomAdapter.TABLE;
 
 public class SortiesFragment extends Fragment {
 
-    private RecyclerView mRecyclerView ;
-    private CustomAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private String[] mDataset = {"Sortie1", "Sortie2", "Sortie3", "Sortie4", "Sortie5", "Sortie6"};
-    private int mDatasetTypes[] = {SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE}; //view types
+    private String[] mDataset;
+    private int[] mDatasetTypes; //view types
 
-    public SortiesFragment(){
-
-    }
+    public SortiesFragment(){}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // récupère les arguments depuis MainActivity
+        Bundle bundle = this.getArguments();
+        if (bundle != null){
+            mDataset = bundle.getStringArray("dataset");
+            mDatasetTypes = bundle.getIntArray("datasetTypes");
+        }
     }
 
     @Override
@@ -40,12 +43,20 @@ public class SortiesFragment extends Fragment {
         final View view =  inflater.inflate(R.layout.fragment_sorties, container, false);
         final Context context = view.getContext();
 
-        mRecyclerView  = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
-        mLayoutManager = new LinearLayoutManager(context);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new CustomAdapter(mDataset,mDatasetTypes);
+        CustomAdapter mAdapter = new CustomAdapter(mDataset, mDatasetTypes);
         mRecyclerView.setAdapter(mAdapter);
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).onResearchSortieLaunch();
+            }
+        });
 
         return view;
     }
