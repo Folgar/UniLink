@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.uqac.unilink.ResearchSortiesFragment">
@@ -19,14 +20,53 @@
             android:gravity="center"
             android:text="Recherche d'un Link Sortie :" />
 
-        <Button
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/alert_dialog_date_picker"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Research"
-            android:id="@+id/researchButton"/>
+            android:clickable="true"
+            android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/date_picker_title"
+            android:inputType="date"
+            android:selectAllOnFocus="true"
+            android:visibility="visible" />
 
+        <EditText
+            android:id="@+id/alert_dialog_time_picker_min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="@string/time_picker_title"
+            android:inputType="time" />
 
+        <EditText
+            android:id="@+id/alert_dialog_time_picker_max"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="@string/time_picker_title"
+            android:inputType="time" />
 
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_search_category_default" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_delete" />
 
 </FrameLayout>

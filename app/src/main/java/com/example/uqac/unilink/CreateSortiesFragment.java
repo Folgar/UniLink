@@ -63,7 +63,7 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
 
         timePickerAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {onTimePicker();
+            public void onClick(View v) {onTimePicker(timePickerAlertDialog);
             }
         });
 
@@ -108,8 +108,6 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
                 launchCreation();
             }
         });
-
-
         fabCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,25 +122,26 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
 
         if (datePickerAlertDialog.getText().toString().matches(""))
             Toast.makeText(getContext(), "Date manquante", Toast.LENGTH_SHORT).show();
-        else {
-            if (timePickerAlertDialog.getText().toString().matches(""))
-                Toast.makeText(getContext(), "Heure manquante", Toast.LENGTH_SHORT).show();
-            else {
-                if (lieu.getText().toString().matches(""))
-                    Toast.makeText(getContext(), "Lieu manquant", Toast.LENGTH_SHORT).show();
-                else if (nombre.getText().toString().matches(""))
-                    Toast.makeText(getContext(), "Nombre de participants maximum manquant", Toast.LENGTH_SHORT).show();
-                else {
-                    SortieStructure sortie = new SortieStructure(datePickerAlertDialog.getText().toString(), timePickerAlertDialog.getText().toString(), lieu.getText().toString(), description.getText().toString(), nombre.getText().toString());
-                    String linkId = mRefLink.push().getKey();
-                    mRefLink.child(linkId).setValue("Sortie");
-                    mRefTable.child(linkId).setValue(sortie);
-                    Toast.makeText(getContext(), "Sortie enregistrée", Toast.LENGTH_SHORT).show();
 
-//                                finish();
-                }
-            }
+        else if (timePickerAlertDialog.getText().toString().matches(""))
+            Toast.makeText(getContext(), "Heure manquante", Toast.LENGTH_SHORT).show();
+
+        else if (lieu.getText().toString().matches(""))
+            Toast.makeText(getContext(), "Lieu manquant", Toast.LENGTH_SHORT).show();
+
+        else if (nombre.getText().toString().matches(""))
+            Toast.makeText(getContext(), "Nombre de participants maximum manquant", Toast.LENGTH_SHORT).show();
+
+        else {
+            SortieStructure sortie = new SortieStructure(datePickerAlertDialog.getText().toString(), timePickerAlertDialog.getText().toString(), lieu.getText().toString(), description.getText().toString(), nombre.getText().toString());
+            String linkId = mRefLink.push().getKey();
+            mRefLink.child(linkId).setValue("Sortie");
+            mRefTable.child(linkId).setValue(sortie);
+            Toast.makeText(getContext(), "Sortie enregistrée", Toast.LENGTH_SHORT).show();
+            //finish();
         }
+
+
 
         //TODO
         // créer le link selon les critères de l'utilisateur puis relancer TableFragment avec les links mis à jour
@@ -157,7 +156,7 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
         String[] mDatasetTables = {"Sortie1", "Sortie2", "Sortie3", "Sortie4", "Sortie5", "Sortie6"};
         int mDatasetTypesTables[] = {SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE}; //view types
 
-        ((MainActivity)getActivity()).onTableLaunch(mDatasetTables,mDatasetTypesTables);
+        ((MainActivity)getActivity()).onSortieLaunch(mDatasetTables,mDatasetTypesTables);
     }
 
     @Override
@@ -166,7 +165,7 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
     }
 
     @Override
-    public void onFinishDialog(String time) {
+    public void onFinishDialog(String time, EditText timePickerAlertDialog) {
         timePickerAlertDialog.setText(time);
     }
 
@@ -178,9 +177,11 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
         dialog.show(getFragmentManager(), DIALOG_DATE);
     }
 
-    public void onTimePicker(){
+    @Override
+    public void onTimePicker(EditText timePickerAlertDialog){
         TimePickerFragment dialog = new TimePickerFragment();
         dialog.fragment = this;
+        dialog.timePickerAlertDialog = timePickerAlertDialog;
         dialog.show(getFragmentManager(), "TimePickerFragment");
     }
 }

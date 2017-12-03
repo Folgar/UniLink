@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TimePicker;
 
 public class TimePickerFragment extends DialogFragment  {
 
     private TimePicker timePicker;
     public GeneralFragmentDateTime fragment;
+    public EditText timePickerAlertDialog;
 
     public interface TimeDialogListener {
         void onFinishDialog(String time);
@@ -43,7 +45,7 @@ public class TimePickerFragment extends DialogFragment  {
                                 }
 //                                TimeDialogListener activity = (TimeDialogListener) getActivity();
 //                                activity.onFinishDialog(updateTime(hour,minute));
-                                fragment.onFinishDialog(updateTime(hour,minute));
+                                fragment.onFinishDialog(updateTime(hour,minute), timePickerAlertDialog);
                                 dismiss();
                             }
                         })
