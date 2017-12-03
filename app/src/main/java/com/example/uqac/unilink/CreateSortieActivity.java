@@ -39,8 +39,8 @@ public class CreateSortieActivity extends AppCompatActivity  {
         nombre = (EditText) findViewById(R.id.nombre_participants);
         lieu = (EditText) findViewById(R.id.lieu);
         description = (EditText) findViewById(R.id.description);
-        ok_button = (Button) findViewById(R.id.ok_button);
-        cancel_button = (Button) findViewById(R.id.cancel_button);
+        //ok_button = (Button) findViewById(R.id.ok_button);
+        //cancel_button = (Button) findViewById(R.id.cancel_button);
         mRefTable = FirebaseDatabase.getInstance().getReference("sortie");
         mRefLink = FirebaseDatabase.getInstance().getReference("link");
 
@@ -64,7 +64,7 @@ public class CreateSortieActivity extends AppCompatActivity  {
                 dialog.show(getSupportFragmentManager(), "TimePickerFragment");
             }
         });
-        ok_button.setOnClickListener(new View.OnClickListener() {
+        /*ok_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (datePickerAlertDialog.getText().toString().matches(""))
@@ -98,7 +98,7 @@ public class CreateSortieActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
 
     }
 

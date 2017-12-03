@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
@@ -16,7 +17,7 @@ public class DatePickerFragment extends DialogFragment {
 
     private DatePicker datePicker;
 
-    public CustomAdapter customAdapter;
+    public GeneralFragmentDateTime fragment;
 
     public interface DateDialogListener {
         void onFinishDialog(Date date);
@@ -39,7 +40,7 @@ public class DatePickerFragment extends DialogFragment {
                                 int day = datePicker.getDayOfMonth();
                                 Date date = new GregorianCalendar(year,mon,day).getTime();
 //                                DateDialogListener customAdapter = customAdapter;
-                                customAdapter.onFinishDialog(date);
+                                fragment.onFinishDialog(date);
                                 dismiss();
                             }
                         })

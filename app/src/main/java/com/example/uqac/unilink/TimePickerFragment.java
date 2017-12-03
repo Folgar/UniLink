@@ -11,7 +11,7 @@ import android.widget.TimePicker;
 public class TimePickerFragment extends DialogFragment  {
 
     private TimePicker timePicker;
-    public CustomAdapter customAdapter;
+    public GeneralFragmentDateTime fragment;
 
     public interface TimeDialogListener {
         void onFinishDialog(String time);
@@ -43,7 +43,7 @@ public class TimePickerFragment extends DialogFragment  {
                                 }
 //                                TimeDialogListener activity = (TimeDialogListener) getActivity();
 //                                activity.onFinishDialog(updateTime(hour,minute));
-                                customAdapter.onFinishDialog(updateTime(hour,minute));
+                                fragment.onFinishDialog(updateTime(hour,minute));
                                 dismiss();
                             }
                         })

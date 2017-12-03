@@ -41,8 +41,10 @@ public class ResearchSortiesFragment extends Fragment {
     }
 
     public void launchResearch(){
-        String[] newDataset = new String[] {"NewSortie1", "NewSortie2", "NewSortie3", "NewSortie4", "NewSortie5", "NewSortie6"};
-        int[] newDatasetTypes = new int[]{SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE} ;
+        //String[] newDataset = new String[] {"NewSortie1", "NewSortie2", "NewSortie3", "NewSortie4", "NewSortie5", "NewSortie6"};
+        //int[] newDatasetTypes = new int[]{SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE} ;
+        String[] newDataset = new String[] {};
+        int[] newDatasetTypes = new int[]{} ;
 
         ((MainActivity)getActivity()).onSortieLaunch(newDataset,newDatasetTypes);
     }

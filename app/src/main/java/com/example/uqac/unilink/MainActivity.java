@@ -192,8 +192,6 @@ public class MainActivity extends AppCompatActivity
             fragment.setArguments(bundle);
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
         }
-
-
     }
 
     public void onResearchTableLaunch(){
@@ -201,13 +199,41 @@ public class MainActivity extends AppCompatActivity
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 
-    public void onSortieLaunch(String[] dataset, int[] detasetTypes){
-        fragment = new SortiesFragment();
-        bundle = new Bundle();
-        bundle.putStringArray("dataset", dataset);
-        bundle.putIntArray("datasetTypes", detasetTypes);
-        fragment.setArguments(bundle);
-        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+    public void onSortieLaunch(String[] dataset, int[] datasetTypes){
+
+
+        if(dataset.length == 0){
+            AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
+            newDialog.setTitle("Nouveau Link Sortie");
+            newDialog.setMessage("Aucun Link ne correspond à vos critères de recherche. Voulez vous en créer un?");
+            newDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int which){
+                    fragment = new CreateSortiesFragment();
+                    fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                    dialog.dismiss();
+                }
+            });
+            newDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int which){
+                    fragment = new SortiesFragment();
+                    bundle = new Bundle();
+                    bundle.putStringArray("dataset", mDatasetSorties);
+                    bundle.putIntArray("datasetTypes", mDatasetTypesSorties);
+                    fragment.setArguments(bundle);
+                    fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                    dialog.cancel();
+                }
+            });
+            newDialog.show();
+        }
+        else{
+            fragment = new SortiesFragment();
+            bundle = new Bundle();
+            bundle.putStringArray("dataset", dataset);
+            bundle.putIntArray("datasetTypes", datasetTypes);
+            fragment.setArguments(bundle);
+            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+        }
     }
 
     public void onResearchSortieLaunch(){

@@ -25,7 +25,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     private String[] mDataSet;
     private int[] mDataSetTypes;
-    private Fragment mParentFragment;
+    //private Fragment mParentFragment;
 
     public static final int TABLE = 0;
     public static final int SORTIE = 1;
@@ -74,22 +74,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
     }
 
-    public CustomAdapter(Fragment parentFragment, String[] dataSet, int[] dataSetTypes){
-        mParentFragment = parentFragment;
+    public CustomAdapter(/*Fragment parentFragment,*/ String[] dataSet, int[] dataSetTypes){
+        //mParentFragment = parentFragment;
         mDataSet = dataSet;
         mDataSetTypes = dataSetTypes;
     }
-
-    private static final String DIALOG_DATE = "sortie.DateDialog";
-    private EditText datePickerAlertDialog;
-    private EditText timePickerAlertDialog;
-    private EditText nombre;
-    private EditText lieu;
-    private EditText description;
-    private Button ok_button;
-    private Button cancel_button;
-    private DatabaseReference mRefTable;
-    private DatabaseReference mRefLink;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType){
@@ -99,116 +88,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             return new TableViewHolder(v);
         } else if (viewType == SORTIE){
             v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cards_sorties, viewGroup, false);
-            /////////////////////////////
-
-
-
-            datePickerAlertDialog = (EditText) v.findViewById(R.id.alert_dialog_date_picker);
-            timePickerAlertDialog = (EditText) v.findViewById(R.id.alert_dialog_time_picker);
-            nombre = (EditText) v.findViewById(R.id.nombre_participants);
-            lieu = (EditText) v.findViewById(R.id.lieu);
-            description = (EditText) v.findViewById(R.id.description);
-            ok_button = (Button) v.findViewById(R.id.ok_button);
-            cancel_button = (Button) v.findViewById(R.id.cancel_button);
-            mRefTable = FirebaseDatabase.getInstance().getReference("sortie");
-            mRefLink = FirebaseDatabase.getInstance().getReference("link");
-
-
-
-
-            datePickerAlertDialog.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DatePickerFragment dialog = new DatePickerFragment();
-                    dialog.customAdapter = CustomAdapter.this;
-                    dialog.show(mParentFragment.getFragmentManager(), DIALOG_DATE);
-                }
-            });
-
-
-
-            timePickerAlertDialog.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    TimePickerFragment dialog = new TimePickerFragment();
-                    dialog.customAdapter = CustomAdapter.this;
-                    dialog.show(mParentFragment.getFragmentManager(), "TimePickerFragment");
-                }
-            });
-
-            lieu.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    MapsActivity map = new MapsActivity();
-//                    FragmentManager fm = mParentFragment.getFragmentManager();
-//                    MapsActivity dialogFragment = new MapsActivity ();
-////                    dialogFragment.show(fm, "Sample Fragment");
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(mParentFragment.getContext());
-//// Get the layout inflater
-//                    LayoutInflater inflater = (LayoutInflater) mParentFragment.getContext().getSystemService( mParentFragment.getContext().LAYOUT_INFLATER_SERVICE );
-//// Inflate and set the layout for the dialog
-//// Pass null as the parent view because its going in the dialog
-//// layout
-//                    builder.setView(inflater.inflate(R.layout.activity_maps, null));
-//                    AlertDialog ad = builder.create();
-//                    ad.setTitle("Select starting point");
-//                    ad.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
-//                            new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                }
-//                            });
-//                    ad.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//
-//                        }
-//                    });
-//                    ad.show();
-
-//                    Intent intent = new Intent(mParentFragment.getContext(),MapsActivity.class);
-
-
-                }
-            });
-            ok_button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (datePickerAlertDialog.getText().toString().matches(""))
-                        Toast.makeText(mParentFragment.getContext(), "Date manquante", Toast.LENGTH_SHORT).show();
-                    else {
-                        if (timePickerAlertDialog.getText().toString().matches(""))
-                            Toast.makeText(mParentFragment.getContext(), "Heure manquante", Toast.LENGTH_SHORT).show();
-                        else {
-                            if (lieu.getText().toString().matches(""))
-                                Toast.makeText(mParentFragment.getContext(), "Lieu manquant", Toast.LENGTH_SHORT).show();
-                            else if (nombre.getText().toString().matches(""))
-                                Toast.makeText(mParentFragment.getContext(), "Nombre de participants maximum manquant", Toast.LENGTH_SHORT).show();
-                            else {
-                                SortieStructure sortie = new SortieStructure(datePickerAlertDialog.getText().toString(), timePickerAlertDialog.getText().toString(), lieu.getText().toString(), description.getText().toString(), nombre.getText().toString());
-                                String linkId = mRefLink.push().getKey();
-                                mRefLink.child(linkId).setValue("Sortie");
-                                mRefTable.child(linkId).setValue(sortie);
-                                Toast.makeText(mParentFragment.getContext(), "Sortie enregistrée", Toast.LENGTH_SHORT).show();
-
-//                                finish();
-                            }
-                        }
-                    }
-                }
-
-            });
-
-            cancel_button.setOnClickListener(new View.OnClickListener()
-
-            {
-                @Override
-                public void onClick(View v) {
-                    //finish();
-                }
-            });
-
-            //////////
             return new SortieViewHolder(v);
         } else if (viewType == TRAJET){
             v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cards_trajets, viewGroup, false);
@@ -247,18 +126,5 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     @Override
     public int getItemViewType(int position) {
         return mDataSetTypes[position];
-    }
-
-    public void onFinishDialog(Date date) {
-        datePickerAlertDialog.setText(formatDate(date));
-    }
-    public void onFinishDialog(String time) {
-        timePickerAlertDialog.setText(time);
-    }
-
-    public String formatDate(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String hireDate = sdf.format(date);
-        return hireDate;
     }
 }
