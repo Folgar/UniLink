@@ -23,7 +23,7 @@ import java.util.Date;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
-    private String[] mDataSet;
+    private GeneralStructure[] mDataSet;
     private int[] mDataSetTypes;
     //private Fragment mParentFragment;
 
@@ -48,11 +48,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
 
     public class SortieViewHolder extends ViewHolder{
-        TextView textViewSortie;
+        TextView heure;
+        TextView date;
+        TextView nbParticipants;
+        TextView nbMax;
 
         public SortieViewHolder(View v){
             super(v);
-            this.textViewSortie = (TextView) v.findViewById(R.id.sortie);
+            this.heure = (TextView) v.findViewById(R.id.heure);
+            this.date = (TextView) v.findViewById(R.id.date);
+            this.nbParticipants = (TextView) v.findViewById(R.id.nbParticipants);
+            this.nbMax = (TextView) v.findViewById(R.id.nbMax);
         }
     }
 
@@ -74,7 +80,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
     }
 
-    public CustomAdapter(/*Fragment parentFragment,*/ String[] dataSet, int[] dataSetTypes){
+    public CustomAdapter(/*Fragment parentFragment,*/ GeneralStructure[] dataSet, int[] dataSetTypes){
         //mParentFragment = parentFragment;
         mDataSet = dataSet;
         mDataSetTypes = dataSetTypes;
@@ -101,20 +107,23 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position){
         if (viewHolder.getItemViewType() == TABLE) {
-            TableViewHolder holder = (TableViewHolder) viewHolder;
-            holder.textViewTable.setText(mDataSet[position]);
+            TableViewHolder tableViewHolder = (TableViewHolder) viewHolder;
+            //holder.textViewTable.setText(mDataSet[position].getClass().toString());
         }
         else if (viewHolder.getItemViewType() == SORTIE){
-            SortieViewHolder holder = (SortieViewHolder) viewHolder;
-            holder.textViewSortie.setText(mDataSet[position]);
+            SortieViewHolder sortieViewHolder = (SortieViewHolder) viewHolder;
+            sortieViewHolder.heure.setText(mDataSet[position].heure);
+            sortieViewHolder.date.setText(mDataSet[position].date);
+            sortieViewHolder.nbParticipants.setText(mDataSet[position].nombreParticipants);
+            sortieViewHolder.nbMax.setText(mDataSet[position].nombreMax);
         }
         else if (viewHolder.getItemViewType() == TRAJET){
-            TrajetViewHolder holder = (TrajetViewHolder) viewHolder;
-            holder.textViewTrajet.setText(mDataSet[position]);
+            TrajetViewHolder trajetViewHolder = (TrajetViewHolder) viewHolder;
+            //holder.textViewTrajet.setText(mDataSet[position].getClass().toString());
         }
         else {
-            CovoiturageViewHolder holder = (CovoiturageViewHolder) viewHolder;
-            holder.textViewCovoiturage.setText(mDataSet[position]);
+            CovoiturageViewHolder covoiturageViewHolder = (CovoiturageViewHolder) viewHolder;
+            //holder.textViewCovoiturage.setText(mDataSet[position].getClass().toString());
         }
     }
 

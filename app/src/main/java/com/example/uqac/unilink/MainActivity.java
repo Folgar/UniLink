@@ -29,14 +29,6 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager fragmentManager;
     private Bundle bundle;
 
-    // Data temporaires pour Tables
-    private String[] mDatasetTables = {"Table1", "Table2", "Table3", "Table4", "Table5", "Table6"};
-    private int mDatasetTypesTables[] = {TABLE, TABLE, TABLE, TABLE, TABLE, TABLE}; //view types
-
-    // Data temporaires pour Tables
-    private String[] mDatasetSorties = {"Sortie1", "Sortie2", "Sortie3", "Sortie4", "Sortie5", "Sortie6"};
-    private int mDatasetTypesSorties[] = {SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE}; //view types
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,11 +100,11 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_tables:
-                onTableLaunch(mDatasetTables,mDatasetTypesTables);
+                onTableAll();
                 break;
 
             case R.id.nav_sorties:
-                onSortieLaunch(mDatasetSorties,mDatasetTypesSorties);
+                onSortieAll();
                 break;
 
             case R.id.nav_trajets:
@@ -158,7 +150,18 @@ public class MainActivity extends AppCompatActivity
         startActivity(new Intent(this, LoginActivity.class));
     }
 
-    public void onTableLaunch(String[] dataset, int[] detasetTypes){
+    public void onTableAll(){
+
+        // Data temporaires pour Tables
+        GeneralStructure[] mDatasetTables = {new TableStructure("10/12/17", "12:30","UQAC","test1","5"),
+                new TableStructure("12/12/17", "12:30","UQAC","test2","10")};
+        int[] mDatasetTypesTables = {TABLE, TABLE}; //view types
+
+        fragment = TablesFragment.newInstance(mDatasetTables, mDatasetTypesTables);
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+    }
+
+    public void onTableLaunch(GeneralStructure[] dataset, int[] detasetTypes){
 
         if(dataset.length == 0){
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
@@ -173,23 +176,14 @@ public class MainActivity extends AppCompatActivity
             });
             newDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
                 public void onClick(DialogInterface dialog, int which){
-                    fragment = new TablesFragment();
-                    bundle = new Bundle();
-                    bundle.putStringArray("dataset", mDatasetTables);
-                    bundle.putIntArray("datasetTypes", mDatasetTypesTables);
-                    fragment.setArguments(bundle);
-                    fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                    onTableAll();
                     dialog.cancel();
                 }
             });
             newDialog.show();
         }
         else{
-            fragment = new TablesFragment();
-            bundle = new Bundle();
-            bundle.putStringArray("dataset", dataset);
-            bundle.putIntArray("datasetTypes", detasetTypes);
-            fragment.setArguments(bundle);
+            fragment = TablesFragment.newInstance(dataset, detasetTypes);
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
         }
     }
@@ -199,8 +193,17 @@ public class MainActivity extends AppCompatActivity
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 
-    public void onSortieLaunch(String[] dataset, int[] datasetTypes){
+    public void onSortieAll(){
+        // Data temporaires pour Tables
+        GeneralStructure[] mDatasetSorties = {new SortieStructure("10/12/17", "12:30","UQAC","test1","5"),
+                new SortieStructure("12/12/17", "12:30","UQAC","test2","10")};
+        int[] mDatasetTypesSorties = {SORTIE, SORTIE}; //view types
 
+        fragment = SortiesFragment.newInstance(mDatasetSorties, mDatasetTypesSorties);
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+    }
+
+    public void onSortieLaunch(GeneralStructure[] dataset, int[] datasetTypes){
 
         if(dataset.length == 0){
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
@@ -215,23 +218,14 @@ public class MainActivity extends AppCompatActivity
             });
             newDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
                 public void onClick(DialogInterface dialog, int which){
-                    fragment = new SortiesFragment();
-                    bundle = new Bundle();
-                    bundle.putStringArray("dataset", mDatasetSorties);
-                    bundle.putIntArray("datasetTypes", mDatasetTypesSorties);
-                    fragment.setArguments(bundle);
-                    fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                    onSortieAll();
                     dialog.cancel();
                 }
             });
             newDialog.show();
         }
         else{
-            fragment = new SortiesFragment();
-            bundle = new Bundle();
-            bundle.putStringArray("dataset", dataset);
-            bundle.putIntArray("datasetTypes", datasetTypes);
-            fragment.setArguments(bundle);
+            fragment = SortiesFragment.newInstance(dataset, datasetTypes);
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
         }
     }

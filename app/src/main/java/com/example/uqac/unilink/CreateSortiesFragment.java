@@ -28,7 +28,7 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
     private EditText nombre;
     private EditText lieu;
     private EditText description;
-    private DatabaseReference mRefTable;
+    private DatabaseReference mRefSortie;
     private DatabaseReference mRefLink;
 
     public CreateSortiesFragment(){}
@@ -52,7 +52,7 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
         description = (EditText) view.findViewById(R.id.description);
         FloatingActionButton fabOK = (FloatingActionButton) view.findViewById(R.id.fabOK);
         FloatingActionButton fabCancel = (FloatingActionButton) view.findViewById(R.id.fabCancel);
-        mRefTable = FirebaseDatabase.getInstance().getReference("sortie");
+        mRefSortie = FirebaseDatabase.getInstance().getReference("sortie");
         mRefLink = FirebaseDatabase.getInstance().getReference("link");
 
         datePickerAlertDialog.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +136,7 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
             SortieStructure sortie = new SortieStructure(datePickerAlertDialog.getText().toString(), timePickerAlertDialog.getText().toString(), lieu.getText().toString(), description.getText().toString(), nombre.getText().toString());
             String linkId = mRefLink.push().getKey();
             mRefLink.child(linkId).setValue("Sortie");
-            mRefTable.child(linkId).setValue(sortie);
+            mRefSortie.child(linkId).setValue(sortie);
             Toast.makeText(getContext(), "Sortie enregistrée", Toast.LENGTH_SHORT).show();
             //finish();
         }
@@ -144,20 +144,17 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
 
 
         //TODO
-        // créer le link selon les critères de l'utilisateur puis relancer TableFragment avec les links mis à jour
+        // créer le link selon les critères de l'utilisateur puis relancer SortiesFragment avec les links mis à jour
 
-        String[] mDatasetTables = {"Sortie1", "Sortie2", "Sortie3", "Sortie4", "Sortie5", "Sortie6", "Sortie7"};
-        int mDatasetTypesTables[] = {SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE}; //view types
+        GeneralStructure[] mDatasetSorties = {new SortieStructure("13/12/17", "12:30","UQAC","test3","6"),
+                new SortieStructure("10/12/17", "12:30","UQAC","test1","5"),
+                new SortieStructure("12/12/17", "12:30","UQAC","test2","10")};
+        int[] mDatasetTypesSorties = {SORTIE, SORTIE, SORTIE}; //view types
 
-        ((MainActivity)getActivity()).onTableLaunch(mDatasetTables,mDatasetTypesTables);
+        ((MainActivity)getActivity()).onSortieLaunch(mDatasetSorties,mDatasetTypesSorties);
     }
 
-    public void launchCancel(){
-        String[] mDatasetTables = {"Sortie1", "Sortie2", "Sortie3", "Sortie4", "Sortie5", "Sortie6"};
-        int mDatasetTypesTables[] = {SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE}; //view types
-
-        ((MainActivity)getActivity()).onSortieLaunch(mDatasetTables,mDatasetTypesTables);
-    }
+    public void launchCancel(){((MainActivity)getActivity()).onSortieAll();}
 
     @Override
     public void onFinishDialog(Date date) {

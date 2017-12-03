@@ -21,8 +21,9 @@ public class TrajetsFragment extends Fragment {
     private RecyclerView mRecyclerView ;
     private CustomAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private String[] mDataset = {"Trajet1", "Trajet2", "Trajet3", "Trajet4", "Trajet5", "Trajet6"};
-    private int mDatasetTypes[] = {TRAJET, TRAJET, TRAJET, TRAJET, TRAJET, TRAJET}; //view types
+    GeneralStructure[] mDataset = {new TrajetStructure("10/12/17", "12:30","UQAC","test1","5"),
+            new TrajetStructure("10/12/17", "12:30","UQAC","test1","5")};
+private int mDatasetTypes[] = {TRAJET, TRAJET}; //view types
 
     public TrajetsFragment(){
 

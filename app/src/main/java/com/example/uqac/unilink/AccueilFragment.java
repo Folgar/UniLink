@@ -23,8 +23,9 @@ public class AccueilFragment extends Fragment {
     private RecyclerView mRecyclerView ;
     private CustomAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private String[] mDataset = {"Table1", "Sortie1", "Table2", "Trajet1", "Covoiturage1", "Sortie2"};
-    private int mDatasetTypes[] = {TABLE, SORTIE, TABLE, TRAJET, COVOITURAGE, SORTIE}; //view types
+    GeneralStructure[] mDataset = {new TableStructure("10/12/17", "12:30","UQAC","test1","5"),
+            new SortieStructure("12/12/17", "12:30","UQAC","test2","10")};
+    int[] mDatasetTypes = {TABLE, SORTIE}; //view types
 
     public AccueilFragment(){
 

@@ -45,8 +45,10 @@ public class CreateTablesFragment extends Fragment {
         //TODO
         // créer le link selon les critères de l'utilisateur puis relancer TableFragment avec les links mis à jour
 
-        String[] mDatasetTables = {"Table1", "Table2", "Table3", "Table4", "Table5", "Table6", "Table7"};
-        int mDatasetTypesTables[] = {TABLE, TABLE, TABLE, TABLE, TABLE, TABLE, TABLE}; //view types
+        GeneralStructure[] mDatasetTables = {new TableStructure("13/12/17", "12:30","UQAC","test3","6"),
+                new TableStructure("10/12/17", "12:30","UQAC","test1","5"),
+                new TableStructure("12/12/17", "12:30","UQAC","test2","10")};
+        int mDatasetTypesTables[] = {TABLE, TABLE, TABLE}; //view types
 
         ((MainActivity)getActivity()).onTableLaunch(mDatasetTables,mDatasetTypesTables);
     }

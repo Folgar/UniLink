@@ -43,7 +43,7 @@ public class ResearchTablesFragment extends Fragment {
     public void launchResearch(){
 
         //TODO Requête firebase
-        String[] newDataset = new String[] {};
+        GeneralStructure[] newDataset = new GeneralStructure[] {};
         int[] newDatasetTypes = new int[]{} ;
 
         ((MainActivity)getActivity()).onTableLaunch(newDataset,newDatasetTypes);

@@ -82,18 +82,13 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
 
         //String[] newDataset = new String[] {"NewSortie1", "NewSortie2", "NewSortie3", "NewSortie4", "NewSortie5", "NewSortie6"};
         //int[] newDatasetTypes = new int[]{SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE} ;
-        String[] newDataset = new String[] {};
+        GeneralStructure[] newDataset = new GeneralStructure[] {};
         int[] newDatasetTypes = new int[]{} ;
 
         ((MainActivity)getActivity()).onSortieLaunch(newDataset,newDatasetTypes);
     }
 
-    public void launchCancel(){
-        String[] mDatasetTables = {"Sortie1", "Sortie2", "Sortie3", "Sortie4", "Sortie5", "Sortie6"};
-        int mDatasetTypesTables[] = {SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE}; //view types
-
-        ((MainActivity)getActivity()).onSortieLaunch(mDatasetTables,mDatasetTypesTables);
-    }
+    public void launchCancel(){((MainActivity)getActivity()).onSortieAll();}
 
     @Override
     public void onFinishDialog(Date date) {

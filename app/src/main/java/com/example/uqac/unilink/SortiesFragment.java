@@ -10,30 +10,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import static com.example.uqac.unilink.CustomAdapter.SORTIE;
-import static com.example.uqac.unilink.CustomAdapter.TABLE;
-
 /**
  * Created by Lorane on 01/12/2017.
  */
 
 public class SortiesFragment extends Fragment {
 
-    private String[] mDataset;
+    private GeneralStructure[] mDataset;
     private int[] mDatasetTypes; //view types
 
     public SortiesFragment(){}
 
+    public static SortiesFragment newInstance(GeneralStructure[] mDataset, int[] mDatasetTypes){
+        SortiesFragment fragment = new SortiesFragment();
+        fragment.setDatas(mDataset, mDatasetTypes);
+        return fragment;
+    }
+
+    public void setDatas(GeneralStructure[] mDataset, int[] mDatasetTypes){
+        this.mDataset = mDataset;
+        this.mDatasetTypes = mDatasetTypes;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // récupère les arguments depuis MainActivity
-        Bundle bundle = this.getArguments();
-        if (bundle != null){
-            mDataset = bundle.getStringArray("dataset");
-            mDatasetTypes = bundle.getIntArray("datasetTypes");
-        }
     }
 
     @Override
@@ -42,7 +43,6 @@ public class SortiesFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view =  inflater.inflate(R.layout.fragment_sorties, container, false);
         final Context context = view.getContext();
-
         RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);

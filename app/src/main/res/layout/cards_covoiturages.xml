@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:background="?android:selectableItemBackground"
             android:padding="20dp"
-            tools:text="Covoiturage"
+            android:text="Covoiturage"
             android:fontFamily="sans-serif"
             android:textColor="#333"
             android:textSize="18sp" />

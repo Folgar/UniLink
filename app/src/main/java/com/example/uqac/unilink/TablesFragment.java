@@ -16,21 +16,25 @@ import android.view.ViewGroup;
 
 public class TablesFragment extends Fragment {
 
-    private String[] mDataset;
+    private GeneralStructure[] mDataset;
     private int[] mDatasetTypes; //view types
 
     public TablesFragment(){}
 
+    public static TablesFragment newInstance(GeneralStructure[] mDataset, int[] mDatasetTypes){
+        TablesFragment fragment = new TablesFragment();
+        fragment.setDatas(mDataset, mDatasetTypes);
+        return fragment;
+    }
+
+    public void setDatas(GeneralStructure[] mDataset, int[] mDatasetTypes){
+        this.mDataset = mDataset;
+        this.mDatasetTypes = mDatasetTypes;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // récupère les arguments depuis MainActivity
-        Bundle bundle = this.getArguments();
-        if (bundle != null){
-            mDataset = bundle.getStringArray("dataset");
-            mDatasetTypes = bundle.getIntArray("datasetTypes");
-        }
     }
 
     @Override

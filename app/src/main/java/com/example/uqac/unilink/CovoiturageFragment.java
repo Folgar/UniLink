@@ -21,8 +21,9 @@ public class CovoiturageFragment extends Fragment {
     private RecyclerView mRecyclerView ;
     private CustomAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private String[] mDataset = {"Covoiturage1", "Covoiturage2", "Covoiturage3", "Covoiturage4", "Covoiturage5", "Covoiturage6"};
-    private int mDatasetTypes[] = {COVOITURAGE, COVOITURAGE, COVOITURAGE, COVOITURAGE, COVOITURAGE, COVOITURAGE}; //view types
+    GeneralStructure[] mDataset = {new CovoiturageStructure("10/12/17", "12:30","UQAC","test1","5"),
+            new CovoiturageStructure("10/12/17", "12:30","UQAC","test1","5")};
+    private int mDatasetTypes[] = {COVOITURAGE, COVOITURAGE}; //view types
 
     public CovoiturageFragment(){
 
