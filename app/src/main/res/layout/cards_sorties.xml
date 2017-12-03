@@ -31,11 +31,83 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:selectableItemBackground"
-            android:padding="20dp"
+
             tools:text="Sortie"
             android:fontFamily="sans-serif"
             android:textColor="#333"
             android:textSize="18sp" />
-    </LinearLayout>
 
+        <EditText
+            android:id="@+id/alert_dialog_date_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/date_picker_title"
+            android:inputType="date"
+            android:selectAllOnFocus="true"
+            android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/alert_dialog_time_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="@string/time_picker_title"
+        android:inputType="time" />
+
+    <EditText
+        android:id="@+id/lieu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:focusable="true"
+        android:hint="@string/lieu"
+        android:inputType="textPersonName"
+        android:singleLine="false"
+        />
+
+
+
+    <EditText
+        android:id="@+id/nombre_participants"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/nombre"
+        android:inputType="number" />
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/description"
+            android:inputType="textMultiLine"
+            android:singleLine="false" />
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/ok_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="OK" />
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Annuler" />
+    </LinearLayout>
+    </LinearLayout>
 </android.support.v7.widget.CardView>

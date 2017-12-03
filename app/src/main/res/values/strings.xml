@@ -66,4 +66,10 @@
     <string name="navigation_drawer_deconnection">Déconnexion</string>
 
     <string name="action_deconnection">Déconnexion</string>
+    <string name="description">description</string>
+    <string name="nombre">nombre</string>
+    <string name="lieu">lieu</string>
+    <string name="time_picker_title">time</string>
+    <string name="date_picker_title">date</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
