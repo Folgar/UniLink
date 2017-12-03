@@ -14,9 +14,9 @@ import static com.example.uqac.unilink.CustomAdapter.TABLE;
  * Created by Lorane on 02/12/2017.
  */
 
-public class ResearchTablesFragment extends Fragment {
+public class CreateTablesFragment extends Fragment {
 
-    public ResearchTablesFragment(){}
+    public CreateTablesFragment(){}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,25 +27,28 @@ public class ResearchTablesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_research_tables, container, false);
+        final View view = inflater.inflate(R.layout.fragment_create_tables, container, false);
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchResearch();
+                launchCreation();
             }
         });
 
         return view;
     }
 
-    public void launchResearch(){
+    public void launchCreation(){
 
-        //TODO Requête firebase
-        String[] newDataset = new String[] {};
-        int[] newDatasetTypes = new int[]{} ;
+        //TODO
+        // créer le link selon les critères de l'utilisateur puis relancer TableFragment avec les links mis à jour
 
-        ((MainActivity)getActivity()).onTableLaunch(newDataset,newDatasetTypes);
+        String[] mDatasetTables = {"Table1", "Table2", "Table3", "Table4", "Table5", "Table6"};
+        int mDatasetTypesTables[] = {TABLE, TABLE, TABLE, TABLE, TABLE, TABLE}; //view types
+
+        ((MainActivity)getActivity()).onTableLaunch(mDatasetTables,mDatasetTypesTables);
     }
+
 }

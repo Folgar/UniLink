@@ -1,5 +1,6 @@
 package com.example.uqac.unilink;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -158,12 +160,39 @@ public class MainActivity extends AppCompatActivity
 
     public void onTableLaunch(String[] dataset, int[] detasetTypes){
 
-        fragment = new TablesFragment();
-        bundle = new Bundle();
-        bundle.putStringArray("dataset", dataset);
-        bundle.putIntArray("datasetTypes", detasetTypes);
-        fragment.setArguments(bundle);
-        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+        if(dataset.length == 0){
+            AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
+            newDialog.setTitle("Nouveau Link Table");
+            newDialog.setMessage("Aucun Link ne correspond à vos critères de recherche. Voulez vous en créer un?");
+            newDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int which){
+                    fragment = new CreateTablesFragment();
+                    fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                    dialog.dismiss();
+                }
+            });
+            newDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int which){
+                    fragment = new TablesFragment();
+                    bundle = new Bundle();
+                    bundle.putStringArray("dataset", mDatasetTables);
+                    bundle.putIntArray("datasetTypes", mDatasetTypesTables);
+                    fragment.setArguments(bundle);
+                    fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                    dialog.cancel();
+                }
+            });
+            newDialog.show();
+        }
+        else{
+            fragment = new TablesFragment();
+            bundle = new Bundle();
+            bundle.putStringArray("dataset", dataset);
+            bundle.putIntArray("datasetTypes", detasetTypes);
+            fragment.setArguments(bundle);
+            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+        }
+
 
     }
 

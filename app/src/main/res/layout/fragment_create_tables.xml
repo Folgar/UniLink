@@ -18,7 +18,8 @@
             android:layout_margin="@dimen/activity_vertical_margin"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:gravity="center"
-            android:text="Recherche d'un Link Table :" />
+            android:text="Création d'un Link Table :" />
+
 
 
     </LinearLayout>
@@ -29,6 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_search_category_default" />
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 </FrameLayout>
