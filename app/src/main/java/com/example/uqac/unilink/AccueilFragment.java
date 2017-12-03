@@ -46,7 +46,7 @@ public class AccueilFragment extends Fragment {
 
         mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new CustomAdapter(mDataset,mDatasetTypes);
+        mAdapter = new CustomAdapter(this, mDataset,mDatasetTypes);
         mRecyclerView.setAdapter(mAdapter);
 
         return view;
