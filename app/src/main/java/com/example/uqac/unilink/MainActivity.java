@@ -16,12 +16,19 @@ import android.view.MenuItem;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
+import static com.example.uqac.unilink.CustomAdapter.TABLE;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth firebaseAuth;
     private Fragment fragment;
     private FragmentManager fragmentManager;
+    private Bundle bundle;
+
+    // Data temporaires pour Tables
+    private String[] mDatasetTables = {"Table1", "Table2", "Table3", "Table4", "Table5", "Table6"};
+    private int mDatasetTypesTables[] = {TABLE, TABLE, TABLE, TABLE, TABLE, TABLE}; //view types
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +89,8 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
+        // Handle navigation view item clicks here.
         switch(item.getItemId()){
             case R.id.nav_accueil:
                 fragment = new AccueilFragment();
@@ -95,11 +101,11 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_tables:
-                fragment = new TablesFragment();
+                onTableLaunch(mDatasetTables,mDatasetTypesTables);
                 break;
 
             case R.id.nav_sorties:
-                fragment = new SortiesFragment();
+                onSortieLaunch();
                 break;
 
             case R.id.nav_trajets:
@@ -145,5 +151,24 @@ public class MainActivity extends AppCompatActivity
         startActivity(new Intent(this, LoginActivity.class));
     }
 
+    public void onTableLaunch(String[] dataset, int[] detasetTypes){
 
+        fragment = new TablesFragment();
+        bundle = new Bundle();
+        bundle.putStringArray("dataset",dataset);
+        bundle.putIntArray("datasetTypes", detasetTypes);
+        fragment.setArguments(bundle);
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+
+    }
+
+    public void onSortieLaunch(){
+        fragment = new SortiesFragment();
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+    }
+
+    public void onResearchTableLaunch(){
+        fragment = new ResearchTablesFragment();
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+    }
 }
