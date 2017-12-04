@@ -18,16 +18,11 @@ import static com.example.uqac.unilink.CustomAdapter.TABLE;
 
 public class CovoiturageFragment extends GeneralFragment {
 
-    private RecyclerView mRecyclerView ;
-    private CustomAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     GeneralStructure[] mDataset = {new CovoiturageStructure("10/12/17", "12:30","UQAC","test1","5"),
             new CovoiturageStructure("10/12/17", "12:30","UQAC","test1","5")};
     private int mDatasetTypes[] = {COVOITURAGE, COVOITURAGE}; //view types
 
-    public CovoiturageFragment(){
-
-    }
+    public CovoiturageFragment(){}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,11 +36,11 @@ public class CovoiturageFragment extends GeneralFragment {
         final View view =  inflater.inflate(R.layout.fragment_covoiturage, container, false);
         final Context context = view.getContext();
 
-        mRecyclerView  = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
-        mLayoutManager = new LinearLayoutManager(context);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new CustomAdapter(this,mDataset,mDatasetTypes);
+        CustomAdapter mAdapter = new CustomAdapter(this, mDataset, mDatasetTypes);
         mRecyclerView.setAdapter(mAdapter);
 
         return view;

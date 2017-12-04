@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,8 +16,6 @@ import android.view.MenuItem;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.List;
 
 import static com.example.uqac.unilink.CustomAdapter.SORTIE;
 import static com.example.uqac.unilink.CustomAdapter.TABLE;
@@ -101,7 +98,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_mes_links:
-                fragment = new LinksFragment();
+                onLink();
                 break;
 
             case R.id.nav_tables:
@@ -160,7 +157,15 @@ public class MainActivity extends AppCompatActivity
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 
+    public void onLink(){
+        fragment = new LinksFragment();
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+    }
+
     public void onTableAll(){
+
+        //TODO
+        // Faire la requête firebase qui récupère les links table classés par date
 
         // Data temporaires pour Tables
         GeneralStructure[] mDatasetTables = {new TableStructure("10/12/17", "12:30","UQAC","test1","5"),
@@ -203,7 +208,17 @@ public class MainActivity extends AppCompatActivity
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 
+    public void onDetailsTable(TableStructure table){
+        GeneralFragment previousFragment = fragment;
+        fragment = DetailsTableFragment.newInstance(table, previousFragment);
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+    }
+
     public void onSortieAll(){
+
+        //TODO
+        // Faire la requête firebase qui récupère les links sortie classés par date
+
         // Data temporaires pour Tables
         GeneralStructure[] mDatasetSorties = {new SortieStructure("10/12/17", "12:30","UQAC","test1","5"),
                 new SortieStructure("12/12/17", "12:30","UQAC","test2","10")};

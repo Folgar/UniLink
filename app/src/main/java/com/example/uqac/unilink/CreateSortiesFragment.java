@@ -141,17 +141,7 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
             //finish();
         }
 
-
-
-        //TODO
-        // créer le link selon les critères de l'utilisateur puis relancer SortiesFragment avec les links mis à jour
-
-        GeneralStructure[] mDatasetSorties = {new SortieStructure("13/12/17", "12:30","UQAC","test3","6"),
-                new SortieStructure("10/12/17", "12:30","UQAC","test1","5"),
-                new SortieStructure("12/12/17", "12:30","UQAC","test2","10")};
-        int[] mDatasetTypesSorties = {SORTIE, SORTIE, SORTIE}; //view types
-
-        ((MainActivity)getActivity()).onSortieLaunch(mDatasetSorties,mDatasetTypesSorties);
+        ((MainActivity)getActivity()).onSortieAll();
     }
 
     public void launchCancel(){((MainActivity)getActivity()).onSortieAll();}

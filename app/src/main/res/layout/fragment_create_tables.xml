@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.uqac.unilink.ResearchTablesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,16 +19,74 @@
             android:gravity="center"
             android:text="Création d'un Link Table :" />
 
+        <EditText
+            android:id="@+id/alert_dialog_date_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/date_picker_title"
+            android:inputType="date"
+            android:selectAllOnFocus="true"
+            android:visibility="visible" />
 
+        <EditText
+            android:id="@+id/alert_dialog_time_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="@string/time_picker_title"
+            android:inputType="time" />
+
+        <EditText
+            android:id="@+id/lieu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusable="true"
+            android:hint="@string/lieu"
+            android:inputType="textPersonName"
+            android:singleLine="false"
+            />
+
+
+
+        <EditText
+            android:id="@+id/nombre_participants"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/nombre"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/description"
+            android:inputType="textMultiLine"
+            android:singleLine="false" />
 
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_input_add" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_delete" />
 
 </FrameLayout>

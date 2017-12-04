@@ -20,16 +20,11 @@ import static com.example.uqac.unilink.CustomAdapter.TRAJET;
 
 public class AccueilFragment extends GeneralFragment {
 
-    private RecyclerView mRecyclerView ;
-    private CustomAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     GeneralStructure[] mDataset = {new TableStructure("10/12/17", "12:30","UQAC","test1","5"),
             new SortieStructure("12/12/17", "12:30","UQAC","test2","10")};
     int[] mDatasetTypes = {TABLE, SORTIE}; //view types
 
-    public AccueilFragment(){
-
-    }
+    public AccueilFragment(){}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,11 +38,13 @@ public class AccueilFragment extends GeneralFragment {
         final View view = inflater.inflate(R.layout.fragment_accueil, container, false);
         final Context context = view.getContext();
 
-        mRecyclerView  = (RecyclerView) view.findViewById(R.id.recyclerView);
+        //TODO
+        //lancer requête firebase pour récupérer les derniers links et les stocker dans mDataset et mDatasetTypes
 
-        mLayoutManager = new LinearLayoutManager(context);
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new CustomAdapter(this,mDataset,mDatasetTypes);
+        CustomAdapter mAdapter = new CustomAdapter(this, mDataset, mDatasetTypes);
         mRecyclerView.setAdapter(mAdapter);
 
         return view;

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.uqac.unilink.ResearchTablesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,8 +19,36 @@
             android:gravity="center"
             android:text="Recherche d'un Link Table :" />
 
+        <EditText
+            android:id="@+id/alert_dialog_date_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:hint="@string/date_picker_title"
+            android:inputType="date"
+            android:selectAllOnFocus="false"
+            android:visibility="visible" />
 
+        <EditText
+            android:id="@+id/alert_dialog_time_picker_min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="@string/time_picker_title"
+            android:inputType="time" />
 
+        <EditText
+            android:id="@+id/alert_dialog_time_picker_max"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="@string/time_picker_title"
+            android:inputType="time" />
 
     </LinearLayout>
 
@@ -32,5 +59,13 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_search_category_default" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_delete" />
 
 </FrameLayout>

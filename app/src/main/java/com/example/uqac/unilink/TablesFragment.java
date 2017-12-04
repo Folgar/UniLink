@@ -3,9 +3,6 @@ package com.example.uqac.unilink;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -45,8 +42,8 @@ public class TablesFragment extends GeneralFragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_tables, container, false);
         final Context context = view.getContext();
-        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
         CustomAdapter mAdapter = new CustomAdapter(this,mDataset, mDatasetTypes);

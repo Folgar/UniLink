@@ -33,8 +33,7 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
     private EditText timePickerAlertDialogMin;
     private EditText timePickerAlertDialogMax;
 
-    public ResearchSortiesFragment() {
-    }
+    public ResearchSortiesFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,17 +89,12 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
 
     public void launchResearch() {
 
-        //TODO
-        // lancer la recherche de links selon les critères de l'utilisateur puis remplir newDataset et newDatasetTypes avec les résultats
-
-        //String[] newDataset = new String[] {"NewSortie1", "NewSortie2", "NewSortie3", "NewSortie4", "NewSortie5", "NewSortie6"};
-        //int[] newDatasetTypes = new int[]{SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE} ;
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-
-
         Query query = reference.child("sortie").orderByChild("date").equalTo(datePickerAlertDialog.getText().toString());
+
         query.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -115,19 +109,11 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
                         i++;
                     }
                 ((MainActivity) getActivity()).onSortieLaunch(newDataset, newDatasetTypes);
-
                 }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
+            public void onCancelled(DatabaseError databaseError) {}
         });
-
-
-
-
     }
 
     public void launchCancel() {

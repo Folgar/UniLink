@@ -11,7 +11,7 @@ import android.widget.TextView;
  * Created by Lorane on 03/12/2017.
  */
 
-public class DetailsSortieFragment extends GeneralFragment {
+public class DetailsTableFragment extends GeneralFragment{
 
     private TextView heure;
     private TextView date;
@@ -20,19 +20,19 @@ public class DetailsSortieFragment extends GeneralFragment {
     private TextView participants;
     private Button rejoindre;
 
-    private SortieStructure sortieStructure;
+    private TableStructure tableStructure;
     private GeneralFragment previousFragment;
 
-    public DetailsSortieFragment(){}
+    public DetailsTableFragment(){}
 
-    public static DetailsSortieFragment newInstance(SortieStructure sortie, GeneralFragment previousFragment){
-        DetailsSortieFragment fragment = new DetailsSortieFragment();
-        fragment.setDatas(sortie, previousFragment);
+    public static DetailsTableFragment newInstance(TableStructure table, GeneralFragment previousFragment){
+        DetailsTableFragment fragment = new DetailsTableFragment();
+        fragment.setDatas(table, previousFragment);
         return fragment;
     }
 
-    public void setDatas(SortieStructure sortieStructure, GeneralFragment previousFragment){
-        this.sortieStructure = sortieStructure;
+    public void setDatas(TableStructure tableStructure, GeneralFragment previousFragment){
+        this.tableStructure = tableStructure;
         this.previousFragment = previousFragment;
     }
 
@@ -45,7 +45,7 @@ public class DetailsSortieFragment extends GeneralFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_details_sortie, container, false);
+        final View view = inflater.inflate(R.layout.fragment_details_table, container, false);
 
         heure = (TextView) view.findViewById(R.id.heure);
         date = (TextView) view.findViewById(R.id.date);
@@ -54,10 +54,10 @@ public class DetailsSortieFragment extends GeneralFragment {
         participants = (TextView) view.findViewById(R.id.participants);
         rejoindre = (Button) view.findViewById(R.id.rejoindre);
 
-        heure.setText(sortieStructure.heure);
-        date.setText(sortieStructure.date);
-        lieu.setText(sortieStructure.lieu);
-        description.setText(sortieStructure.description);
+        heure.setText(tableStructure.heure);
+        date.setText(tableStructure.date);
+        lieu.setText(tableStructure.lieu);
+        description.setText(tableStructure.description);
         participants.setText("Insérer ici la liste des participants");
         rejoindre.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,8 +77,8 @@ public class DetailsSortieFragment extends GeneralFragment {
      */
     @Override
     public boolean onBackPressed() {
-        if(previousFragment instanceof SortiesFragment)
-            ((MainActivity)getActivity()).onSortieAll();
+        if(previousFragment instanceof TablesFragment)
+            ((MainActivity)getActivity()).onTableAll();
         else
             ((MainActivity)getActivity()).onAccueil();
         return true;

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/fragment_heure"
+                android:fontFamily="sans-serif"
+                android:textColor="#333"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/heure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="12h30"
+                android:fontFamily="sans-serif"
+                android:textColor="#333"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/fragment_date"
+                android:fontFamily="sans-serif"
+                android:textColor="#333"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="12/12/17"
+                android:fontFamily="sans-serif"
+                android:textColor="#333"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/fragment_lieu"
+                android:fontFamily="sans-serif"
+                android:textColor="#333"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/lieu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="UQAC"
+                android:fontFamily="sans-serif"
+                android:textColor="#333"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_description"
+            android:fontFamily="sans-serif"
+            android:textColor="#333"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_participants"
+            android:fontFamily="sans-serif"
+            android:textColor="#333"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/participants"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            tools:text="Alexis L.\nLorane L.\nLoïck L."/>
+
+        <Button
+            android:id="@+id/rejoindre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/fragment_rejoindre"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

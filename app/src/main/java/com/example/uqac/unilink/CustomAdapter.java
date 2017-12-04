@@ -6,16 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by Lorane on 02/12/2017.
@@ -39,11 +30,25 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
 
     public class TableViewHolder extends ViewHolder{
-        TextView textViewTable;
+
+        View view;
+        TableStructure currentItem;
+        TextView heure;
+        TextView date;
+        TextView nbParticipants;
+        TextView nbMax;
 
         public TableViewHolder(View v){
-            super(v);
-            this.textViewTable = (TextView) v.findViewById(R.id.table);
+            super(v);view = v;
+            view.setOnClickListener(new View.OnClickListener(){
+                @Override public void onClick(View v) {
+                    ((MainActivity)mParentFragment.getActivity()).onDetailsTable(currentItem);
+                }
+            });
+            this.heure = (TextView) v.findViewById(R.id.heure);
+            this.date = (TextView) v.findViewById(R.id.date);
+            this.nbParticipants = (TextView) v.findViewById(R.id.nbParticipants);
+            this.nbMax = (TextView) v.findViewById(R.id.nbMax);
         }
     }
 
@@ -117,7 +122,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder viewHolder, final int position){
         if (viewHolder.getItemViewType() == TABLE) {
             TableViewHolder tableViewHolder = (TableViewHolder) viewHolder;
-            //holder.textViewTable.setText(mDataSet[position].getClass().toString());
+            tableViewHolder.currentItem = (TableStructure) mDataSet[position];
+            tableViewHolder.heure.setText(mDataSet[position].heure);
+            tableViewHolder.date.setText(mDataSet[position].date);
+            tableViewHolder.nbParticipants.setText(mDataSet[position].nombreParticipants);
+            tableViewHolder.nbMax.setText(mDataSet[position].nombreMax);
         }
         else if (viewHolder.getItemViewType() == SORTIE){
             SortieViewHolder sortieViewHolder = (SortieViewHolder) viewHolder;
