@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity
 
     public void onSortieLaunch(GeneralStructure[] dataset, int[] datasetTypes){
 
-        if(dataset.length == 0 || dataset[0] == null){
+        if(dataset.length == 0){
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
             newDialog.setTitle("Nouveau Link Sortie");
             newDialog.setMessage("Aucun Link ne correspond à vos critères de recherche. Voulez vous en créer un?");

@@ -123,12 +123,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         if (viewHolder.getItemViewType() == TABLE) {
             TableViewHolder tableViewHolder = (TableViewHolder) viewHolder;
             tableViewHolder.currentItem = (TableStructure) mDataSet[position];
+
             tableViewHolder.heure.setText(mDataSet[position].heure);
             tableViewHolder.date.setText(mDataSet[position].date);
             tableViewHolder.nbParticipants.setText(mDataSet[position].nombreParticipants);
             tableViewHolder.nbMax.setText(mDataSet[position].nombreMax);
+
         }
-        else if (viewHolder.getItemViewType() == SORTIE){
+        else
+        if (viewHolder.getItemViewType() == SORTIE){
             SortieViewHolder sortieViewHolder = (SortieViewHolder) viewHolder;
             sortieViewHolder.currentItem = (SortieStructure) mDataSet[position];
             sortieViewHolder.heure.setText(mDataSet[position].heure);
