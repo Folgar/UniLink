@@ -2,8 +2,6 @@ package com.example.uqac.unilink;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.Date;
-
 
 import static com.example.uqac.unilink.CustomAdapter.SORTIE;
 
@@ -63,20 +53,17 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
 
         datePickerAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                onDatePicker();
+            public void onClick(View v) {onDatePicker();
             }
         });
         timePickerAlertDialogMin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                onTimePicker(timePickerAlertDialogMin);
+            public void onClick(View v) {onTimePicker(timePickerAlertDialogMin);
             }
         });
         timePickerAlertDialogMax.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                onTimePicker(timePickerAlertDialogMax);
+            public void onClick(View v) {onTimePicker(timePickerAlertDialogMax);
             }
         });
 
@@ -84,23 +71,24 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
             @Override
             public void onClick(View view) {
 
-                    launchResearch();
+                launchResearch();
 
             }
         });
         fabCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchCancel();
+//                launchCancel();
             }
         });
 
         return view;
     }
 
-    public void launchResearch() {
+    public void launchResearch(){
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        //TODO
+        // lancer la recherche de links selon les critères de l'utilisateur puis remplir newDataset et newDatasetTypes avec les résultats
 
         //String[] newDataset = new String[] {"NewSortie1", "NewSortie2", "NewSortie3", "NewSortie4", "NewSortie5", "NewSortie6"};
         //int[] newDatasetTypes = new int[]{SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE} ;
@@ -132,7 +120,7 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
                         int hour = Integer.parseInt ( time[0].trim() );
                         int min = Integer.parseInt ( time[1].trim() );
                         boolean am = time[2].startsWith("AM");
-                        String[] time2 = timePickerAlertDialogMin.getText().toString().split ( "[ \\\\:]" );
+                        String[] time2 = timePickerAlertDialogMax.getText().toString().split ( "[ \\\\:]" );
                         int hour2 = Integer.parseInt ( time2[0].trim() );
                         int min2 = Integer.parseInt ( time2[1].trim() );
                         boolean am2 = time2[2].startsWith("AM");
@@ -163,9 +151,7 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
 //        ((MainActivity)getActivity()).onSortieLaunch(newDataset,newDatasetTypes);
     }
 
-    public void launchCancel() {
-        ((MainActivity) getActivity()).onSortieAll();
-    }
+    public void launchCancel(){((MainActivity)getActivity()).onSortieAll();}
 
     @Override
     public void onFinishDialog(Date date) {
@@ -177,23 +163,18 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
         timePickerAlertDialog.setText(time);
     }
 
-    public void onDatePicker() {
+    public void onDatePicker(){
         DatePickerFragment dialog = new DatePickerFragment();
         dialog.fragment = this;
         dialog.show(getFragmentManager(), DIALOG_DATE);
     }
 
     @Override
-    public void onTimePicker(EditText timePickerAlertDialog) {
+    public void onTimePicker(EditText timePickerAlertDialog){
         TimePickerFragment dialog = new TimePickerFragment();
         dialog.fragment = this;
         dialog.timePickerAlertDialog = timePickerAlertDialog;
         dialog.show(getFragmentManager(), "TimePickerFragment");
     }
 
-    @Override
-    public boolean onBackPressed() {
-        ((MainActivity)getActivity()).onSortieAll();
-        return true;
-    }
 }
