@@ -3,13 +3,22 @@ package com.example.uqac.unilink;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.Date;
+
 
 import static com.example.uqac.unilink.CustomAdapter.SORTIE;
 
@@ -24,7 +33,8 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
     private EditText timePickerAlertDialogMin;
     private EditText timePickerAlertDialogMax;
 
-    public ResearchSortiesFragment(){}
+    public ResearchSortiesFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,17 +55,20 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
 
         datePickerAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {onDatePicker();
+            public void onClick(View v) {
+                onDatePicker();
             }
         });
         timePickerAlertDialogMin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {onTimePicker(timePickerAlertDialogMin);
+            public void onClick(View v) {
+                onTimePicker(timePickerAlertDialogMin);
             }
         });
         timePickerAlertDialogMax.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {onTimePicker(timePickerAlertDialogMax);
+            public void onClick(View v) {
+                onTimePicker(timePickerAlertDialogMax);
             }
         });
 
@@ -75,20 +88,51 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
         return view;
     }
 
-    public void launchResearch(){
+    public void launchResearch() {
 
         //TODO
         // lancer la recherche de links selon les critères de l'utilisateur puis remplir newDataset et newDatasetTypes avec les résultats
 
         //String[] newDataset = new String[] {"NewSortie1", "NewSortie2", "NewSortie3", "NewSortie4", "NewSortie5", "NewSortie6"};
         //int[] newDatasetTypes = new int[]{SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE} ;
-        GeneralStructure[] newDataset = new GeneralStructure[] {};
-        int[] newDatasetTypes = new int[]{} ;
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        ((MainActivity)getActivity()).onSortieLaunch(newDataset,newDatasetTypes);
+
+
+        Query query = reference.child("sortie").orderByChild("date").equalTo(datePickerAlertDialog.getText().toString());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    int i=0;
+                    final GeneralStructure[] newDataset = new GeneralStructure[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
+                    final int[] newDatasetTypes = new int[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
+                    for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
+
+                        SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
+                        newDataset[i]=sortie;
+                        newDatasetTypes[i]=SORTIE;
+                        i++;
+                    }
+                ((MainActivity) getActivity()).onSortieLaunch(newDataset, newDatasetTypes);
+
+                }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
+
+
+
     }
 
-    public void launchCancel(){((MainActivity)getActivity()).onSortieAll();}
+    public void launchCancel() {
+        ((MainActivity) getActivity()).onSortieAll();
+    }
 
     @Override
     public void onFinishDialog(Date date) {
@@ -100,14 +144,14 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
         timePickerAlertDialog.setText(time);
     }
 
-    public void onDatePicker(){
+    public void onDatePicker() {
         DatePickerFragment dialog = new DatePickerFragment();
         dialog.fragment = this;
         dialog.show(getFragmentManager(), DIALOG_DATE);
     }
 
     @Override
-    public void onTimePicker(EditText timePickerAlertDialog){
+    public void onTimePicker(EditText timePickerAlertDialog) {
         TimePickerFragment dialog = new TimePickerFragment();
         dialog.fragment = this;
         dialog.timePickerAlertDialog = timePickerAlertDialog;

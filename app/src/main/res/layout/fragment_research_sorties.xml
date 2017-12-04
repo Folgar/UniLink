@@ -26,11 +26,11 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:ems="10"
-            android:focusable="true"
+            android:focusable="false"
             android:focusableInTouchMode="true"
             android:hint="@string/date_picker_title"
             android:inputType="date"
-            android:selectAllOnFocus="true"
+            android:selectAllOnFocus="false"
             android:visibility="visible" />
 
         <EditText
