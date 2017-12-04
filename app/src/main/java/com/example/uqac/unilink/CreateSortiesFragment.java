@@ -1,14 +1,20 @@
 package com.example.uqac.unilink;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,6 +36,7 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
     private EditText description;
     private DatabaseReference mRefSortie;
     private DatabaseReference mRefLink;
+    private MapsActivity dialogFragment;
 
     public CreateSortiesFragment(){}
 
@@ -70,33 +77,46 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
         lieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                    MapsActivity map = new MapsActivity();
-//                    FragmentManager fm = mParentFragment.getFragmentManager();
-//                    MapsActivity dialogFragment = new MapsActivity ();
-////                    dialogFragment.show(fm, "Sample Fragment");
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(mParentFragment.getContext());
-//// Get the layout inflater
-//                    LayoutInflater inflater = (LayoutInflater) mParentFragment.getContext().getSystemService( mParentFragment.getContext().LAYOUT_INFLATER_SERVICE );
-//// Inflate and set the layout for the dialog
-//// Pass null as the parent view because its going in the dialog
-//// layout
-//                    builder.setView(inflater.inflate(R.layout.activity_maps, null));
-//                    AlertDialog ad = builder.create();
-//                    ad.setTitle("Select starting point");
-//                    ad.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
-//                            new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                }
-//                            });
-//                    ad.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//
-//                        }
-//                    });
-//                    ad.show();
 
-//                    Intent intent = new Intent(mParentFragment.getContext(),MapsActivity.class);
+                final FragmentManager fm = getFragmentManager();
+                dialogFragment = new MapsActivity();
+                dialogFragment.context = getContext();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+// Get the layout inflater
+                final LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
+// Inflate and set the layout for the dialog
+// Pass null as the parent view because its going in the dialog
+// layout
+//                    dialogFragment.setContentView(R.layout.activity_maps);
+//                dialogFragment.customAdapter=CustomAdapter.this;
+                builder.setView(inflater.inflate(R.layout.activity_maps, null,false));
+                final AlertDialog ad = builder.create();
+                ad.setTitle("Select starting point");
+                ad.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                        new DialogInterface.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialogFragment.finishAndRemoveTask();
+                                dialogFragment.finish();
+                            }
+                        });
+                ad.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        lieu.setText(dialogFragment.address);
+                        dialogFragment.finishAndRemoveTask();
+                        dialogFragment.finish();
+                        ad.dismiss();
+
+                    }
+                });
+
+                ad.show();
+
+                SupportMapFragment mapFragment = (SupportMapFragment) fm
+                        .findFragmentById(R.id.map);
+                mapFragment.getMapAsync(dialogFragment);
 
 
             }

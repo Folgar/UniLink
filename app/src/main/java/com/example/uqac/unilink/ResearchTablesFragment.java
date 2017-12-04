@@ -13,10 +13,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Date;
 
 import static com.example.uqac.unilink.CustomAdapter.TABLE;
+
+import static com.example.uqac.unilink.CustomAdapter.SORTIE;
 
 /**
  * Created by Lorane on 02/12/2017.
@@ -31,9 +39,11 @@ public class ResearchTablesFragment extends GeneralFragmentDateTime {
 
     public ResearchTablesFragment(){}
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -100,8 +110,12 @@ public class ResearchTablesFragment extends GeneralFragmentDateTime {
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
                     TableStructure sortie = eventSnapshot.getValue(TableStructure.class);
-                    newDataset[i]=sortie;
-                    newDatasetTypes[i]=TABLE;
+                    if(sortie.date.equals(datePickerAlertDialog)) {
+                        if(sortie.date.equals(datePickerAlertDialog)) {
+                            newDataset[i] = sortie;
+                            newDatasetTypes[i] = SORTIE;
+                        }
+                    }
                     i++;
                 }
                 ((MainActivity) getActivity()).onTableLaunch(newDataset, newDatasetTypes);

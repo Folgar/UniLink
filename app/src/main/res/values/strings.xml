@@ -70,6 +70,8 @@
     <string name="nombre">nombre</string>
     <string name="lieu">lieu</string>
     <string name="time_picker_title">time</string>
+    <string name="time_picker_title_min">time min</string>
+    <string name="time_picker_title_max">time max</string>
     <string name="date_picker_title">date</string>
     <string name="title_activity_maps">Map</string>
 

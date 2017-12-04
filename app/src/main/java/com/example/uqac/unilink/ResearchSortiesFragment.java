@@ -7,8 +7,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +27,7 @@ import java.util.Date;
 
 import static com.example.uqac.unilink.CustomAdapter.SORTIE;
 
+
 /**
  * Created by Lorane on 02/12/2017.
  */
@@ -33,7 +39,10 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
     private EditText timePickerAlertDialogMin;
     private EditText timePickerAlertDialogMax;
 
-    public ResearchSortiesFragment() {}
+
+    public boolean ok;
+    public ResearchSortiesFragment(){}
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,7 +83,9 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchResearch();
+
+                    launchResearch();
+
             }
         });
         fabCancel.setOnClickListener(new View.OnClickListener() {
@@ -91,29 +102,65 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        Query query = reference.child("sortie").orderByChild("date").equalTo(datePickerAlertDialog.getText().toString());
+        //String[] newDataset = new String[] {"NewSortie1", "NewSortie2", "NewSortie3", "NewSortie4", "NewSortie5", "NewSortie6"};
+        //int[] newDatasetTypes = new int[]{SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE} ;
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
 
+
+        final GeneralStructure[] newDataset = new GeneralStructure[] {};
+        int[] newDatasetTypes = new int[]{} ;
+
+// Get a reference to our posts
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference();
+
+
+
+// Attach a listener to read the data at our posts reference
+        ref.child("sortie").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                int i=0;
+                final GeneralStructure[] newDataset = new GeneralStructure[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
+                final int[] newDatasetTypes = new int[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
+                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
-                    int i=0;
-                    final GeneralStructure[] newDataset = new GeneralStructure[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
-                    final int[] newDatasetTypes = new int[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
-                    for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
+                    SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
+                    if(sortie.date.equals(datePickerAlertDialog.getText().toString())) {
+                        String[] time = sortie.heure.split ( "[ \\\\:]" );
 
-                        SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
-                        newDataset[i]=sortie;
-                        newDatasetTypes[i]=SORTIE;
-                        i++;
+                        int hour = Integer.parseInt ( time[0].trim() );
+                        int min = Integer.parseInt ( time[1].trim() );
+                        boolean am = time[2].startsWith("AM");
+                        String[] time2 = timePickerAlertDialogMin.getText().toString().split ( "[ \\\\:]" );
+                        int hour2 = Integer.parseInt ( time2[0].trim() );
+                        int min2 = Integer.parseInt ( time2[1].trim() );
+                        boolean am2 = time2[2].startsWith("AM");
+                        String[] time3 = timePickerAlertDialogMin.getText().toString().split ( "[ \\\\:]" );
+                        int hour3 = Integer.parseInt ( time3[0].trim() );
+                        int min3 = Integer.parseInt ( time3[1].trim() );
+                        boolean am3 = time3[2].startsWith("AM");
+                        if( ( (hour >= hour3) || ((hour == hour3) && (min >= min3)) ) && ( (hour <= hour2) || ((hour == hour2) && (min <= min2)) ) ) {
+                            newDataset[i] = sortie;
+                            newDatasetTypes[i] = SORTIE;
+                        }
                     }
-                ((MainActivity) getActivity()).onSortieLaunch(newDataset, newDatasetTypes);
+                    i++;
                 }
+                ((MainActivity) getActivity()).onSortieLaunch(newDataset, newDatasetTypes);
+            }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+
+            }
+
         });
+
+
+
+//        ((MainActivity)getActivity()).onSortieLaunch(newDataset,newDatasetTypes);
     }
 
     public void launchCancel() {
