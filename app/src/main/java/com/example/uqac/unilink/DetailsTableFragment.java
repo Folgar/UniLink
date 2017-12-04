@@ -59,6 +59,11 @@ public class DetailsTableFragment extends GeneralFragment{
         lieu.setText(tableStructure.lieu);
         description.setText(tableStructure.description);
         participants.setText("Insérer ici la liste des participants");
+
+        //TODO
+        // faire requête firebase pour savoir si l'utilisateur est inscrit au link et si oui cacher
+        // le bouton rejoindre (rejoindre.setVisibility(View.GONE);)
+
         rejoindre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

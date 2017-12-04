@@ -13,9 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import static com.example.uqac.unilink.CustomAdapter.SORTIE;
 import static com.example.uqac.unilink.CustomAdapter.TABLE;
@@ -45,6 +49,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header_view = navigationView.getHeaderView(0);
+        TextView email = (TextView) header_view.findViewById(R.id.email);
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        email.setText(user.getEmail());
 
         fragment = new AccueilFragment();
         fragmentManager = getSupportFragmentManager();
