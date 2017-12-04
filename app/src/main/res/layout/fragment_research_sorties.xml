@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:focusable="false"
-            android:hint="@string/time_picker_title"
+            android:hint="@string/time_picker_title_min"
             android:inputType="time" />
 
         <EditText
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:focusable="false"
-            android:hint="@string/time_picker_title"
+            android:hint="@string/time_picker_title_max"
             android:inputType="time" />
 
     </LinearLayout>
