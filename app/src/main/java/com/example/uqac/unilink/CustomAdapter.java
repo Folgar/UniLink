@@ -25,7 +25,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     private GeneralStructure[] mDataSet;
     private int[] mDataSetTypes;
-    //private Fragment mParentFragment;
+    private Fragment mParentFragment;
 
     public static final int TABLE = 0;
     public static final int SORTIE = 1;
@@ -48,6 +48,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
 
     public class SortieViewHolder extends ViewHolder{
+
+        View view;
+        SortieStructure currentItem;
         TextView heure;
         TextView date;
         TextView nbParticipants;
@@ -55,6 +58,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         public SortieViewHolder(View v){
             super(v);
+            view = v;
+            view.setOnClickListener(new View.OnClickListener(){
+                @Override public void onClick(View v) {
+                    ((MainActivity)mParentFragment.getActivity()).onDetailsSortie(currentItem);
+                }
+            });
             this.heure = (TextView) v.findViewById(R.id.heure);
             this.date = (TextView) v.findViewById(R.id.date);
             this.nbParticipants = (TextView) v.findViewById(R.id.nbParticipants);
@@ -80,8 +89,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
     }
 
-    public CustomAdapter(/*Fragment parentFragment,*/ GeneralStructure[] dataSet, int[] dataSetTypes){
-        //mParentFragment = parentFragment;
+    public CustomAdapter(Fragment parentFragment, GeneralStructure[] dataSet, int[] dataSetTypes){
+        mParentFragment = parentFragment;
         mDataSet = dataSet;
         mDataSetTypes = dataSetTypes;
     }
@@ -112,6 +121,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
         else if (viewHolder.getItemViewType() == SORTIE){
             SortieViewHolder sortieViewHolder = (SortieViewHolder) viewHolder;
+            sortieViewHolder.currentItem = (SortieStructure) mDataSet[position];
             sortieViewHolder.heure.setText(mDataSet[position].heure);
             sortieViewHolder.date.setText(mDataSet[position].date);
             sortieViewHolder.nbParticipants.setText(mDataSet[position].nombreParticipants);

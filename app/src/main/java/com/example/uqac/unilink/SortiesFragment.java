@@ -14,7 +14,7 @@ import android.view.ViewGroup;
  * Created by Lorane on 01/12/2017.
  */
 
-public class SortiesFragment extends Fragment {
+public class SortiesFragment extends GeneralFragment {
 
     private GeneralStructure[] mDataset;
     private int[] mDatasetTypes; //view types
@@ -47,7 +47,7 @@ public class SortiesFragment extends Fragment {
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        CustomAdapter mAdapter = new CustomAdapter(mDataset, mDatasetTypes);
+        CustomAdapter mAdapter = new CustomAdapter(this, mDataset, mDatasetTypes);
         mRecyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -59,5 +59,11 @@ public class SortiesFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        ((MainActivity)getActivity()).onAccueil();
+        return true;
     }
 }

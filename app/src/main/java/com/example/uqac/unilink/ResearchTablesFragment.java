@@ -14,7 +14,7 @@ import static com.example.uqac.unilink.CustomAdapter.TABLE;
  * Created by Lorane on 02/12/2017.
  */
 
-public class ResearchTablesFragment extends Fragment {
+public class ResearchTablesFragment extends GeneralFragment {
 
     public ResearchTablesFragment(){}
 
@@ -47,5 +47,11 @@ public class ResearchTablesFragment extends Fragment {
         int[] newDatasetTypes = new int[]{} ;
 
         ((MainActivity)getActivity()).onTableLaunch(newDataset,newDatasetTypes);
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        ((MainActivity)getActivity()).onTableAll();
+        return true;
     }
 }

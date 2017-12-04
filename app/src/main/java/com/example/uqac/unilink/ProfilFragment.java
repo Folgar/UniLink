@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
  * Created by Lorane on 01/12/2017.
  */
 
-public class ProfilFragment extends Fragment implements View.OnClickListener{
+public class ProfilFragment extends GeneralFragment implements View.OnClickListener{
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
@@ -64,5 +64,11 @@ public class ProfilFragment extends Fragment implements View.OnClickListener{
 
     public void onDatabase(){
         textViewUserEmail.setText("Data !");
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        ((MainActivity)getActivity()).onAccueil();
+        return true;
     }
 }

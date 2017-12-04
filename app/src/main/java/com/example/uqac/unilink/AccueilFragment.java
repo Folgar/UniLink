@@ -18,7 +18,7 @@ import static com.example.uqac.unilink.CustomAdapter.TRAJET;
  * Created by Lorane on 01/12/2017.
  */
 
-public class AccueilFragment extends Fragment {
+public class AccueilFragment extends GeneralFragment {
 
     private RecyclerView mRecyclerView ;
     private CustomAdapter mAdapter;
@@ -47,7 +47,7 @@ public class AccueilFragment extends Fragment {
 
         mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new CustomAdapter(mDataset,mDatasetTypes);
+        mAdapter = new CustomAdapter(this,mDataset,mDatasetTypes);
         mRecyclerView.setAdapter(mAdapter);
 
         return view;

@@ -181,4 +181,10 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
         dialog.timePickerAlertDialog = timePickerAlertDialog;
         dialog.show(getFragmentManager(), "TimePickerFragment");
     }
+
+    @Override
+    public boolean onBackPressed() {
+        ((MainActivity)getActivity()).onSortieAll();
+        return true;
+    }
 }

@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.List;
+
 import static com.example.uqac.unilink.CustomAdapter.SORTIE;
 import static com.example.uqac.unilink.CustomAdapter.TABLE;
 
@@ -25,9 +27,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth firebaseAuth;
-    private Fragment fragment;
+    private GeneralFragment fragment;
     private FragmentManager fragmentManager;
-    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +57,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+
+        if (drawer.isDrawerOpen(GravityCompat.START))
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+
+        else if(fragment instanceof GeneralFragment)
+
+            if(!fragment.onBackPressed())
+                super.onBackPressed();
+
     }
 
     @Override
@@ -92,7 +97,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         switch(item.getItemId()){
             case R.id.nav_accueil:
-                fragment = new AccueilFragment();
+                onAccueil();
                 break;
 
             case R.id.nav_mes_links:
@@ -148,6 +153,11 @@ public class MainActivity extends AppCompatActivity
         finish();
         //starting login activity
         startActivity(new Intent(this, LoginActivity.class));
+    }
+
+    public void onAccueil(){
+        fragment = new AccueilFragment();
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 
     public void onTableAll(){
@@ -232,6 +242,12 @@ public class MainActivity extends AppCompatActivity
 
     public void onResearchSortieLaunch(){
         fragment = new ResearchSortiesFragment();
+        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+    }
+
+    public void onDetailsSortie(SortieStructure sortie){
+        GeneralFragment previousFragment = fragment;
+        fragment = DetailsSortieFragment.newInstance(sortie, previousFragment);
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 

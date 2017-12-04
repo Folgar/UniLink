@@ -16,7 +16,7 @@ import static com.example.uqac.unilink.CustomAdapter.TABLE;
  * Created by Lorane on 01/12/2017.
  */
 
-public class CovoiturageFragment extends Fragment {
+public class CovoiturageFragment extends GeneralFragment {
 
     private RecyclerView mRecyclerView ;
     private CustomAdapter mAdapter;
@@ -45,9 +45,15 @@ public class CovoiturageFragment extends Fragment {
 
         mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new CustomAdapter(mDataset,mDatasetTypes);
+        mAdapter = new CustomAdapter(this,mDataset,mDatasetTypes);
         mRecyclerView.setAdapter(mAdapter);
 
         return view;
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        ((MainActivity)getActivity()).onAccueil();
+        return true;
     }
 }

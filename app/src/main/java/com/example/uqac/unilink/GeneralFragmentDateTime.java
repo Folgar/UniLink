@@ -10,7 +10,7 @@ import java.util.Date;
  * Created by Lorane on 03/12/2017.
  */
 
-public abstract class GeneralFragmentDateTime extends Fragment {
+public abstract class GeneralFragmentDateTime extends GeneralFragment {
 
     public void onFinishDialog(Date date) {}
 

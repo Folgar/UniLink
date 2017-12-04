@@ -47,7 +47,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?android:selectableItemBackground"
-                        android:text="Heure : "
+                        android:text="@string/fragment_heure"
                         android:fontFamily="sans-serif"
                         android:textColor="#333"
                         android:textSize="16sp" />
@@ -73,7 +73,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?android:selectableItemBackground"
-                        android:text="Date : "
+                        android:text="@string/fragment_date"
                         android:fontFamily="sans-serif"
                         android:textColor="#333"
                         android:textSize="16sp" />
