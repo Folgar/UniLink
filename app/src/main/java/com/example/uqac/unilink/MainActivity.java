@@ -14,12 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 import static com.example.uqac.unilink.CustomAdapter.SORTIE;
 import static com.example.uqac.unilink.CustomAdapter.TABLE;
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity
 
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,8 +53,19 @@ public class MainActivity extends AppCompatActivity
 
         View header_view = navigationView.getHeaderView(0);
         TextView email = (TextView) header_view.findViewById(R.id.email);
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+        TextView displayName = (TextView) header_view.findViewById(R.id.displayName);
+
+        String name = user.getDisplayName();
+        for(UserInfo userInfo : user.getProviderData()){
+            if(name == null && userInfo.getDisplayName() != null)
+                name = userInfo.getDisplayName();
+        }
+
         email.setText(user.getEmail());
+        displayName.setText(name);
+
+        //TODO
+        // rajouter code pour stocker les infos de l'utilisateur dans firebase
 
         fragment = new AccueilFragment();
         fragmentManager = getSupportFragmentManager();

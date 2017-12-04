@@ -1,7 +1,9 @@
 package com.example.uqac.unilink;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -119,51 +121,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 });
     }
 
-    private void registerUser(){
-
-        //getting email and password from edit texts
-        String email = editTextEmail.getText().toString().trim();
-        String password  = editTextPassword.getText().toString().trim();
-
-        //checking if email and passwords are empty
-        if(TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Please enter email",Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Please enter password",Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        //if the email and password are not empty
-        //displaying a progress dialog
-
-        progressDialog.setMessage("Registering Please Wait...");
-        progressDialog.show();
-
-        //creating a new user
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //checking if success
-                        if(task.isSuccessful()){
-                            //finish();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        }else{
-                            //display some message here
-                            Toast.makeText(LoginActivity.this,"Registration Error",Toast.LENGTH_LONG).show();
-                        }
-                        progressDialog.dismiss();
-                    }
-                });
-
-    }
-
     private void userLogin(){
-        String email = editTextEmail.getText().toString().trim();
-        String password  = editTextPassword.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
+        final String password  = editTextPassword.getText().toString().trim();
 
 
         //checking if email and passwords are empty
@@ -195,8 +155,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }else{
                             //display some message here
-                            Toast.makeText(LoginActivity.this,"This account doesn't exist. We're creating it.",Toast.LENGTH_LONG).show();
-                            registerUser();
+                            AlertDialog.Builder newDialog = new AlertDialog.Builder(LoginActivity.this);
+                            newDialog.setTitle("Erreur");
+                            newDialog.setMessage("Ce compte n'existe pas. Voulez vous le créer?");
+                            newDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                                public void onClick(DialogInterface dialog, int which){
+                                    Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                                    intent.putExtra("email", email);
+                                    intent.putExtra("password", password);
+                                    startActivity(intent);
+                                    dialog.dismiss();
+                                }
+                            });
+                            newDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+                                public void onClick(DialogInterface dialog, int which){
+                                    dialog.cancel();
+                                }
+                            });
+                            newDialog.show();
                         }
                         progressDialog.dismiss();
                     }

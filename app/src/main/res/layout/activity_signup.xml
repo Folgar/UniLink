@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.uqac.unilink.LoginActivity">
+    tools:context="com.example.uqac.unilink.SignUpActivity">
 
 
     <LinearLayout
@@ -20,9 +20,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Connexion"
+            android:text="Inscription"
             android:id="@+id/textView"
             android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:id="@+id/editTextDisplayName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Nom d'utilisateur"
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/editTextEmail"
@@ -41,19 +49,12 @@
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/buttonSignin"
+            android:id="@+id/buttonSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="15dp"
-            android:text="Sign in" />
-
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/buttonFacebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="15dp" />
+            android:text="Sign Up" />
 
     </LinearLayout>
 
