@@ -69,16 +69,12 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                launchResearch();
-
-            }
+            public void onClick(View view) {launchResearch();}
         });
         fabCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                launchCancel();
+                launchCancel();
             }
         });
 
@@ -93,10 +89,6 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
         //String[] newDataset = new String[] {"NewSortie1", "NewSortie2", "NewSortie3", "NewSortie4", "NewSortie5", "NewSortie6"};
         //int[] newDatasetTypes = new int[]{SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE} ;
 
-
-
-        final GeneralStructure[] newDataset = new GeneralStructure[] {};
-        int[] newDatasetTypes = new int[]{} ;
 
 // Get a reference to our posts
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -135,20 +127,29 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
                     }
                     i++;
                 }
-                ((MainActivity) getActivity()).onSortieLaunch(newDataset, newDatasetTypes);
+                int taille = 0;
+                for(i = 0; i < newDataset.length; i++){
+                        if(newDataset[i] != null)
+                            taille++;
+                }
+
+                GeneralStructure[] dataset = new GeneralStructure[taille];
+                int[] datasetTypes = new int[taille];
+
+                for(i=0; i<taille;i++)
+                    dataset[i] = newDataset[i];
+
+                for(i=0; i<taille;i++)
+                    datasetTypes[i] = newDatasetTypes[i];
+
+                ((MainActivity) getActivity()).onSortieLaunch(dataset, datasetTypes);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
-
             }
-
         });
-
-
-
-//        ((MainActivity)getActivity()).onSortieLaunch(newDataset,newDatasetTypes);
     }
 
     public void launchCancel(){((MainActivity)getActivity()).onSortieAll();}

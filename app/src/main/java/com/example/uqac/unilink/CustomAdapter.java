@@ -18,10 +18,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     private int[] mDataSetTypes;
     private Fragment mParentFragment;
 
-    public static final int TABLE = 0;
-    public static final int SORTIE = 1;
-    public static final int TRAJET = 2;
-    public static final int COVOITURAGE = 3;
+    public static final int TABLE = 1;
+    public static final int SORTIE = 2;
+    public static final int TRAJET = 3;
+    public static final int COVOITURAGE = 4;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(View v) {
