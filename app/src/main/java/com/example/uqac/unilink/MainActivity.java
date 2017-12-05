@@ -72,8 +72,6 @@ public class MainActivity extends AppCompatActivity
         email.setText(user.getEmail());
         displayName.setText(name);
 
-        //TODO rajouter code pour stocker les infos de l'utilisateur dans firebase
-
         fragment = new AccueilFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
@@ -193,8 +191,6 @@ public class MainActivity extends AppCompatActivity
 
     public void onTableAll(){
 
-        //TODO classer par date
-
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
         ValueEventListener listener = new ValueEventListener() {
@@ -270,7 +266,6 @@ public class MainActivity extends AppCompatActivity
 
     public void onSortieAll(){
 
-        //TODO classer par date
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
