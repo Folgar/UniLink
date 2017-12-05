@@ -22,6 +22,7 @@ public class DetailsSortieFragment extends GeneralFragment {
 
     private SortieStructure sortieStructure;
     private GeneralFragment previousFragment;
+    private Button rejoindre;
 
     public DetailsSortieFragment(){}
 
@@ -51,7 +52,7 @@ public class DetailsSortieFragment extends GeneralFragment {
         TextView date = (TextView) view.findViewById(R.id.date);
         TextView lieu = (TextView) view.findViewById(R.id.lieu);
         TextView description = (TextView) view.findViewById(R.id.description);
-        Button rejoindre = (Button) view.findViewById(R.id.rejoindre);
+        rejoindre = (Button) view.findViewById(R.id.rejoindre);
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_item, sortieStructure.Participants);
@@ -89,6 +90,7 @@ public class DetailsSortieFragment extends GeneralFragment {
                     List<String> participants = sortieStructure.Participants;
                     participants.add(User.getInstance().getUser().getDisplayName());
                     ref.child("Participants").setValue(participants);
+                    rejoindre.setVisibility(View.GONE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
