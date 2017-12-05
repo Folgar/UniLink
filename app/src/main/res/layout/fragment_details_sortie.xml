@@ -8,9 +8,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="20dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="match_parent"
@@ -41,11 +44,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
+                android:gravity="end"
                 android:textAlignment="textEnd"
                 android:textColor="#333"
                 android:textSize="18sp"
-                tools:text="12h30"
-                android:gravity="end" />
+                tools:text="12h30" />
 
         </LinearLayout>
 
@@ -57,9 +60,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:layout_marginTop="10dp"
                 android:text="@string/fragment_date"
                 android:textColor="#333"
                 android:textSize="18sp" />
@@ -71,11 +74,11 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
+                android:gravity="end"
                 android:textAlignment="textEnd"
                 android:textColor="#333"
                 android:textSize="18sp"
-                tools:text="12/12/17"
-                android:gravity="end" />
+                tools:text="12/12/17" />
 
         </LinearLayout>
 
@@ -87,9 +90,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:layout_marginTop="10dp"
                 android:text="@string/fragment_lieu"
                 android:textColor="#333"
                 android:textSize="18sp" />
@@ -101,11 +104,11 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
+                android:gravity="end"
                 android:textAlignment="textEnd"
                 android:textColor="#333"
                 android:textSize="18sp"
-                tools:text="UQAC"
-                android:gravity="end" />
+                tools:text="UQAC" />
 
         </LinearLayout>
 
@@ -123,23 +126,25 @@
             android:layout_height="wrap_content"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/fragment_participants"
-            android:textColor="#333"
-            android:textSize="18sp" />
+            android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/participants"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="@string/fragment_participants"
+                android:textColor="#333"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/participants"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/rejoindre"

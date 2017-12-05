@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -41,6 +42,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private CallbackManager callbackManager;
 
+    private TextView connexion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextDisplayName = (EditText) findViewById(R.id.editTextDisplayName);
         buttonSignUp = (Button) findViewById(R.id.buttonSignUp);
+        connexion = (TextView) findViewById(R.id.connexion);
 
         Intent intent = getIntent();
         editTextEmail.setText(intent.getStringExtra("email"));
@@ -63,6 +67,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         //attaching click listener
         buttonSignUp.setOnClickListener(this);
+        connexion.setOnClickListener(this);
 
     }
 
@@ -123,6 +128,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if(view == buttonSignUp){
             registerUser();
+        }
+        else if(view == connexion){
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
     }
 }
