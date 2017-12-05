@@ -19,4 +19,10 @@
     <color name="btn_login_bg">#eceef1</color>
     <color name="lbl_name">#333333</color>
     <color name="btn_logut_bg">#ff6861</color>
+    <color name="green">#2201D758</color>
+    <color name="red">#22BB0B0B</color>
+    <color name="yellow">#22FFD700</color>
+    <color name="blue">#2200BFFF</color>
+
+
 </resources>

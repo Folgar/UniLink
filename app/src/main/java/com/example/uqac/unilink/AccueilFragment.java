@@ -28,7 +28,6 @@ import static com.example.uqac.unilink.CustomAdapter.TABLE;
 
 public class AccueilFragment extends GeneralFragment {
 
-    //TODO MultiChild
 
     private GeneralStructure[] mDatasetT;
     private int[] mDatasetTypeT;

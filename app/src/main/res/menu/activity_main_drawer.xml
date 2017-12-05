@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_accueil"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/navigation_drawer_accueil" />
         <item
             android:id="@+id/nav_mes_links"
@@ -14,23 +14,23 @@
             android:title="@string/navigation_drawer__mes_links" />
         <item
             android:id="@+id/nav_tables"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_chat_bubble_black_24dp"
             android:title="@string/navigation_drawer_tables" />
         <item
             android:id="@+id/nav_sorties"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_nature_people_black_24dp"
             android:title="@string/navigation_drawer_sorties" />
         <item
             android:id="@+id/nav_trajets"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_directions_walk_black_24dp"
             android:title="@string/navigation_drawer_trajets" />
         <item
             android:id="@+id/nav_covoiturage"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_directions_car_black_24dp"
             android:title="@string/navigation_drawer_covoiturage" />
         <item
             android:id="@+id/nav_calendrier"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_event_black_24dp"
             android:title="@string/navigation_drawer_calendrier" />
     </group>
 
@@ -38,11 +38,11 @@
         <menu>
             <item
                 android:id="@+id/nav_profil"
-                android:icon="@drawable/ic_menu_manage"
+                android:icon="@drawable/ic_settings_black_24dp"
                 android:title="@string/navigation_drawer_mon_mon_profil" />
             <item
                 android:id="@+id/nav_deconnexion"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_power_settings_new_black_24dp"
                 android:title="@string/navigation_drawer_deconnection" />
         </menu>
     </item>
