@@ -17,6 +17,8 @@ import java.util.List;
 
 public class CovoiturageFragment extends GeneralFragment {
 
+    //TODO faire les links covoiturage
+
     private List<GeneralStructure> mDataset = new ArrayList<>();
 
     public CovoiturageFragment(){}
