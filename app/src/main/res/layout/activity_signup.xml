@@ -54,6 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="15dp"
+            android:textColor="#878787"
+            android:background="@drawable/buttonshapesign"
             android:text="Sign Up" />
 
         <TextView
