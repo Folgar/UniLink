@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity
         email.setText(user.getEmail());
         displayName.setText(name);
 
+
         fragment = new AccueilFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();

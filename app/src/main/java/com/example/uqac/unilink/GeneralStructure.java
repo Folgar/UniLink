@@ -9,6 +9,7 @@ import java.util.List;
 
 public class GeneralStructure {
 
+    public String linkId;
     public String date;
     public String heure;
     public String lieu;

@@ -19,7 +19,7 @@ public class SortieStructure extends GeneralStructure{
     public SortieStructure() {
     }
 
-    public SortieStructure(String date, String heure, String lieu, String description, String nombreMax, String username, String participant){
+    public SortieStructure(String linkId,String date, String heure, String lieu, String description, String nombreMax, String username, String participant){
         this.date=date;
         this.heure=heure;
         this.lieu=lieu;
@@ -28,5 +28,6 @@ public class SortieStructure extends GeneralStructure{
         this.nombreParticipants = "1";
         this.creator=username;
         this.Participants.add(participant);
+        this.linkId=linkId;
     }
 }
