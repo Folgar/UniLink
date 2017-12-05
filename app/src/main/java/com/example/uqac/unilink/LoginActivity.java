@@ -30,6 +30,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //TODO ajouter lien "créer un compte"
+
     private static final String TAG = "LoginActivity";
 
     //defining views

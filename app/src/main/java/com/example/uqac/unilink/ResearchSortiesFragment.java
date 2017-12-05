@@ -96,8 +96,6 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-
-
                 //final GeneralStructure[] newDataset = new GeneralStructure[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
                 //final int[] newDatasetTypes = new int[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
                 final List<GeneralStructure> newDataset = new ArrayList<>();
@@ -241,7 +239,7 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
         };
 
 // Attach a listener to read the data at our posts reference
-        ref.child("sortie").addListenerForSingleValueEvent(listener);
+        ref.child("sortie").orderByChild("date").addListenerForSingleValueEvent(listener);
 
         ref.child("sortie").removeEventListener(listener);
 
@@ -273,4 +271,9 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
         dialog.show(getFragmentManager(), "TimePickerFragment");
     }
 
+    @Override
+    public boolean onBackPressed() {
+        ((MainActivity)getActivity()).onSortieAll();
+        return true;
+    }
 }

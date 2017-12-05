@@ -11,20 +11,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static com.example.uqac.unilink.CustomAdapter.TABLE;
-
-import static com.example.uqac.unilink.CustomAdapter.SORTIE;
 
 /**
  * Created by Lorane on 02/12/2017.
@@ -95,35 +88,155 @@ public class ResearchTablesFragment extends GeneralFragmentDateTime {
 
     public void launchResearch(){
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference();
 
-        Query query = reference.child("table").orderByChild("date").equalTo(datePickerAlertDialog.getText().toString());
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        ValueEventListener listener = new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                int i=0;
-                final GeneralStructure[] newDataset = new GeneralStructure[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
-                final int[] newDatasetTypes = new int[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
+                final List<GeneralStructure> newDataset = new ArrayList<>();
+                final List<Integer> newDatasetTypes = new ArrayList<>();
+
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
-                    TableStructure sortie = eventSnapshot.getValue(TableStructure.class);
-                    if(sortie.date.equals(datePickerAlertDialog)) {
-                        if(sortie.date.equals(datePickerAlertDialog)) {
-                            newDataset[i] = sortie;
-                            newDatasetTypes[i] = SORTIE;
+                    TableStructure table = eventSnapshot.getValue(TableStructure.class);
+
+                    if ((!datePickerAlertDialog.getText().toString().equals("")) && (!timePickerAlertDialogMin.getText().toString().equals("")) && (!timePickerAlertDialogMax.getText().toString().equals(""))) {
+                        if (table.date.equals(datePickerAlertDialog.getText().toString())) {
+                            String[] time = table.heure.split("[ \\\\:]");
+
+                            int hour = Integer.parseInt(time[0].trim());
+                            int min = Integer.parseInt(time[1].trim());
+                            boolean am = time[2].startsWith("AM");
+                            String[] time2 = timePickerAlertDialogMax.getText().toString().split("[ \\\\:]");
+                            int hour2 = Integer.parseInt(time2[0].trim());
+                            int min2 = Integer.parseInt(time2[1].trim());
+                            boolean am2 = time2[2].startsWith("AM");
+                            String[] time3 = timePickerAlertDialogMin.getText().toString().split("[ \\\\:]");
+                            int hour3 = Integer.parseInt(time3[0].trim());
+                            int min3 = Integer.parseInt(time3[1].trim());
+                            boolean am3 = time3[2].startsWith("AM");
+
+                            if (((am && am3) || (!am && !am2)) && (((hour >= hour3) || ((hour == hour3) && (min >= min3))) && ((hour <= hour2) || ((hour == hour2) && (min <= min2))))) {
+                                newDataset.add(table);
+                                newDatasetTypes.add(TABLE);
+                            }
+
                         }
+                    } else if ((!datePickerAlertDialog.getText().toString().equals("")) && (!timePickerAlertDialogMin.getText().toString().equals(""))) {
+                        if (table.date.equals(datePickerAlertDialog.getText().toString())) {
+                            String[] time = table.heure.split("[ \\\\:]");
+
+                            int hour = Integer.parseInt(time[0].trim());
+                            int min = Integer.parseInt(time[1].trim());
+                            boolean am = time[2].startsWith("AM");
+
+                            String[] time3 = timePickerAlertDialogMin.getText().toString().split("[ \\\\:]");
+                            int hour3 = Integer.parseInt(time3[0].trim());
+                            int min3 = Integer.parseInt(time3[1].trim());
+                            boolean am3 = time3[2].startsWith("AM");
+
+                            if (!(am && !am3) && ((hour >= hour3) || ((hour == hour3) && (min >= min3)))) {
+                                newDataset.add(table);
+                                newDatasetTypes.add(TABLE);
+                            }
+
+                        }
+                    } else if ((!datePickerAlertDialog.getText().toString().equals("")) && (!timePickerAlertDialogMax.getText().toString().equals(""))) {
+                        if (table.date.equals(datePickerAlertDialog.getText().toString())) {
+                            String[] time = table.heure.split("[ \\\\:]");
+
+                            int hour = Integer.parseInt(time[0].trim());
+                            int min = Integer.parseInt(time[1].trim());
+                            boolean am = time[2].startsWith("AM");
+                            String[] time2 = timePickerAlertDialogMax.getText().toString().split("[ \\\\:]");
+                            int hour2 = Integer.parseInt(time2[0].trim());
+                            int min2 = Integer.parseInt(time2[1].trim());
+                            boolean am2 = time2[2].startsWith("AM");
+
+                            if (!(!am && am2) && ((hour <= hour2) || ((hour == hour2) && (min <= min2)))) {
+                                newDataset.add(table);
+                                newDatasetTypes.add(TABLE);
+                            }
+
+                        }
+                    } else if ((!timePickerAlertDialogMin.getText().toString().equals("")) && (!timePickerAlertDialogMax.getText().toString().equals(""))) {
+                        String[] time = table.heure.split("[ \\\\:]");
+
+                        int hour = Integer.parseInt(time[0].trim());
+                        int min = Integer.parseInt(time[1].trim());
+                        boolean am = time[2].startsWith("AM");
+                        String[] time2 = timePickerAlertDialogMax.getText().toString().split("[ \\\\:]");
+                        int hour2 = Integer.parseInt(time2[0].trim());
+                        int min2 = Integer.parseInt(time2[1].trim());
+                        boolean am2 = time2[2].startsWith("AM");
+                        String[] time3 = timePickerAlertDialogMin.getText().toString().split("[ \\\\:]");
+                        int hour3 = Integer.parseInt(time3[0].trim());
+                        int min3 = Integer.parseInt(time3[1].trim());
+                        boolean am3 = time3[2].startsWith("AM");
+
+                        if (((am && am3) || (!am && !am2)) && (((hour >= hour3) || ((hour == hour3) && (min >= min3))) && ((hour <= hour2) || ((hour == hour2) && (min <= min2))))) {
+                            newDataset.add(table);
+                            newDatasetTypes.add(TABLE);
+                        }
+
+
+                    } else if ((!datePickerAlertDialog.getText().toString().equals(""))) {
+                        if (table.date.equals(datePickerAlertDialog.getText().toString())) {
+                            newDataset.add(table);
+                            newDatasetTypes.add(TABLE);
+                        }
+                    } else if ((!timePickerAlertDialogMin.getText().toString().equals(""))) {
+
+                        String[] time = table.heure.split("[ \\\\:]");
+
+                        int hour = Integer.parseInt(time[0].trim());
+                        int min = Integer.parseInt(time[1].trim());
+                        boolean am = time[2].startsWith("AM");
+
+                        String[] time3 = timePickerAlertDialogMin.getText().toString().split("[ \\\\:]");
+                        int hour3 = Integer.parseInt(time3[0].trim());
+                        int min3 = Integer.parseInt(time3[1].trim());
+                        boolean am3 = time3[2].startsWith("AM");
+
+                        if (!(am && !am3) && ((hour >= hour3) || ((hour == hour3) && (min >= min3)))) {
+                            newDataset.add(table);
+                            newDatasetTypes.add(TABLE);
+                        }
+
+
+                    } else if ((!timePickerAlertDialogMax.getText().toString().equals(""))) {
+                        String[] time = table.heure.split("[ \\\\:]");
+
+                        int hour = Integer.parseInt(time[0].trim());
+                        int min = Integer.parseInt(time[1].trim());
+                        boolean am = time[2].startsWith("AM");
+                        String[] time2 = timePickerAlertDialogMax.getText().toString().split("[ \\\\:]");
+                        int hour2 = Integer.parseInt(time2[0].trim());
+                        int min2 = Integer.parseInt(time2[1].trim());
+                        boolean am2 = time2[2].startsWith("AM");
+
+                        if (!(!am && am2) && (((hour <= hour2 && !am) || (am && !am2)) || ((hour == hour2) && (min <= min2)))) {
+                            newDataset.add(table);
+                            newDatasetTypes.add(TABLE);
+                        }
+
                     }
-                    i++;
                 }
                 ((MainActivity) getActivity()).onTableLaunch(newDataset, newDatasetTypes);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        };
+        // Attach a listener to read the data at our posts reference
+        ref.child("table").orderByChild("date").addListenerForSingleValueEvent(listener);
+
+        ref.child("table").removeEventListener(listener);
     }
 
     public void launchCancel() {

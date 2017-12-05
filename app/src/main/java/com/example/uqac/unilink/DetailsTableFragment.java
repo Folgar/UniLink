@@ -13,13 +13,6 @@ import android.widget.TextView;
 
 public class DetailsTableFragment extends GeneralFragment{
 
-    private TextView heure;
-    private TextView date;
-    private TextView lieu;
-    private TextView description;
-    private TextView participants;
-    private Button rejoindre;
-
     private TableStructure tableStructure;
     private GeneralFragment previousFragment;
 
@@ -47,12 +40,12 @@ public class DetailsTableFragment extends GeneralFragment{
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_details_table, container, false);
 
-        heure = (TextView) view.findViewById(R.id.heure);
-        date = (TextView) view.findViewById(R.id.date);
-        lieu = (TextView) view.findViewById(R.id.lieu);
-        description = (TextView) view.findViewById(R.id.description);
-        participants = (TextView) view.findViewById(R.id.participants);
-        rejoindre = (Button) view.findViewById(R.id.rejoindre);
+        TextView heure = (TextView) view.findViewById(R.id.heure);
+        TextView date = (TextView) view.findViewById(R.id.date);
+        TextView lieu = (TextView) view.findViewById(R.id.lieu);
+        TextView description = (TextView) view.findViewById(R.id.description);
+        TextView participants = (TextView) view.findViewById(R.id.participants);
+        Button rejoindre = (Button) view.findViewById(R.id.rejoindre);
 
         heure.setText(tableStructure.heure);
         date.setText(tableStructure.date);

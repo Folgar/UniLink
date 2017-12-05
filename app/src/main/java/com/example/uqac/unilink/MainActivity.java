@@ -193,20 +193,46 @@ public class MainActivity extends AppCompatActivity
 
     public void onTableAll(){
 
-        //TODO Faire la requête firebase qui récupère les links table classés par date
+        //TODO classer par date
 
-        // Data temporaires pour Tables
-        GeneralStructure[] mDatasetTables = {new TableStructure("10/12/17", "12:30","UQAC","test1","5"),
-                new TableStructure("12/12/17", "12:30","UQAC","test2","10")};
-        int[] mDatasetTypesTables = {TABLE, TABLE}; //view types
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference();
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-        fragment = TablesFragment.newInstance(mDatasetTables, mDatasetTypesTables);
-        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                final List<GeneralStructure> mDatasetTables = new ArrayList<>();
+                final List<Integer> mDatasetTypesTables = new ArrayList<>();
+
+                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
+
+                    TableStructure table = eventSnapshot.getValue(TableStructure.class);
+
+                    mDatasetTables.add(table);
+                    mDatasetTypesTables.add(TABLE);
+                }
+                onTableLaunch(mDatasetTables,mDatasetTypesTables);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        };
+        ref.child("table").orderByChild("date").addListenerForSingleValueEvent(listener);
+        ref.child("table").removeEventListener(listener);
     }
 
-    public void onTableLaunch(GeneralStructure[] dataset, int[] detasetTypes){
+    public void onTableLaunch(List<GeneralStructure> dataset, List<Integer> datasetTypes){
 
-        if(dataset.length == 0){
+        final GeneralStructure[] newDataset = new GeneralStructure[dataset.size()];
+        final int[] newDatasetType = new int[datasetTypes.size()];
+        for(int i=0; i<dataset.size();i++) {
+            newDataset[i] = dataset.get(i);
+            newDatasetType[i] = datasetTypes.get(i);
+        }
+
+        if(dataset.size() == 0){
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
             newDialog.setTitle("Nouveau Link Table");
             newDialog.setMessage("Aucun Link ne correspond à vos critères de recherche. Voulez vous en créer un?");
@@ -226,7 +252,7 @@ public class MainActivity extends AppCompatActivity
             newDialog.show();
         }
         else{
-            fragment = TablesFragment.newInstance(dataset, detasetTypes);
+            fragment = TablesFragment.newInstance(newDataset, newDatasetType);
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
         }
     }
@@ -246,15 +272,14 @@ public class MainActivity extends AppCompatActivity
 
         //TODO classer par date
 
-
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Data temporaires pour Tables
+
                 final List<GeneralStructure> mDatasetSorties = new ArrayList<>();
-                final List<Integer> mDatasetTypesSorties = new ArrayList<>(); //view types
+                final List<Integer> mDatasetTypesSorties = new ArrayList<>();
 
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
@@ -271,11 +296,8 @@ public class MainActivity extends AppCompatActivity
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         };
-        ref.child("sortie").addListenerForSingleValueEvent(listener);
-
+        ref.child("sortie").orderByChild("date").addListenerForSingleValueEvent(listener);
         ref.child("sortie").removeEventListener(listener);
-
-
     }
 
     public void onSortieLaunch(List<GeneralStructure> dataset, List<Integer> datasetTypes){
