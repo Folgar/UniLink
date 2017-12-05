@@ -92,9 +92,7 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
         DatabaseReference ref = database.getReference();
 
 
-
-// Attach a listener to read the data at our posts reference
-        ref.child("sortie").addListenerForSingleValueEvent(new ValueEventListener() {
+        ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -105,134 +103,134 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
                 final List<GeneralStructure> newDataset = new ArrayList<>();
                 final List<Integer> newDatasetTypes = new ArrayList<>();
 
-                    for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
-                            SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
+                    SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
 
-                                if ((!datePickerAlertDialog.getText().toString().equals("")) && (!timePickerAlertDialogMin.getText().toString().equals("")) && (!timePickerAlertDialogMax.getText().toString().equals(""))) {
-                                    if (sortie.date.equals(datePickerAlertDialog.getText().toString())) {
-                                        String[] time = sortie.heure.split("[ \\\\:]");
+                    if ((!datePickerAlertDialog.getText().toString().equals("")) && (!timePickerAlertDialogMin.getText().toString().equals("")) && (!timePickerAlertDialogMax.getText().toString().equals(""))) {
+                        if (sortie.date.equals(datePickerAlertDialog.getText().toString())) {
+                            String[] time = sortie.heure.split("[ \\\\:]");
 
-                                        int hour = Integer.parseInt(time[0].trim());
-                                        int min = Integer.parseInt(time[1].trim());
-                                        boolean am = time[2].startsWith("AM");
-                                        String[] time2 = timePickerAlertDialogMax.getText().toString().split("[ \\\\:]");
-                                        int hour2 = Integer.parseInt(time2[0].trim());
-                                        int min2 = Integer.parseInt(time2[1].trim());
-                                        boolean am2 = time2[2].startsWith("AM");
-                                        String[] time3 = timePickerAlertDialogMin.getText().toString().split("[ \\\\:]");
-                                        int hour3 = Integer.parseInt(time3[0].trim());
-                                        int min3 = Integer.parseInt(time3[1].trim());
-                                        boolean am3 = time3[2].startsWith("AM");
+                            int hour = Integer.parseInt(time[0].trim());
+                            int min = Integer.parseInt(time[1].trim());
+                            boolean am = time[2].startsWith("AM");
+                            String[] time2 = timePickerAlertDialogMax.getText().toString().split("[ \\\\:]");
+                            int hour2 = Integer.parseInt(time2[0].trim());
+                            int min2 = Integer.parseInt(time2[1].trim());
+                            boolean am2 = time2[2].startsWith("AM");
+                            String[] time3 = timePickerAlertDialogMin.getText().toString().split("[ \\\\:]");
+                            int hour3 = Integer.parseInt(time3[0].trim());
+                            int min3 = Integer.parseInt(time3[1].trim());
+                            boolean am3 = time3[2].startsWith("AM");
 
-                                        if (((am && am3) || (!am && !am2)) && (((hour >= hour3) || ((hour == hour3) && (min >= min3))) && ((hour <= hour2) || ((hour == hour2) && (min <= min2))))) {
-                                            newDataset.add(sortie);
-                                            newDatasetTypes.add(SORTIE);
-                                        }
-
-                                    }
-                                } else if ((!datePickerAlertDialog.getText().toString().equals("")) && (!timePickerAlertDialogMin.getText().toString().equals(""))) {
-                                    if (sortie.date.equals(datePickerAlertDialog.getText().toString())) {
-                                        String[] time = sortie.heure.split("[ \\\\:]");
-
-                                        int hour = Integer.parseInt(time[0].trim());
-                                        int min = Integer.parseInt(time[1].trim());
-                                        boolean am = time[2].startsWith("AM");
-
-                                        String[] time3 = timePickerAlertDialogMin.getText().toString().split("[ \\\\:]");
-                                        int hour3 = Integer.parseInt(time3[0].trim());
-                                        int min3 = Integer.parseInt(time3[1].trim());
-                                        boolean am3 = time3[2].startsWith("AM");
-
-                                        if (!(am && !am3) && ((hour >= hour3) || ((hour == hour3) && (min >= min3)))) {
-                                            newDataset.add(sortie);
-                                            newDatasetTypes.add(SORTIE);
-                                        }
-
-                                    }
-                                } else if ((!datePickerAlertDialog.getText().toString().equals("")) && (!timePickerAlertDialogMax.getText().toString().equals(""))) {
-                                    if (sortie.date.equals(datePickerAlertDialog.getText().toString())) {
-                                        String[] time = sortie.heure.split("[ \\\\:]");
-
-                                        int hour = Integer.parseInt(time[0].trim());
-                                        int min = Integer.parseInt(time[1].trim());
-                                        boolean am = time[2].startsWith("AM");
-                                        String[] time2 = timePickerAlertDialogMax.getText().toString().split("[ \\\\:]");
-                                        int hour2 = Integer.parseInt(time2[0].trim());
-                                        int min2 = Integer.parseInt(time2[1].trim());
-                                        boolean am2 = time2[2].startsWith("AM");
-
-                                        if (!(!am && am2) && ((hour <= hour2) || ((hour == hour2) && (min <= min2)))) {
-                                            newDataset.add(sortie);
-                                            newDatasetTypes.add(SORTIE);
-                                        }
-
-                                    }
-                                } else if ((!timePickerAlertDialogMin.getText().toString().equals("")) && (!timePickerAlertDialogMax.getText().toString().equals(""))) {
-                                    String[] time = sortie.heure.split("[ \\\\:]");
-
-                                    int hour = Integer.parseInt(time[0].trim());
-                                    int min = Integer.parseInt(time[1].trim());
-                                    boolean am = time[2].startsWith("AM");
-                                    String[] time2 = timePickerAlertDialogMax.getText().toString().split("[ \\\\:]");
-                                    int hour2 = Integer.parseInt(time2[0].trim());
-                                    int min2 = Integer.parseInt(time2[1].trim());
-                                    boolean am2 = time2[2].startsWith("AM");
-                                    String[] time3 = timePickerAlertDialogMin.getText().toString().split("[ \\\\:]");
-                                    int hour3 = Integer.parseInt(time3[0].trim());
-                                    int min3 = Integer.parseInt(time3[1].trim());
-                                    boolean am3 = time3[2].startsWith("AM");
-
-                                    if (((am && am3) || (!am && !am2)) && (((hour >= hour3) || ((hour == hour3) && (min >= min3))) && ((hour <= hour2) || ((hour == hour2) && (min <= min2))))) {
-                                        newDataset.add(sortie);
-                                        newDatasetTypes.add(SORTIE);
-                                    }
-
-
-                                } else if ((!datePickerAlertDialog.getText().toString().equals(""))) {
-                                    if (sortie.date.equals(datePickerAlertDialog.getText().toString())) {
-                                        newDataset.add(sortie);
-                                        newDatasetTypes.add(SORTIE);
-                                    }
-                                } else if ((!timePickerAlertDialogMin.getText().toString().equals(""))) {
-
-                                    String[] time = sortie.heure.split("[ \\\\:]");
-
-                                    int hour = Integer.parseInt(time[0].trim());
-                                    int min = Integer.parseInt(time[1].trim());
-                                    boolean am = time[2].startsWith("AM");
-
-                                    String[] time3 = timePickerAlertDialogMin.getText().toString().split("[ \\\\:]");
-                                    int hour3 = Integer.parseInt(time3[0].trim());
-                                    int min3 = Integer.parseInt(time3[1].trim());
-                                    boolean am3 = time3[2].startsWith("AM");
-
-                                    if (!(am && !am3) && ((hour >= hour3) || ((hour == hour3) && (min >= min3)))) {
-                                        newDataset.add(sortie);
-                                        newDatasetTypes.add(SORTIE);
-                                    }
-
-
-                                } else if ((!timePickerAlertDialogMax.getText().toString().equals(""))) {
-                                    String[] time = sortie.heure.split("[ \\\\:]");
-
-                                    int hour = Integer.parseInt(time[0].trim());
-                                    int min = Integer.parseInt(time[1].trim());
-                                    boolean am = time[2].startsWith("AM");
-                                    String[] time2 = timePickerAlertDialogMax.getText().toString().split("[ \\\\:]");
-                                    int hour2 = Integer.parseInt(time2[0].trim());
-                                    int min2 = Integer.parseInt(time2[1].trim());
-                                    boolean am2 = time2[2].startsWith("AM");
-
-                                    if (!(!am && am2) && (((hour <= hour2 && !am) || (am && !am2)) || ((hour == hour2) && (min <= min2)))) {
-                                        newDataset.add(sortie);
-                                        newDatasetTypes.add(SORTIE);
-                                    }
-
-                                }
+                            if (((am && am3) || (!am && !am2)) && (((hour >= hour3) || ((hour == hour3) && (min >= min3))) && ((hour <= hour2) || ((hour == hour2) && (min <= min2))))) {
+                                newDataset.add(sortie);
+                                newDatasetTypes.add(SORTIE);
                             }
-                    ((MainActivity) getActivity()).onSortieLaunch(newDataset, newDatasetTypes);
+
+                        }
+                    } else if ((!datePickerAlertDialog.getText().toString().equals("")) && (!timePickerAlertDialogMin.getText().toString().equals(""))) {
+                        if (sortie.date.equals(datePickerAlertDialog.getText().toString())) {
+                            String[] time = sortie.heure.split("[ \\\\:]");
+
+                            int hour = Integer.parseInt(time[0].trim());
+                            int min = Integer.parseInt(time[1].trim());
+                            boolean am = time[2].startsWith("AM");
+
+                            String[] time3 = timePickerAlertDialogMin.getText().toString().split("[ \\\\:]");
+                            int hour3 = Integer.parseInt(time3[0].trim());
+                            int min3 = Integer.parseInt(time3[1].trim());
+                            boolean am3 = time3[2].startsWith("AM");
+
+                            if (!(am && !am3) && ((hour >= hour3) || ((hour == hour3) && (min >= min3)))) {
+                                newDataset.add(sortie);
+                                newDatasetTypes.add(SORTIE);
+                            }
+
+                        }
+                    } else if ((!datePickerAlertDialog.getText().toString().equals("")) && (!timePickerAlertDialogMax.getText().toString().equals(""))) {
+                        if (sortie.date.equals(datePickerAlertDialog.getText().toString())) {
+                            String[] time = sortie.heure.split("[ \\\\:]");
+
+                            int hour = Integer.parseInt(time[0].trim());
+                            int min = Integer.parseInt(time[1].trim());
+                            boolean am = time[2].startsWith("AM");
+                            String[] time2 = timePickerAlertDialogMax.getText().toString().split("[ \\\\:]");
+                            int hour2 = Integer.parseInt(time2[0].trim());
+                            int min2 = Integer.parseInt(time2[1].trim());
+                            boolean am2 = time2[2].startsWith("AM");
+
+                            if (!(!am && am2) && ((hour <= hour2) || ((hour == hour2) && (min <= min2)))) {
+                                newDataset.add(sortie);
+                                newDatasetTypes.add(SORTIE);
+                            }
+
+                        }
+                    } else if ((!timePickerAlertDialogMin.getText().toString().equals("")) && (!timePickerAlertDialogMax.getText().toString().equals(""))) {
+                        String[] time = sortie.heure.split("[ \\\\:]");
+
+                        int hour = Integer.parseInt(time[0].trim());
+                        int min = Integer.parseInt(time[1].trim());
+                        boolean am = time[2].startsWith("AM");
+                        String[] time2 = timePickerAlertDialogMax.getText().toString().split("[ \\\\:]");
+                        int hour2 = Integer.parseInt(time2[0].trim());
+                        int min2 = Integer.parseInt(time2[1].trim());
+                        boolean am2 = time2[2].startsWith("AM");
+                        String[] time3 = timePickerAlertDialogMin.getText().toString().split("[ \\\\:]");
+                        int hour3 = Integer.parseInt(time3[0].trim());
+                        int min3 = Integer.parseInt(time3[1].trim());
+                        boolean am3 = time3[2].startsWith("AM");
+
+                        if (((am && am3) || (!am && !am2)) && (((hour >= hour3) || ((hour == hour3) && (min >= min3))) && ((hour <= hour2) || ((hour == hour2) && (min <= min2))))) {
+                            newDataset.add(sortie);
+                            newDatasetTypes.add(SORTIE);
+                        }
+
+
+                    } else if ((!datePickerAlertDialog.getText().toString().equals(""))) {
+                        if (sortie.date.equals(datePickerAlertDialog.getText().toString())) {
+                            newDataset.add(sortie);
+                            newDatasetTypes.add(SORTIE);
+                        }
+                    } else if ((!timePickerAlertDialogMin.getText().toString().equals(""))) {
+
+                        String[] time = sortie.heure.split("[ \\\\:]");
+
+                        int hour = Integer.parseInt(time[0].trim());
+                        int min = Integer.parseInt(time[1].trim());
+                        boolean am = time[2].startsWith("AM");
+
+                        String[] time3 = timePickerAlertDialogMin.getText().toString().split("[ \\\\:]");
+                        int hour3 = Integer.parseInt(time3[0].trim());
+                        int min3 = Integer.parseInt(time3[1].trim());
+                        boolean am3 = time3[2].startsWith("AM");
+
+                        if (!(am && !am3) && ((hour >= hour3) || ((hour == hour3) && (min >= min3)))) {
+                            newDataset.add(sortie);
+                            newDatasetTypes.add(SORTIE);
+                        }
+
+
+                    } else if ((!timePickerAlertDialogMax.getText().toString().equals(""))) {
+                        String[] time = sortie.heure.split("[ \\\\:]");
+
+                        int hour = Integer.parseInt(time[0].trim());
+                        int min = Integer.parseInt(time[1].trim());
+                        boolean am = time[2].startsWith("AM");
+                        String[] time2 = timePickerAlertDialogMax.getText().toString().split("[ \\\\:]");
+                        int hour2 = Integer.parseInt(time2[0].trim());
+                        int min2 = Integer.parseInt(time2[1].trim());
+                        boolean am2 = time2[2].startsWith("AM");
+
+                        if (!(!am && am2) && (((hour <= hour2 && !am) || (am && !am2)) || ((hour == hour2) && (min <= min2)))) {
+                            newDataset.add(sortie);
+                            newDatasetTypes.add(SORTIE);
+                        }
+
+                    }
                 }
+                ((MainActivity) getActivity()).onSortieLaunch(newDataset, newDatasetTypes);
+            }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -240,9 +238,12 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
             }
 
 
-        });
+        };
 
+// Attach a listener to read the data at our posts reference
+        ref.child("sortie").addListenerForSingleValueEvent(listener);
 
+        ref.child("sortie").removeEventListener(listener);
 
     }
 

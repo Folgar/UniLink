@@ -16,6 +16,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     private GeneralStructure[] mDataSet;
     private int[] mDataSetTypes;
+
     private Fragment mParentFragment;
 
     public static final int TABLE = 1;

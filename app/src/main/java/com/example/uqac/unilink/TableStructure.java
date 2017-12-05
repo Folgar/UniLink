@@ -5,8 +5,10 @@ package com.example.uqac.unilink;
  */
 
 public class TableStructure extends GeneralStructure {
+    public TableStructure() {
+    }
 
-    public TableStructure(String date,String heure,String lieu, String description,String nombreMax){
+    public TableStructure(String date, String heure, String lieu, String description, String nombreMax){
         this.date=date;
         this.heure=heure;
         this.lieu=lieu;

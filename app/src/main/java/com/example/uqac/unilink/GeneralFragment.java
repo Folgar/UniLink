@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 
 public class GeneralFragment extends Fragment {
 
+
     /**
      * Could handle back press.
      * @return true if back press was handled

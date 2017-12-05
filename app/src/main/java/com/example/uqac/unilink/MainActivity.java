@@ -245,35 +245,35 @@ public class MainActivity extends AppCompatActivity
     public void onSortieAll(){
 
         //TODO classer par date
-        //TODO corriger taille mDatasetSorties
-        //TODO Faire la requête firebase qui récupère les links sortie classés par date
 
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Data temporaires pour Tables
+                final List<GeneralStructure> mDatasetSorties = new ArrayList<>();
+                final List<Integer> mDatasetTypesSorties = new ArrayList<>(); //view types
 
-        ref.child("sortie").addListenerForSingleValueEvent(new ValueEventListener() {
-                                                               @Override
-                                                               public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                   // Data temporaires pour Tables
-                                                                   final List<GeneralStructure> mDatasetSorties = new ArrayList<>();
-                                                                   final List<Integer> mDatasetTypesSorties = new ArrayList<>(); //view types
+                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
-                                                                   for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
+                    SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
 
-                                                                           SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
+                    mDatasetSorties.add(sortie);
+                    mDatasetTypesSorties.add(SORTIE);
+                }
+                onSortieLaunch(mDatasetSorties,mDatasetTypesSorties);
+            }
 
-                                                                           mDatasetSorties.add(sortie);
-                                                                           mDatasetTypesSorties.add(SORTIE);
-                                                                   }
-                                                                    onSortieLaunch(mDatasetSorties,mDatasetTypesSorties);
-                                                               }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        };
+        ref.child("sortie").addListenerForSingleValueEvent(listener);
 
-                                                               @Override
-                                                               public void onCancelled(DatabaseError databaseError) {
-                                                                   System.out.println("The read failed: " + databaseError.getCode());
-                                                               }
-                                                           });
+        ref.child("sortie").removeEventListener(listener);
 
 
     }
