@@ -83,8 +83,7 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
 
     public void launchResearch(){
 
-        //TODO
-        // lancer la recherche de links selon les critères de l'utilisateur puis remplir newDataset et newDatasetTypes avec les résultats
+        //TODO lancer la recherche de links selon les critères de l'utilisateur puis remplir newDataset et newDatasetTypes avec les résultats
 
         //String[] newDataset = new String[] {"NewSortie1", "NewSortie2", "NewSortie3", "NewSortie4", "NewSortie5", "NewSortie6"};
         //int[] newDatasetTypes = new int[]{SORTIE, SORTIE, SORTIE, SORTIE, SORTIE, SORTIE} ;

@@ -35,8 +35,7 @@ public class LinksFragment extends GeneralFragment {
         final View view =  inflater.inflate(R.layout.fragment_links, container, false);
         final Context context = view.getContext();
 
-        //TODO
-        //lancer requête firebase pour récupérer les links de l'utilisateur et les stocker dans mDataset et mDatasetTypes
+        //TODO lancer requête firebase pour récupérer les links de l'utilisateur et les stocker dans mDataset et mDatasetTypes
 
         RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);

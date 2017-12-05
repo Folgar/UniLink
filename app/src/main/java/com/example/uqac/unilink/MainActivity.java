@@ -64,8 +64,7 @@ public class MainActivity extends AppCompatActivity
         email.setText(user.getEmail());
         displayName.setText(name);
 
-        //TODO
-        // rajouter code pour stocker les infos de l'utilisateur dans firebase
+        //TODO rajouter code pour stocker les infos de l'utilisateur dans firebase
 
         fragment = new AccueilFragment();
         fragmentManager = getSupportFragmentManager();
@@ -185,8 +184,7 @@ public class MainActivity extends AppCompatActivity
 
     public void onTableAll(){
 
-        //TODO
-        // Faire la requête firebase qui récupère les links table classés par date
+        //TODO Faire la requête firebase qui récupère les links table classés par date
 
         // Data temporaires pour Tables
         GeneralStructure[] mDatasetTables = {new TableStructure("10/12/17", "12:30","UQAC","test1","5"),
@@ -237,8 +235,7 @@ public class MainActivity extends AppCompatActivity
 
     public void onSortieAll(){
 
-        //TODO
-        // Faire la requête firebase qui récupère les links sortie classés par date
+        //TODO Faire la requête firebase qui récupère les links sortie classés par date
 
         // Data temporaires pour Tables
         GeneralStructure[] mDatasetSorties = {new SortieStructure("10/12/17", "12:30","UQAC","test1","5"),
