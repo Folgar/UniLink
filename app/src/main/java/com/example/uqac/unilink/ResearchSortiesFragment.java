@@ -13,7 +13,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static com.example.uqac.unilink.CustomAdapter.SORTIE;
 
@@ -97,12 +99,12 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i=0;
-                final GeneralStructure[] newDataset = new GeneralStructure[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
-                final int[] newDatasetTypes = new int[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
+                //final GeneralStructure[] newDataset = new GeneralStructure[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
+                //final int[] newDatasetTypes = new int[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
+                final List<GeneralStructure> newDataset = new ArrayList<>();
+                final List<Integer> newDatasetTypes = new ArrayList<>();
 
                     for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
-                        if (i <= 5)
-                        {
 
                             SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
                             if(type == SearchType.NORMAL)
@@ -124,8 +126,8 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
                                         boolean am3 = time3[2].startsWith("AM");
 
                                         if (((am && am3) || (!am && !am2)) && (((hour >= hour3) || ((hour == hour3) && (min >= min3))) && ((hour <= hour2) || ((hour == hour2) && (min <= min2))))) {
-                                            newDataset[i] = sortie;
-                                            newDatasetTypes[i] = SORTIE;
+                                            newDataset.add(sortie);
+                                            newDatasetTypes.add(SORTIE);
                                         }
 
                                     }
@@ -143,8 +145,8 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
                                         boolean am3 = time3[2].startsWith("AM");
 
                                         if (!(am && !am3) && ((hour >= hour3) || ((hour == hour3) && (min >= min3)))) {
-                                            newDataset[i] = sortie;
-                                            newDatasetTypes[i] = SORTIE;
+                                            newDataset.add(sortie);
+                                            newDatasetTypes.add(SORTIE);
                                         }
 
                                     }
@@ -161,8 +163,8 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
                                         boolean am2 = time2[2].startsWith("AM");
 
                                         if (!(!am && am2) && ((hour <= hour2) || ((hour == hour2) && (min <= min2)))) {
-                                            newDataset[i] = sortie;
-                                            newDatasetTypes[i] = SORTIE;
+                                            newDataset.add(sortie);
+                                            newDatasetTypes.add(SORTIE);
                                         }
 
                                     }
@@ -182,15 +184,15 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
                                     boolean am3 = time3[2].startsWith("AM");
 
                                     if (((am && am3) || (!am && !am2)) && (((hour >= hour3) || ((hour == hour3) && (min >= min3))) && ((hour <= hour2) || ((hour == hour2) && (min <= min2))))) {
-                                        newDataset[i] = sortie;
-                                        newDatasetTypes[i] = SORTIE;
+                                        newDataset.add(sortie);
+                                        newDatasetTypes.add(SORTIE);
                                     }
 
 
                                 } else if ((!datePickerAlertDialog.getText().toString().equals(""))) {
                                     if (sortie.date.equals(datePickerAlertDialog.getText().toString())) {
-                                        newDataset[i] = sortie;
-                                        newDatasetTypes[i] = SORTIE;
+                                        newDataset.add(sortie);
+                                        newDatasetTypes.add(SORTIE);
                                     }
                                 } else if ((!timePickerAlertDialogMin.getText().toString().equals(""))) {
 
@@ -206,8 +208,8 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
                                     boolean am3 = time3[2].startsWith("AM");
 
                                     if (!(am && !am3) && ((hour >= hour3) || ((hour == hour3) && (min >= min3)))) {
-                                        newDataset[i] = sortie;
-                                        newDatasetTypes[i] = SORTIE;
+                                        newDataset.add(sortie);
+                                        newDatasetTypes.add(SORTIE);
                                     }
 
 
@@ -223,33 +225,22 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
                                     boolean am2 = time2[2].startsWith("AM");
 
                                     if (!(!am && am2) && (((hour <= hour2 && !am) || (am && !am2)) || ((hour == hour2) && (min <= min2)))) {
-                                        newDataset[i] = sortie;
-                                        newDatasetTypes[i] = SORTIE;
+                                        newDataset.add(sortie);
+                                        newDatasetTypes.add(SORTIE);
                                     }
 
                                 }
-                             i++;
                             }
-
-
-                        }
-
                     }
 
-                int taille = 0;
-                for(i = 0; i < newDataset.length; i++){
-                        if(newDataset[i] != null)
-                            taille++;
-                }
+                GeneralStructure[] dataset = new GeneralStructure[newDataset.size()];
+                int[] datasetTypes = new int[newDatasetTypes.size()];
 
-                GeneralStructure[] dataset = new GeneralStructure[taille];
-                int[] datasetTypes = new int[taille];
+                for(i=0; i<dataset.length;i++)
+                    dataset[i] = newDataset.get(i);
 
-                for(i=0; i<taille;i++)
-                    dataset[i] = newDataset[i];
-
-                for(i=0; i<taille;i++)
-                    datasetTypes[i] = newDatasetTypes[i];
+                for(i=0; i<datasetTypes.length;i++)
+                    datasetTypes[i] = newDatasetTypes.get(i);
 
                 ((MainActivity) getActivity()).onSortieLaunch(dataset, datasetTypes);
             }
