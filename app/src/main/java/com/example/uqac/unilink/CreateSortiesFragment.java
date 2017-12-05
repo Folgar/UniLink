@@ -48,6 +48,7 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         final View view = inflater.inflate(R.layout.fragment_create_sorties, container, false);
         final Context context = view.getContext();
         final View inflate = View.inflate(context, R.layout.activity_maps, null);
@@ -162,20 +163,16 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
             Toast.makeText(getContext(), "Nombre de participants maximum manquant", Toast.LENGTH_SHORT).show();
 
         else {
-            SortieStructure sortie = new SortieStructure(datePickerAlertDialog.getText().toString(),
-                    timePickerAlertDialog.getText().toString(), lieu.getText().toString(),
-                    description.getText().toString(),
-                    nombre.getText().toString(),
-                    User.getInstance().getUser().getDisplayName(),
-                    User.getInstance().getUser().getDisplayName() );
             String linkId = mRefLink.push().getKey();
+            SortieStructure sortie = new SortieStructure(linkId ,datePickerAlertDialog.getText().toString(), timePickerAlertDialog.getText().toString(), lieu.getText().toString(), description.getText().toString(), nombre.getText().toString(),User.getInstance().getUser().getDisplayName(), User.getInstance().getUser().getDisplayName() );
             mRefLink.child(linkId).setValue("Sortie");
             mRefSortie.child(linkId).setValue(sortie);
             Toast.makeText(getContext(), "Sortie enregistrée", Toast.LENGTH_SHORT).show();
             //finish();
+            ((MainActivity)getActivity()).onSortieAll();
         }
 
-        ((MainActivity)getActivity()).onSortieAll();
+
     }
 
     public void launchCancel(){((MainActivity)getActivity()).onSortieAll();}

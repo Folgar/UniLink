@@ -4,8 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.List;
 
 /**
  * Created by Lorane on 03/12/2017.
@@ -44,22 +51,47 @@ public class DetailsSortieFragment extends GeneralFragment {
         TextView date = (TextView) view.findViewById(R.id.date);
         TextView lieu = (TextView) view.findViewById(R.id.lieu);
         TextView description = (TextView) view.findViewById(R.id.description);
-        TextView participants = (TextView) view.findViewById(R.id.participants);
         Button rejoindre = (Button) view.findViewById(R.id.rejoindre);
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, sortieStructure.Participants);
+
+// Drop down layout style - list view
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        Spinner _EmpSpinner ;
+        _EmpSpinner = (Spinner) view.findViewById(R.id.participants);
+
+// attaching data adapter to spinner
+        _EmpSpinner.setAdapter(dataAdapter);
 
         heure.setText(sortieStructure.heure);
         date.setText(sortieStructure.date);
         lieu.setText(sortieStructure.lieu);
         description.setText(sortieStructure.description);
-        participants.setText("Insérer ici la liste des participants");
+//        participants.setText("Insérer ici la liste des participants");
 
-        //TODO faire requête firebase pour savoir si l'utilisateur est inscrit au link et si oui cacher
-        //TODO le bouton rejoindre (rejoindre.setVisibility(View.GONE);)
+        for(int i = 0 ; i < sortieStructure.Participants.size(); i++)
+        {
+            if(sortieStructure.Participants.get(i).equals(User.getInstance().getUser().getDisplayName()))
+            {
+                rejoindre.setVisibility(View.GONE);
+            }
+        }
 
         rejoindre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO code firebase pour inscrire l'utilisateur au link
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference ref = database.child("sortie").child(sortieStructure.linkId);
+                try {
+                    List<String> participants = sortieStructure.Participants;
+                    participants.add(User.getInstance().getUser().getDisplayName());
+                    ref.child("Participants").setValue(participants);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 

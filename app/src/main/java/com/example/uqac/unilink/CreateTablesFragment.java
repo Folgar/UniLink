@@ -144,9 +144,10 @@ public class CreateTablesFragment extends GeneralFragmentDateTime {
             mRefTable.child(linkId).setValue(table);
             Toast.makeText(getContext(), "Table enregistrée", Toast.LENGTH_SHORT).show();
             //finish();
+            ((MainActivity)getActivity()).onTableAll();
         }
 
-        ((MainActivity)getActivity()).onTableAll();
+
     }
 
     public void launchCancel(){((MainActivity)getActivity()).onTableAll();}
