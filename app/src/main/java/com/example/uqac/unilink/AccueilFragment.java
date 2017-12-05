@@ -59,7 +59,7 @@ public class AccueilFragment extends GeneralFragment {
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference().child("table");
-        DatabaseReference refS = database.getReference().child("sortie");
+
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -68,10 +68,32 @@ public class AccueilFragment extends GeneralFragment {
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
                     TableStructure table = eventSnapshot.getValue(TableStructure.class);
-                    SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
 
                     mDataset.add(table);
                     mDatasetTypes.add(TABLE);
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        };
+        ref.removeEventListener(listener);
+        ref.addListenerForSingleValueEvent(listener);
+
+        ref = database.getReference().child("sortie");
+        ValueEventListener listener2 = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("tester: ", "passe dedans");
+
+                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
+
+                    SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
 
                     mDataset.add(sortie);
                     mDatasetTypes.add(SORTIE);
@@ -94,13 +116,13 @@ public class AccueilFragment extends GeneralFragment {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         };
-        ref.addListenerForSingleValueEvent(listener);
-        refS.addListenerForSingleValueEvent(listener);
+        ref.addListenerForSingleValueEvent(listener2);
+//        refS.addListenerForSingleValueEvent(listener);
 
 
 
-        ref.removeEventListener(listener);
-        refS.removeEventListener(listener);
+        ref.removeEventListener(listener2);
+//        refS.removeEventListener(listener2);
 
         return view;
     }
