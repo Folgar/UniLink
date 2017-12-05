@@ -6,7 +6,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,6 +76,7 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
             public void onClick(View v) {onTimePicker(timePickerAlertDialog);
             }
         });
+
 
         lieu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +151,15 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
         return view;
     }
 
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentById(R.id.map);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.remove(fragment);
+        fragmentTransaction.commit();
+    }
     public void launchCreation(){
 
         if (datePickerAlertDialog.getText().toString().matches(""))
