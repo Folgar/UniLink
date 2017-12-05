@@ -240,6 +240,8 @@ public class MainActivity extends AppCompatActivity
 
     public void onSortieAll(){
 
+        //TODO classer par date
+        //TODO corriger taille mDatasetSorties
         //TODO Faire la requête firebase qui récupère les links sortie classés par date
 
 

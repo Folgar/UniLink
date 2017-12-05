@@ -6,6 +6,8 @@ package com.example.uqac.unilink;
 
 public class SortieStructure extends GeneralStructure{
 
+    //TODO Ajouter utilisateur créateur
+    //TODO Ajouter list utilisateurs Participants
     public SortieStructure() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }

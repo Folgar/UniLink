@@ -24,6 +24,8 @@ import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    //TODO Corriger bug 2ème utilisation erreur
+    //TODO Ajouter champde recherche d'adresse
     private GoogleMap mMap;
 
     private static final int FINE_LOCATION_PERMISSION_REQUEST = 1;
@@ -72,8 +74,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onMapClick(LatLng point) {
-                // TODO Auto-generated method stub
 
+                //TODO clear map from old markers
                 MarkerOptions marker = new MarkerOptions().position(
                         new LatLng(point.latitude, point.longitude)).title("New Marker");
 

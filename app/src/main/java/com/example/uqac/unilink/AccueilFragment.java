@@ -2,17 +2,14 @@ package com.example.uqac.unilink;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import static com.example.uqac.unilink.CustomAdapter.COVOITURAGE;
 import static com.example.uqac.unilink.CustomAdapter.SORTIE;
 import static com.example.uqac.unilink.CustomAdapter.TABLE;
-import static com.example.uqac.unilink.CustomAdapter.TRAJET;
 
 /**
  * Created by Lorane on 01/12/2017.

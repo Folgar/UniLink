@@ -71,7 +71,7 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {launchResearch(SearchType.NORMAL);}
+            public void onClick(View view) {launchResearch();}
         });
         fabCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +83,7 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
         return view;
     }
 
-    public void launchResearch(final SearchType type){
+    public void launchResearch(){
 
         //TODO : régler problème taille
 
@@ -107,8 +107,7 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
                     for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
                             SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
-                            if(type == SearchType.NORMAL)
-                            {
+
                                 if ((!datePickerAlertDialog.getText().toString().equals("")) && (!timePickerAlertDialogMin.getText().toString().equals("")) && (!timePickerAlertDialogMax.getText().toString().equals(""))) {
                                     if (sortie.date.equals(datePickerAlertDialog.getText().toString())) {
                                         String[] time = sortie.heure.split("[ \\\\:]");

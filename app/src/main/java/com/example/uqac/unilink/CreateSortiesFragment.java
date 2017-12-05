@@ -20,8 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
 
-import static com.example.uqac.unilink.CustomAdapter.SORTIE;
-
 /**
  * Created by Lorane on 03/12/2017.
  */
@@ -123,6 +121,7 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
         });
 
         fabOK.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 launchCreation();
@@ -153,6 +152,8 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
             Toast.makeText(getContext(), "Nombre de participants maximum manquant", Toast.LENGTH_SHORT).show();
 
         else {
+            //TODO enregistrer utilisateur courrant comme créateur
+            //TODO enregister utilisateur courrant comme Participant
             SortieStructure sortie = new SortieStructure(datePickerAlertDialog.getText().toString(), timePickerAlertDialog.getText().toString(), lieu.getText().toString(), description.getText().toString(), nombre.getText().toString());
             String linkId = mRefLink.push().getKey();
             mRefLink.child(linkId).setValue("Sortie");
