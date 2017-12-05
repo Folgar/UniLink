@@ -61,7 +61,7 @@ public class LinksFragment extends GeneralFragment {
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference().child("table");
-        DatabaseReference refS = database.getReference().child("sortie");
+
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -70,23 +70,37 @@ public class LinksFragment extends GeneralFragment {
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
                     TableStructure table = eventSnapshot.getValue(TableStructure.class);
-                    SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
 
-                    boolean tableOk = false;
-                    for(int i = 0; i < table.Participants.size(); i++) {
-                        if(table.Participants.get(i).equals(User.getInstance().getUser().getDisplayName()))
-                        {
-                            tableOk = true;
-                        }
-                    }
-                    if(tableOk) {
+
                         mDataset.add(table);
                         mDatasetTypes.add(TABLE);
-                    }
 
 
-                    mDataset.add(sortie);
-                    mDatasetTypes.add(SORTIE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        };
+        ref.removeEventListener(listener);
+        ref.addListenerForSingleValueEvent(listener);
+
+        ref = database.getReference().child("sortie");
+        ValueEventListener listener2 = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("tester: ", "passe dedans");
+
+                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
+
+                    SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
+
+                        mDataset.add(sortie);
+                        mDatasetTypes.add(SORTIE);
+                    
                 }
                 mDatasetT = new GeneralStructure[mDataset.size()];
                 mDatasetTypeT = new int[mDatasetTypes.size()];
@@ -106,13 +120,13 @@ public class LinksFragment extends GeneralFragment {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         };
-        ref.addListenerForSingleValueEvent(listener);
-        refS.addListenerForSingleValueEvent(listener);
+        ref.addListenerForSingleValueEvent(listener2);
+//        refS.addListenerForSingleValueEvent(listener);
 
 
 
-        ref.removeEventListener(listener);
-        refS.removeEventListener(listener);
+        ref.removeEventListener(listener2);
+//        refS.removeEventListener(listener2);
 
         return view;
     }
