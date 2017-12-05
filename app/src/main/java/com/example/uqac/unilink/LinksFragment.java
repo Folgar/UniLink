@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +26,6 @@ import static com.example.uqac.unilink.CustomAdapter.TABLE;
  */
 
 public class LinksFragment extends GeneralFragment {
-
-    //TODO MultiChild
-    //TODO Filtrer
 
     private GeneralStructure[] mDatasetT;
     private int[] mDatasetTypeT;
@@ -62,7 +58,7 @@ public class LinksFragment extends GeneralFragment {
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("tester: ", "passe dedans");
+//                Log.i("tester: ", "passe dedans");
 
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
@@ -86,15 +82,28 @@ public class LinksFragment extends GeneralFragment {
         ValueEventListener listener2 = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("tester: ", "passe dedans");
+//                Log.i("tester: ", "passe dedans");
 
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
                     SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
 
+//                    Log.i("tester: ", String.valueOf(sortie.Participants.size()));
+
+                    boolean userOk=false;
+                        for (int i =0 ; i < sortie.Participants.size();i++)
+                        {
+
+                            userOk = true;
+//                            Log.i("tester: ", String.valueOf(userOk));
+
+                        }
+                        if(userOk) {
+
                         mDataset.add(sortie);
                         mDatasetTypes.add(SORTIE);
-                    
+                        }
+
                 }
                 mDatasetT = new GeneralStructure[mDataset.size()];
                 mDatasetTypeT = new int[mDatasetTypes.size()];
