@@ -82,6 +82,8 @@ public class DetailsTableFragment extends GeneralFragment{
     public boolean onBackPressed() {
         if(previousFragment instanceof TablesFragment)
             ((MainActivity)getActivity()).onTableAll();
+        else if(previousFragment instanceof LinksFragment)
+            ((MainActivity)getActivity()).onLink();
         else
             ((MainActivity)getActivity()).onAccueil();
         return true;

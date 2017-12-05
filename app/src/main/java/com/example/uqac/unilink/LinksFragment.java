@@ -2,6 +2,7 @@ package com.example.uqac.unilink;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,6 +30,11 @@ public class LinksFragment extends GeneralFragment {
 
     //TODO MultiChild
     //TODO Filtrer
+
+    private GeneralStructure[] mDatasetT;
+    private int[] mDatasetTypeT;
+    private CustomAdapter mAdapter;
+
     public LinksFragment(){}
 
     @Override
@@ -36,31 +42,22 @@ public class LinksFragment extends GeneralFragment {
         super.onCreate(savedInstanceState);
     }
 
-    private GeneralStructure[] mDatasetT;
-    private int[] mDatasetTypeT;
-    private CustomAdapter mAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-        final List<GeneralStructure> mDataset = new ArrayList<>();
-        final List<Integer> mDatasetTypes = new ArrayList<>(); //view types
         final View view =  inflater.inflate(R.layout.fragment_links, container, false);
         final Context context = view.getContext();
 
-
-        mDatasetT = new GeneralStructure[mDataset.size()];
-        mDatasetTypeT = new int[mDatasetTypes.size()];
+        final List<GeneralStructure> mDataset = new ArrayList<>();
+        final List<Integer> mDatasetTypes = new ArrayList<>(); //view types
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference().child("table");
+        final Fragment thisFragment = this;
 
         final RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new CustomAdapter(this, mDatasetT, mDatasetTypeT);
-        mRecyclerView.setAdapter(mAdapter);
-
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference().child("table");
 
         ValueEventListener listener = new ValueEventListener() {
             @Override
@@ -71,13 +68,10 @@ public class LinksFragment extends GeneralFragment {
 
                     TableStructure table = eventSnapshot.getValue(TableStructure.class);
 
-
                         mDataset.add(table);
                         mDatasetTypes.add(TABLE);
 
-
                 }
-
             }
 
             @Override
@@ -110,9 +104,8 @@ public class LinksFragment extends GeneralFragment {
                     mDatasetTypeT[i] = mDatasetTypes.get(i);
                 }
 
-                mAdapter = new CustomAdapter(getParentFragment(), mDatasetT, mDatasetTypeT);
+                mAdapter = new CustomAdapter(thisFragment, mDatasetT, mDatasetTypeT);
                 mRecyclerView.setAdapter(mAdapter);
-
             }
 
             @Override
@@ -121,12 +114,8 @@ public class LinksFragment extends GeneralFragment {
             }
         };
         ref.addListenerForSingleValueEvent(listener2);
-//        refS.addListenerForSingleValueEvent(listener);
-
-
 
         ref.removeEventListener(listener2);
-//        refS.removeEventListener(listener2);
 
         return view;
     }

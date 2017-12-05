@@ -13,13 +13,6 @@ import android.widget.TextView;
 
 public class DetailsSortieFragment extends GeneralFragment {
 
-    private TextView heure;
-    private TextView date;
-    private TextView lieu;
-    private TextView description;
-    private TextView participants;
-    private Button rejoindre;
-
     private SortieStructure sortieStructure;
     private GeneralFragment previousFragment;
 
@@ -47,12 +40,12 @@ public class DetailsSortieFragment extends GeneralFragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_details_sortie, container, false);
 
-        heure = (TextView) view.findViewById(R.id.heure);
-        date = (TextView) view.findViewById(R.id.date);
-        lieu = (TextView) view.findViewById(R.id.lieu);
-        description = (TextView) view.findViewById(R.id.description);
-        participants = (TextView) view.findViewById(R.id.participants);
-        rejoindre = (Button) view.findViewById(R.id.rejoindre);
+        TextView heure = (TextView) view.findViewById(R.id.heure);
+        TextView date = (TextView) view.findViewById(R.id.date);
+        TextView lieu = (TextView) view.findViewById(R.id.lieu);
+        TextView description = (TextView) view.findViewById(R.id.description);
+        TextView participants = (TextView) view.findViewById(R.id.participants);
+        Button rejoindre = (Button) view.findViewById(R.id.rejoindre);
 
         heure.setText(sortieStructure.heure);
         date.setText(sortieStructure.date);
@@ -82,6 +75,8 @@ public class DetailsSortieFragment extends GeneralFragment {
     public boolean onBackPressed() {
         if(previousFragment instanceof SortiesFragment)
             ((MainActivity)getActivity()).onSortieAll();
+        else if(previousFragment instanceof LinksFragment)
+            ((MainActivity)getActivity()).onLink();
         else
             ((MainActivity)getActivity()).onAccueil();
         return true;
