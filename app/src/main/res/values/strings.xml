@@ -82,4 +82,5 @@
     <string name="fragment_description">Description : </string>
     <string name="fragment_participants">Participants : </string>
     <string name="fragment_rejoindre">Rejoindre</string>
+    <string name="mon_profil">Mon Profil</string>
 </resources>

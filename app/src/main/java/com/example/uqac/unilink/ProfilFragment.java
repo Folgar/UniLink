@@ -15,14 +15,15 @@ import com.google.firebase.auth.FirebaseUser;
  * Created by Lorane on 01/12/2017.
  */
 
-public class ProfilFragment extends GeneralFragment implements View.OnClickListener{
+public class ProfilFragment extends GeneralFragment {
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
 
     //view objects
     private TextView textViewUserEmail;
-    private Button buttonDatabase;
+    private TextView displayName;
+    private TextView email;
 
     public ProfilFragment(){}
 
@@ -43,28 +44,17 @@ public class ProfilFragment extends GeneralFragment implements View.OnClickListe
         //getting current user
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        textViewUserEmail = (TextView) view.findViewById(R.id.textViewUserEmail);
-        buttonDatabase = (Button) view.findViewById(R.id.buttonDatabase);
+        email = (TextView) view.findViewById(R.id.email);
+        displayName = (TextView) view.findViewById(R.id.displayName);
+        displayName.setText("Nom affiché : "+user.getDisplayName());
+        email.setText("Email : "+user.getEmail());
 
-        //displaying logged in user name
-        textViewUserEmail.setText("Welcome "+user.getEmail());
-
-        //adding listener to button
-        buttonDatabase.setOnClickListener(this);
 
         return view;
     }
 
-    @Override
-    public void onClick(View view) {
-        if(view == buttonDatabase){
-            onDatabase();
-        }
-    }
 
-    public void onDatabase(){
-        textViewUserEmail.setText("Data !");
-    }
+
 
     @Override
     public boolean onBackPressed() {

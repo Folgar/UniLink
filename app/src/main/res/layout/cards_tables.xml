@@ -7,8 +7,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
 
-    app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="2dp"
+    app:cardBackgroundColor="@color/blue"
+    app:cardCornerRadius="10dp"
     app:cardElevation="2dp">
 
     <LinearLayout
@@ -35,8 +35,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin">
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -47,8 +48,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?android:selectableItemBackground"
-                        android:text="@string/fragment_heure"
                         android:fontFamily="sans-serif"
+                        android:text="@string/fragment_heure"
                         android:textColor="#333"
                         android:textSize="16sp" />
 
@@ -57,10 +58,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?android:selectableItemBackground"
-                        tools:text="12h30"
                         android:fontFamily="sans-serif"
                         android:textColor="#333"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:text="12h30" />
 
                 </LinearLayout>
 
@@ -73,8 +74,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?android:selectableItemBackground"
-                        android:text="@string/fragment_date"
                         android:fontFamily="sans-serif"
+                        android:text="@string/fragment_date"
                         android:textColor="#333"
                         android:textSize="16sp" />
 
@@ -83,10 +84,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?android:selectableItemBackground"
-                        tools:text="10/12/17"
                         android:fontFamily="sans-serif"
                         android:textColor="#333"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:text="10/12/17" />
 
                 </LinearLayout>
 
@@ -95,9 +96,10 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_gravity="center"
-                android:layout_marginLeft="50dp">
+                android:layout_marginLeft="50dp"
+                android:layout_weight="0"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/nbParticipants"
@@ -106,7 +108,7 @@
                     android:background="?android:selectableItemBackground"
                     android:fontFamily="sans-serif"
                     android:textColor="#333"
-                    android:textSize="16sp"
+                    android:textSize="24sp"
                     tools:text="3" />
 
                 <TextView
@@ -114,9 +116,9 @@
                     android:layout_height="wrap_content"
                     android:background="?android:selectableItemBackground"
                     android:fontFamily="sans-serif"
+                    android:text="/"
                     android:textColor="#333"
-                    android:textSize="16sp"
-                    android:text="/" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/nbMax"
@@ -125,7 +127,7 @@
                     android:background="?android:selectableItemBackground"
                     android:fontFamily="sans-serif"
                     android:textColor="#333"
-                    android:textSize="16sp"
+                    android:textSize="24sp"
                     tools:text="10" />
 
             </LinearLayout>
