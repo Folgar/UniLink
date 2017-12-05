@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.uqac.unilink.CustomAdapter.SORTIE;
-import static com.example.uqac.unilink.CustomAdapter.TABLE;
 
 /**
  * Created by Lorane on 01/12/2017.
@@ -62,7 +60,18 @@ public class LinksFragment extends GeneralFragment {
 
                     TableStructure table = eventSnapshot.getValue(TableStructure.class);
 
+                    boolean userOk=false;
+                    for (int i =0 ; i < table.Participants.size();i++)
+                    {
+
+                        if(table.Participants.get(i).equals(User.getInstance().getUser().getDisplayName()))
+                            userOk = true;
+                            Log.i("tester: ", String.valueOf(userOk));
+                    }
+                    if(userOk) {
+
                         mDataset.add(table);
+                    }
                 }
             }
 
@@ -90,8 +99,9 @@ public class LinksFragment extends GeneralFragment {
                         for (int i =0 ; i < sortie.Participants.size();i++)
                         {
 
-                            userOk = true;
-//                            Log.i("tester: ", String.valueOf(userOk));
+                            if(sortie.Participants.get(i).equals(User.getInstance().getUser().getDisplayName()))
+                                userOk = true;
+
 
                         }
                         if(userOk) {

@@ -3,8 +3,12 @@ package com.example.uqac.unilink;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 
@@ -23,7 +27,7 @@ import java.util.Locale;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     //TODO Ajouter champ de recherche d'adresse
-    private GoogleMap mMap ;
+    private GoogleMap mMap;
 
     public Context context;
     private Marker mark;
@@ -55,10 +59,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
+//        Location location = getMyLocation();
+
 
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
+
 
         } else {
             // Show rationale and request permission.
@@ -87,7 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                if(!(addresses.equals(null))) {
+                if (!(addresses.equals(null))) {
                     address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
                     String city = addresses.get(0).getLocality();
                     String state = addresses.get(0).getAdminArea();
@@ -104,6 +111,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    private Location getMyLocation() {
+        // Get location from GPS if it's available
+        Location myLocation;
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            myLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            // Location wasn't found, check the next most accurate place for the current location
+            if (myLocation == null) {
+                Criteria criteria = new Criteria();
+                criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+                // Finds a provider that matches the criteria
+                String provider = lm.getBestProvider(criteria, true);
+                // Use the provider to get the last known location
+                myLocation = lm.getLastKnownLocation(provider);
+            }
+            return myLocation;
+        }
+
+        return null;
+    }
 
     public void end() {
         mMap.clear();
