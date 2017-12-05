@@ -221,13 +221,6 @@ public class MainActivity extends AppCompatActivity
 
     public void onTableLaunch(List<GeneralStructure> dataset, List<Integer> datasetTypes){
 
-        final GeneralStructure[] newDataset = new GeneralStructure[dataset.size()];
-        final int[] newDatasetType = new int[datasetTypes.size()];
-        for(int i=0; i<dataset.size();i++) {
-            newDataset[i] = dataset.get(i);
-            newDatasetType[i] = datasetTypes.get(i);
-        }
-
         if(dataset.size() == 0){
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
             newDialog.setTitle("Nouveau Link Table");
@@ -248,7 +241,7 @@ public class MainActivity extends AppCompatActivity
             newDialog.show();
         }
         else{
-            fragment = TablesFragment.newInstance(newDataset, newDatasetType);
+            fragment = TablesFragment.newInstance(dataset, datasetTypes);
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
         }
     }
@@ -297,13 +290,6 @@ public class MainActivity extends AppCompatActivity
 
     public void onSortieLaunch(List<GeneralStructure> dataset, List<Integer> datasetTypes){
 
-        final GeneralStructure[] newDataset = new GeneralStructure[dataset.size()];
-        final int[] newDatasetType = new int[datasetTypes.size()];
-        for(int i=0; i<dataset.size();i++) {
-            newDataset[i] = dataset.get(i);
-            newDatasetType[i] = datasetTypes.get(i);
-        }
-
         if(dataset.size() == 0){
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
             newDialog.setTitle("Nouveau Link Sortie");
@@ -326,7 +312,7 @@ public class MainActivity extends AppCompatActivity
 
         }
         else{
-            fragment = SortiesFragment.newInstance(newDataset, newDatasetType);
+            fragment = SortiesFragment.newInstance(dataset, datasetTypes);
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
         }
     }

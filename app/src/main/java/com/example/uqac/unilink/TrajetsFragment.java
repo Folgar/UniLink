@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.example.uqac.unilink.CustomAdapter.TABLE;
 import static com.example.uqac.unilink.CustomAdapter.TRAJET;
 
@@ -18,12 +21,8 @@ import static com.example.uqac.unilink.CustomAdapter.TRAJET;
 
 public class TrajetsFragment extends GeneralFragment {
 
-    private RecyclerView mRecyclerView ;
-    private CustomAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    GeneralStructure[] mDataset = {new TrajetStructure("10/12/17", "12:30","UQAC","test1","5"),
-            new TrajetStructure("10/12/17", "12:30","UQAC","test1","5")};
-private int mDatasetTypes[] = {TRAJET, TRAJET}; //view types
+    private List<GeneralStructure> mDataset = new ArrayList<>();
+    private List<Integer> mDatasetTypes = new ArrayList<>(); //view types
 
     public TrajetsFragment(){
 
@@ -41,11 +40,11 @@ private int mDatasetTypes[] = {TRAJET, TRAJET}; //view types
         final View view = inflater.inflate(R.layout.fragment_trajets, container, false);
         final Context context = view.getContext();
 
-        mRecyclerView  = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
-        mLayoutManager = new LinearLayoutManager(context);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new CustomAdapter(this,mDataset,mDatasetTypes);
+        CustomAdapter mAdapter = new CustomAdapter(this, mDataset, mDatasetTypes);
         mRecyclerView.setAdapter(mAdapter);
 
         return view;

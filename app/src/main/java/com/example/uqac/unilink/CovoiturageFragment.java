@@ -2,15 +2,14 @@ package com.example.uqac.unilink;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import static com.example.uqac.unilink.CustomAdapter.COVOITURAGE;
-import static com.example.uqac.unilink.CustomAdapter.TABLE;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Lorane on 01/12/2017.
@@ -18,9 +17,8 @@ import static com.example.uqac.unilink.CustomAdapter.TABLE;
 
 public class CovoiturageFragment extends GeneralFragment {
 
-    GeneralStructure[] mDataset = {new CovoiturageStructure("10/12/17", "12:30","UQAC","test1","5"),
-            new CovoiturageStructure("10/12/17", "12:30","UQAC","test1","5")};
-    private int mDatasetTypes[] = {COVOITURAGE, COVOITURAGE}; //view types
+    private List<GeneralStructure> mDataset = new ArrayList<>();
+    private List<Integer> mDatasetTypes = new ArrayList<>(); //view types
 
     public CovoiturageFragment(){}
 
