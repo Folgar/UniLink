@@ -168,9 +168,10 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
             mRefSortie.child(linkId).setValue(sortie);
             Toast.makeText(getContext(), "Sortie enregistrée", Toast.LENGTH_SHORT).show();
             //finish();
+            ((MainActivity)getActivity()).onSortieAll();
         }
 
-        ((MainActivity)getActivity()).onSortieAll();
+
     }
 
     public void launchCancel(){((MainActivity)getActivity()).onSortieAll();}
