@@ -14,8 +14,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
 
-import static com.example.uqac.unilink.CustomAdapter.TABLE;
-
 /**
  * Created by Lorane on 02/12/2017.
  */
@@ -134,7 +132,13 @@ public class CreateTablesFragment extends GeneralFragmentDateTime {
             Toast.makeText(getContext(), "Nombre de participants maximum manquant", Toast.LENGTH_SHORT).show();
 
         else {
-            TableStructure table = new TableStructure(datePickerAlertDialog.getText().toString(), timePickerAlertDialog.getText().toString(), lieu.getText().toString(), description.getText().toString(), nombre.getText().toString());
+            TableStructure table = new TableStructure(datePickerAlertDialog.getText().toString(),
+                    timePickerAlertDialog.getText().toString(),
+                    lieu.getText().toString(),
+                    description.getText().toString(),
+                    nombre.getText().toString(),
+                    User.getInstance().getUser().getDisplayName(),
+                    User.getInstance().getUser().getDisplayName() );
             String linkId = mRefLink.push().getKey();
             mRefLink.child(linkId).setValue("Table");
             mRefTable.child(linkId).setValue(table);

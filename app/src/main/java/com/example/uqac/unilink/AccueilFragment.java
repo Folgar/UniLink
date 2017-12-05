@@ -30,7 +30,6 @@ public class AccueilFragment extends GeneralFragment {
 
 
     private List<GeneralStructure> mDataset;
-    private List<Integer> mDatasetTypes;
     private CustomAdapter mAdapter;
 
     public AccueilFragment(){}
@@ -48,10 +47,8 @@ public class AccueilFragment extends GeneralFragment {
         final Context context = view.getContext();
 
         mDataset = new ArrayList<>();
-        mDatasetTypes = new ArrayList<>(); //view types
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference().child("table");
-        final Fragment thisFragment = this;
 
         final RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
@@ -67,8 +64,6 @@ public class AccueilFragment extends GeneralFragment {
                     TableStructure table = eventSnapshot.getValue(TableStructure.class);
 
                     mDataset.add(table);
-                    mDatasetTypes.add(TABLE);
-
                 }
             }
 
@@ -91,10 +86,9 @@ public class AccueilFragment extends GeneralFragment {
                     SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
 
                     mDataset.add(sortie);
-                    mDatasetTypes.add(SORTIE);
                 }
 
-                mAdapter = new CustomAdapter(thisFragment, mDataset, mDatasetTypes);
+                mAdapter = new CustomAdapter(AccueilFragment.this, mDataset);
                 mRecyclerView.setAdapter(mAdapter);
             }
 

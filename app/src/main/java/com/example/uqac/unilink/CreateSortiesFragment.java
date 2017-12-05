@@ -162,7 +162,12 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
             Toast.makeText(getContext(), "Nombre de participants maximum manquant", Toast.LENGTH_SHORT).show();
 
         else {
-            SortieStructure sortie = new SortieStructure(datePickerAlertDialog.getText().toString(), timePickerAlertDialog.getText().toString(), lieu.getText().toString(), description.getText().toString(), nombre.getText().toString(),User.getInstance().getUser().getDisplayName(), User.getInstance().getUser().getDisplayName() );
+            SortieStructure sortie = new SortieStructure(datePickerAlertDialog.getText().toString(),
+                    timePickerAlertDialog.getText().toString(), lieu.getText().toString(),
+                    description.getText().toString(),
+                    nombre.getText().toString(),
+                    User.getInstance().getUser().getDisplayName(),
+                    User.getInstance().getUser().getDisplayName() );
             String linkId = mRefLink.push().getKey();
             mRefLink.child(linkId).setValue("Sortie");
             mRefSortie.child(linkId).setValue(sortie);

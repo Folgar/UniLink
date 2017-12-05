@@ -17,17 +17,16 @@ import java.util.List;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
     private List<GeneralStructure> mDataSet;
-    private List<Integer> mDataSetTypes;
 
     private Fragment mParentFragment;
 
-    public static final int TABLE = 1;
-    public static final int SORTIE = 2;
-    public static final int TRAJET = 3;
-    public static final int COVOITURAGE = 4;
+    static final int TABLE = 1;
+    static final int SORTIE = 2;
+    static final int TRAJET = 3;
+    static final int COVOITURAGE = 4;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ViewHolder(View v) {
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        ViewHolder(View v) {
             super(v);
         }
     }
@@ -41,7 +40,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         TextView nbParticipants;
         TextView nbMax;
 
-        public TableViewHolder(View v){
+        TableViewHolder(View v){
             super(v);view = v;
             view.setOnClickListener(new View.OnClickListener(){
                 @Override public void onClick(View v) {
@@ -64,7 +63,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         TextView nbParticipants;
         TextView nbMax;
 
-        public SortieViewHolder(View v){
+        SortieViewHolder(View v){
             super(v);
             view = v;
             view.setOnClickListener(new View.OnClickListener(){
@@ -82,7 +81,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public class TrajetViewHolder extends ViewHolder{
         TextView textViewTrajet;
 
-        public TrajetViewHolder(View v){
+        TrajetViewHolder(View v){
             super(v);
             this.textViewTrajet = (TextView) v.findViewById(R.id.trajet);
         }
@@ -91,28 +90,27 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public class CovoiturageViewHolder extends ViewHolder{
         TextView textViewCovoiturage;
 
-        public CovoiturageViewHolder(View v){
+        CovoiturageViewHolder(View v){
             super(v);
             this.textViewCovoiturage = (TextView) v.findViewById(R.id.covoiturage);
         }
     }
 
-    public CustomAdapter(Fragment parentFragment, List<GeneralStructure> dataSet, List<Integer> dataSetTypes){
+    public CustomAdapter(Fragment parentFragment, List<GeneralStructure> dataSet){
         mParentFragment = parentFragment;
         mDataSet = dataSet;
-        mDataSetTypes = dataSetTypes;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType){
         View v;
-        if (viewType == TABLE){
+        if (viewType == 1){
             v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cards_tables, viewGroup, false);
             return new TableViewHolder(v);
-        } else if (viewType == SORTIE){
+        } else if (viewType == 2){
             v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cards_sorties, viewGroup, false);
             return new SortieViewHolder(v);
-        } else if (viewType == TRAJET){
+        } else if (viewType == 3){
             v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cards_trajets, viewGroup, false);
             return new TrajetViewHolder(v);
         } else{
@@ -123,7 +121,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position){
-        if (viewHolder.getItemViewType() == TABLE) {
+        if (viewHolder.getItemViewType() == 1) {
             TableViewHolder tableViewHolder = (TableViewHolder) viewHolder;
             tableViewHolder.currentItem = (TableStructure) mDataSet.get(position);
 
@@ -134,7 +132,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         }
         else
-        if (viewHolder.getItemViewType() == SORTIE){
+        if (viewHolder.getItemViewType() == 2){
             SortieViewHolder sortieViewHolder = (SortieViewHolder) viewHolder;
             sortieViewHolder.currentItem = (SortieStructure) mDataSet.get(position);
             sortieViewHolder.heure.setText(mDataSet.get(position).heure);
@@ -142,7 +140,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             sortieViewHolder.nbParticipants.setText(mDataSet.get(position).nombreParticipants);
             sortieViewHolder.nbMax.setText(mDataSet.get(position).nombreMax);
         }
-        else if (viewHolder.getItemViewType() == TRAJET){
+        else if (viewHolder.getItemViewType() == 3){
             TrajetViewHolder trajetViewHolder = (TrajetViewHolder) viewHolder;
             //holder.textViewTrajet.setText(mDataSet.get(position).getClass().toString());
         }
@@ -159,6 +157,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     @Override
     public int getItemViewType(int position) {
-        return mDataSetTypes.get(position);
+        int i = mDataSet.get(position).id;
+        return mDataSet.get(position).id;
     }
 }

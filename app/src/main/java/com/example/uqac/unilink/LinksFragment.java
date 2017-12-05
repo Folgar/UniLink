@@ -28,7 +28,6 @@ import static com.example.uqac.unilink.CustomAdapter.TABLE;
 public class LinksFragment extends GeneralFragment {
 
     private List<GeneralStructure> mDataset;
-    private List<Integer> mDatasetTypes;
     private CustomAdapter mAdapter;
 
     public LinksFragment(){}
@@ -46,7 +45,6 @@ public class LinksFragment extends GeneralFragment {
         final Context context = view.getContext();
 
         mDataset = new ArrayList<>();
-        mDatasetTypes = new ArrayList<>(); //view types
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference().child("table");
         final Fragment thisFragment = this;
@@ -65,8 +63,6 @@ public class LinksFragment extends GeneralFragment {
                     TableStructure table = eventSnapshot.getValue(TableStructure.class);
 
                         mDataset.add(table);
-                        mDatasetTypes.add(TABLE);
-
                 }
             }
 
@@ -101,12 +97,11 @@ public class LinksFragment extends GeneralFragment {
                         if(userOk) {
 
                         mDataset.add(sortie);
-                        mDatasetTypes.add(SORTIE);
                         }
 
                 }
 
-                mAdapter = new CustomAdapter(thisFragment, mDataset, mDatasetTypes);
+                mAdapter = new CustomAdapter(LinksFragment.this, mDataset);
                 mRecyclerView.setAdapter(mAdapter);
             }
 

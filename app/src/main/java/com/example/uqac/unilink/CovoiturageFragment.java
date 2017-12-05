@@ -18,7 +18,6 @@ import java.util.List;
 public class CovoiturageFragment extends GeneralFragment {
 
     private List<GeneralStructure> mDataset = new ArrayList<>();
-    private List<Integer> mDatasetTypes = new ArrayList<>(); //view types
 
     public CovoiturageFragment(){}
 
@@ -38,7 +37,7 @@ public class CovoiturageFragment extends GeneralFragment {
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        CustomAdapter mAdapter = new CustomAdapter(this, mDataset, mDatasetTypes);
+        CustomAdapter mAdapter = new CustomAdapter(this, mDataset);
         mRecyclerView.setAdapter(mAdapter);
 
         return view;

@@ -198,16 +198,14 @@ public class MainActivity extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 final List<GeneralStructure> mDatasetTables = new ArrayList<>();
-                final List<Integer> mDatasetTypesTables = new ArrayList<>();
 
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
                     TableStructure table = eventSnapshot.getValue(TableStructure.class);
 
                     mDatasetTables.add(table);
-                    mDatasetTypesTables.add(TABLE);
                 }
-                onTableLaunch(mDatasetTables,mDatasetTypesTables);
+                onTableLaunch(mDatasetTables);
             }
 
             @Override
@@ -219,7 +217,7 @@ public class MainActivity extends AppCompatActivity
         ref.child("table").removeEventListener(listener);
     }
 
-    public void onTableLaunch(List<GeneralStructure> dataset, List<Integer> datasetTypes){
+    public void onTableLaunch(List<GeneralStructure> dataset){
 
         if(dataset.size() == 0){
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
@@ -241,7 +239,7 @@ public class MainActivity extends AppCompatActivity
             newDialog.show();
         }
         else{
-            fragment = TablesFragment.newInstance(dataset, datasetTypes);
+            fragment = TablesFragment.newInstance(dataset);
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
         }
     }
@@ -267,16 +265,14 @@ public class MainActivity extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 final List<GeneralStructure> mDatasetSorties = new ArrayList<>();
-                final List<Integer> mDatasetTypesSorties = new ArrayList<>();
 
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
                     SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
 
                     mDatasetSorties.add(sortie);
-                    mDatasetTypesSorties.add(SORTIE);
                 }
-                onSortieLaunch(mDatasetSorties,mDatasetTypesSorties);
+                onSortieLaunch(mDatasetSorties);
             }
 
             @Override
@@ -288,7 +284,7 @@ public class MainActivity extends AppCompatActivity
         ref.child("sortie").removeEventListener(listener);
     }
 
-    public void onSortieLaunch(List<GeneralStructure> dataset, List<Integer> datasetTypes){
+    public void onSortieLaunch(List<GeneralStructure> dataset){
 
         if(dataset.size() == 0){
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
@@ -312,7 +308,7 @@ public class MainActivity extends AppCompatActivity
 
         }
         else{
-            fragment = SortiesFragment.newInstance(dataset, datasetTypes);
+            fragment = SortiesFragment.newInstance(dataset);
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
         }
     }

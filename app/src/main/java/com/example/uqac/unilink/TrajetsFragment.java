@@ -22,7 +22,6 @@ import static com.example.uqac.unilink.CustomAdapter.TRAJET;
 public class TrajetsFragment extends GeneralFragment {
 
     private List<GeneralStructure> mDataset = new ArrayList<>();
-    private List<Integer> mDatasetTypes = new ArrayList<>(); //view types
 
     public TrajetsFragment(){
 
@@ -44,7 +43,7 @@ public class TrajetsFragment extends GeneralFragment {
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        CustomAdapter mAdapter = new CustomAdapter(this, mDataset, mDatasetTypes);
+        CustomAdapter mAdapter = new CustomAdapter(this, mDataset);
         mRecyclerView.setAdapter(mAdapter);
 
         return view;

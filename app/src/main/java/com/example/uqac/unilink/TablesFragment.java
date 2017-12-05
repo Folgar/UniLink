@@ -18,19 +18,17 @@ import java.util.List;
 public class TablesFragment extends GeneralFragment {
 
     private List<GeneralStructure> mDataset;
-    private List<Integer> mDatasetTypes;
 
     public TablesFragment(){}
 
-    public static TablesFragment newInstance(List<GeneralStructure> mDataset, List<Integer> mDatasetTypes){
+    public static TablesFragment newInstance(List<GeneralStructure> mDataset){
         TablesFragment fragment = new TablesFragment();
-        fragment.setDatas(mDataset, mDatasetTypes);
+        fragment.setDatas(mDataset);
         return fragment;
     }
 
-    public void setDatas(List<GeneralStructure> mDataset, List<Integer> mDatasetTypes){
+    public void setDatas(List<GeneralStructure> mDataset){
         this.mDataset = mDataset;
-        this.mDatasetTypes = mDatasetTypes;
     }
 
     @Override
@@ -48,7 +46,7 @@ public class TablesFragment extends GeneralFragment {
         RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        CustomAdapter mAdapter = new CustomAdapter(this,mDataset, mDatasetTypes);
+        CustomAdapter mAdapter = new CustomAdapter(this,mDataset);
         mRecyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);

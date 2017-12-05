@@ -97,7 +97,6 @@ public class ResearchTablesFragment extends GeneralFragmentDateTime {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 final List<GeneralStructure> newDataset = new ArrayList<>();
-                final List<Integer> newDatasetTypes = new ArrayList<>();
 
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
@@ -121,7 +120,6 @@ public class ResearchTablesFragment extends GeneralFragmentDateTime {
 
                             if (((am && am3) || (!am && !am2)) && (((hour >= hour3) || ((hour == hour3) && (min >= min3))) && ((hour <= hour2) || ((hour == hour2) && (min <= min2))))) {
                                 newDataset.add(table);
-                                newDatasetTypes.add(TABLE);
                             }
 
                         }
@@ -140,7 +138,6 @@ public class ResearchTablesFragment extends GeneralFragmentDateTime {
 
                             if (!(am && !am3) && ((hour >= hour3) || ((hour == hour3) && (min >= min3)))) {
                                 newDataset.add(table);
-                                newDatasetTypes.add(TABLE);
                             }
 
                         }
@@ -158,7 +155,6 @@ public class ResearchTablesFragment extends GeneralFragmentDateTime {
 
                             if (!(!am && am2) && ((hour <= hour2) || ((hour == hour2) && (min <= min2)))) {
                                 newDataset.add(table);
-                                newDatasetTypes.add(TABLE);
                             }
 
                         }
@@ -179,14 +175,12 @@ public class ResearchTablesFragment extends GeneralFragmentDateTime {
 
                         if (((am && am3) || (!am && !am2)) && (((hour >= hour3) || ((hour == hour3) && (min >= min3))) && ((hour <= hour2) || ((hour == hour2) && (min <= min2))))) {
                             newDataset.add(table);
-                            newDatasetTypes.add(TABLE);
                         }
 
 
                     } else if ((!datePickerAlertDialog.getText().toString().equals(""))) {
                         if (table.date.equals(datePickerAlertDialog.getText().toString())) {
                             newDataset.add(table);
-                            newDatasetTypes.add(TABLE);
                         }
                     } else if ((!timePickerAlertDialogMin.getText().toString().equals(""))) {
 
@@ -203,7 +197,6 @@ public class ResearchTablesFragment extends GeneralFragmentDateTime {
 
                         if (!(am && !am3) && ((hour >= hour3) || ((hour == hour3) && (min >= min3)))) {
                             newDataset.add(table);
-                            newDatasetTypes.add(TABLE);
                         }
 
 
@@ -220,12 +213,11 @@ public class ResearchTablesFragment extends GeneralFragmentDateTime {
 
                         if (!(!am && am2) && (((hour <= hour2 && !am) || (am && !am2)) || ((hour == hour2) && (min <= min2)))) {
                             newDataset.add(table);
-                            newDatasetTypes.add(TABLE);
                         }
 
                     }
                 }
-                ((MainActivity) getActivity()).onTableLaunch(newDataset, newDatasetTypes);
+                ((MainActivity) getActivity()).onTableLaunch(newDataset);
             }
 
             @Override
