@@ -85,7 +85,6 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
 
     public void launchResearch(){
 
-        //TODO : régler problème taille
 
 
 // Get a reference to our posts
@@ -98,7 +97,9 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
         ref.child("sortie").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                int i=0;
+
+
+
                 //final GeneralStructure[] newDataset = new GeneralStructure[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
                 //final int[] newDatasetTypes = new int[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
                 final List<GeneralStructure> newDataset = new ArrayList<>();
@@ -230,25 +231,19 @@ public class ResearchSortiesFragment extends GeneralFragmentDateTime {
 
                                 }
                             }
-                    }
-
-                GeneralStructure[] dataset = new GeneralStructure[newDataset.size()];
-                int[] datasetTypes = new int[newDatasetTypes.size()];
-
-                for(i=0; i<dataset.length;i++)
-                    dataset[i] = newDataset.get(i);
-
-                for(i=0; i<datasetTypes.length;i++)
-                    datasetTypes[i] = newDatasetTypes.get(i);
-
-                ((MainActivity) getActivity()).onSortieLaunch(dataset, datasetTypes);
-            }
+                    ((MainActivity) getActivity()).onSortieLaunch(newDataset, newDatasetTypes);
+                }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
+
+
         });
+
+
+
     }
 
     public void launchCancel(){((MainActivity)getActivity()).onSortieAll();}

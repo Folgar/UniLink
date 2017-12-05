@@ -26,6 +26,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.example.uqac.unilink.CustomAdapter.SORTIE;
 import static com.example.uqac.unilink.CustomAdapter.TABLE;
 
@@ -169,6 +172,7 @@ public class MainActivity extends AppCompatActivity
 
     public void onLogout(){
         //logging out the user
+        User.getInstance().setUser(null);
         firebaseAuth.signOut();
         LoginManager.getInstance().logOut();
         //closing activity
@@ -252,38 +256,17 @@ public class MainActivity extends AppCompatActivity
                                                                @Override
                                                                public void onDataChange(DataSnapshot dataSnapshot) {
                                                                    // Data temporaires pour Tables
-                                                                   final GeneralStructure[] mDatasetSorties = new GeneralStructure[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
-                                                                   final int[] mDatasetTypesSorties = new int[(int) Math.min(dataSnapshot.getChildrenCount(),6)]; //view types
+                                                                   final List<GeneralStructure> mDatasetSorties = new ArrayList<>();
+                                                                   final List<Integer> mDatasetTypesSorties = new ArrayList<>(); //view types
 
-                                                                   int i = 0;
                                                                    for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
-                                                                       if (i <= 5) {
 
                                                                            SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
 
-                                                                           mDatasetSorties[i] = sortie;
-                                                                           mDatasetTypesSorties[i] = SORTIE;
-                                                                       i++;
-                                                                       }
+                                                                           mDatasetSorties.add(sortie);
+                                                                           mDatasetTypesSorties.add(SORTIE);
                                                                    }
-
-                                                                   int taille = 0;
-                                                                   for(i = 0; i < mDatasetSorties.length; i++){
-                                                                       if(mDatasetSorties[i] != null)
-                                                                           taille++;
-                                                                   }
-
-                                                                   GeneralStructure[] dataset = new GeneralStructure[taille];
-                                                                   int[] datasetTypes = new int[taille];
-
-                                                                   for(i=0; i<taille;i++)
-                                                                       dataset[i] = mDatasetSorties[i];
-
-                                                                   for(i=0; i<taille;i++)
-                                                                       datasetTypes[i] = mDatasetTypesSorties[i];
-
-                                                                   fragment = SortiesFragment.newInstance(mDatasetSorties, mDatasetTypesSorties);
-                                                                   fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                                                                    onSortieLaunch(mDatasetSorties,mDatasetTypesSorties);
                                                                }
 
                                                                @Override
@@ -295,9 +278,16 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void onSortieLaunch(GeneralStructure[] dataset, int[] datasetTypes){
+    public void onSortieLaunch(List<GeneralStructure> dataset, List<Integer> datasetTypes){
 
-        if(dataset.length == 0){
+        final GeneralStructure[] newDataset = new GeneralStructure[dataset.size()];
+        final int[] newDatasetType = new int[datasetTypes.size()];
+        for(int i=0; i<dataset.size();i++) {
+            newDataset[i] = dataset.get(i);
+            newDatasetType[i] = datasetTypes.get(i);
+        }
+
+        if(dataset.size() == 0){
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
             newDialog.setTitle("Nouveau Link Sortie");
             newDialog.setMessage("Aucun Link ne correspond à vos critères de recherche. Voulez vous en créer un?");
@@ -315,9 +305,11 @@ public class MainActivity extends AppCompatActivity
                 }
             });
             newDialog.show();
+
+
         }
         else{
-            fragment = SortiesFragment.newInstance(dataset, datasetTypes);
+            fragment = SortiesFragment.newInstance(newDataset, newDatasetType);
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
         }
     }

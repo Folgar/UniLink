@@ -36,6 +36,7 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
     private DatabaseReference mRefLink;
     private MapsActivity dialogFragment;
 
+
     public CreateSortiesFragment(){}
 
     @Override
@@ -44,12 +45,12 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_create_sorties, container, false);
         final Context context = view.getContext();
-
+        final View inflate = View.inflate(context, R.layout.activity_maps, null);
         datePickerAlertDialog = (EditText) view.findViewById(R.id.alert_dialog_date_picker);
         timePickerAlertDialog = (EditText) view.findViewById(R.id.alert_dialog_time_picker);
         nombre = (EditText) view.findViewById(R.id.nombre_participants);
@@ -59,6 +60,7 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
         FloatingActionButton fabCancel = (FloatingActionButton) view.findViewById(R.id.fabCancel);
         mRefSortie = FirebaseDatabase.getInstance().getReference("sortie");
         mRefLink = FirebaseDatabase.getInstance().getReference("link");
+
 
         datePickerAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,9 +78,13 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
             @Override
             public void onClick(View v) {
 
+                if(inflate.getParent()!=null)
+                    ((ViewGroup)inflate.getParent()).removeView(inflate);
+
                 final FragmentManager fm = getFragmentManager();
                 dialogFragment = new MapsActivity();
                 dialogFragment.context = getContext();
+//                ViewGroup viewGroup = (ViewGroup) new View(context);
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 // Get the layout inflater
                 final LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
@@ -87,15 +93,17 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
 // layout
 //                    dialogFragment.setContentView(R.layout.activity_maps);
 //                dialogFragment.customAdapter=CustomAdapter.this;
-                builder.setView(inflater.inflate(R.layout.activity_maps, null,false));
+                builder.setView(inflate);
                 final AlertDialog ad = builder.create();
                 ad.setTitle("Select starting point");
                 ad.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
                         new DialogInterface.OnClickListener() {
                             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                             public void onClick(DialogInterface dialog, int which) {
-                                dialogFragment.finishAndRemoveTask();
-                                dialogFragment.finish();
+//                                dialogFragment.finishAndRemoveTask();
+//                                dialogFragment.end();
+
+                                  ad.dismiss();
                             }
                         });
                 ad.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
@@ -103,9 +111,10 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         lieu.setText(dialogFragment.address);
-                        dialogFragment.finishAndRemoveTask();
-                        dialogFragment.finish();
-                        ad.dismiss();
+//                        dialogFragment.finishAndRemoveTask();
+//                        dialogFragment.end();
+                          ad.dismiss();
+
 
                     }
                 });
@@ -115,6 +124,7 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
                 SupportMapFragment mapFragment = (SupportMapFragment) fm
                         .findFragmentById(R.id.map);
                 mapFragment.getMapAsync(dialogFragment);
+
 
 
             }
@@ -152,9 +162,7 @@ public class CreateSortiesFragment extends GeneralFragmentDateTime {
             Toast.makeText(getContext(), "Nombre de participants maximum manquant", Toast.LENGTH_SHORT).show();
 
         else {
-            //TODO enregistrer utilisateur courrant comme créateur
-            //TODO enregister utilisateur courrant comme Participant
-            SortieStructure sortie = new SortieStructure(datePickerAlertDialog.getText().toString(), timePickerAlertDialog.getText().toString(), lieu.getText().toString(), description.getText().toString(), nombre.getText().toString());
+            SortieStructure sortie = new SortieStructure(datePickerAlertDialog.getText().toString(), timePickerAlertDialog.getText().toString(), lieu.getText().toString(), description.getText().toString(), nombre.getText().toString(),User.getInstance().getUser().getDisplayName(), User.getInstance().getUser().getDisplayName() );
             String linkId = mRefLink.push().getKey();
             mRefLink.child(linkId).setValue("Sortie");
             mRefSortie.child(linkId).setValue(sortie);

@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //if the objects getcurrentuser method is not null
         //means user is already logged in
         if(firebaseAuth.getCurrentUser() != null){
+            User.getInstance().setUser(firebaseAuth.getCurrentUser());
             //close this activity
             finish();
             //opening profile activity

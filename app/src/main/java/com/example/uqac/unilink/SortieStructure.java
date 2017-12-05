@@ -6,18 +6,27 @@ package com.example.uqac.unilink;
 
 public class SortieStructure extends GeneralStructure{
 
-    //TODO Ajouter utilisateur créateur
-    //TODO Ajouter list utilisateurs Participants
-    public SortieStructure() {
+    public SortieStructure(String date, String heure, String lieu, String description, String nombreMax) {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
-    }
-
-    public SortieStructure(String date,String heure,String lieu, String description, String nombreMax){
         this.date=date;
         this.heure=heure;
         this.lieu=lieu;
         this.description=description;
         this.nombreMax=nombreMax;
         this.nombreParticipants = "1";
+    }
+
+    public SortieStructure() {
+    }
+
+    public SortieStructure(String date, String heure, String lieu, String description, String nombreMax, String username, String participant){
+        this.date=date;
+        this.heure=heure;
+        this.lieu=lieu;
+        this.description=description;
+        this.nombreMax=nombreMax;
+        this.nombreParticipants = "1";
+        this.creator=username;
+        this.Participants.add(participant);
     }
 }
