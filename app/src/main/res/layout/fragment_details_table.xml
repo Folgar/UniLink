@@ -10,6 +10,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:gravity="center"
+            android:text="Table"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,10 +37,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                tools:text="12h30"
                 android:fontFamily="sans-serif"
+                android:textAlignment="textEnd"
                 android:textColor="#333"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:text="12h30"
+                android:gravity="end" />
 
         </LinearLayout>
 
@@ -46,6 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/fragment_date"
+                android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif"
                 android:textColor="#333"
                 android:textSize="18sp"/>
@@ -54,11 +65,14 @@
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                tools:text="12/12/17"
                 android:fontFamily="sans-serif"
+                android:textAlignment="textEnd"
                 android:textColor="#333"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:text="12/12/17"
+                android:gravity="end" />
 
         </LinearLayout>
 
@@ -72,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/fragment_lieu"
+                android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif"
                 android:textColor="#333"
                 android:textSize="18sp"/>
@@ -80,11 +95,14 @@
                 android:id="@+id/lieu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                tools:text="UQAC"
                 android:fontFamily="sans-serif"
+                android:textAlignment="textEnd"
                 android:textColor="#333"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:text="UQAC"
+                android:gravity="end" />
 
         </LinearLayout>
 
@@ -92,6 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fragment_description"
+            android:layout_marginTop="10dp"
             android:fontFamily="sans-serif"
             android:textColor="#333"
             android:textSize="18sp"/>
@@ -106,6 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fragment_participants"
+            android:layout_marginTop="10dp"
             android:fontFamily="sans-serif"
             android:textColor="#333"
             android:textSize="18sp"/>
@@ -121,6 +141,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:textColor="#878787"
+            android:background="@drawable/buttonshapetable"
             android:text="@string/fragment_rejoindre"/>
 
     </LinearLayout>

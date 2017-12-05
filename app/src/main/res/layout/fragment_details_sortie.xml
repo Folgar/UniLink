@@ -10,29 +10,40 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:gravity="center"
+            android:text="Sortie"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_heure"
                 android:fontFamily="sans-serif"
+                android:text="@string/fragment_heure"
                 android:textColor="#333"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/heure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                tools:text="12h30"
                 android:fontFamily="sans-serif"
+                android:textAlignment="textEnd"
                 android:textColor="#333"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:text="12h30"
+                android:gravity="end" />
 
         </LinearLayout>
 
@@ -45,20 +56,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_date"
                 android:fontFamily="sans-serif"
+                android:layout_marginTop="10dp"
+                android:text="@string/fragment_date"
                 android:textColor="#333"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                tools:text="12/12/17"
                 android:fontFamily="sans-serif"
+                android:textAlignment="textEnd"
                 android:textColor="#333"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:text="12/12/17"
+                android:gravity="end" />
 
         </LinearLayout>
 
@@ -71,26 +86,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_lieu"
                 android:fontFamily="sans-serif"
+                android:layout_marginTop="10dp"
+                android:text="@string/fragment_lieu"
                 android:textColor="#333"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/lieu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                tools:text="UQAC"
                 android:fontFamily="sans-serif"
+                android:textAlignment="textEnd"
                 android:textColor="#333"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:text="UQAC"
+                android:gravity="end" />
 
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="@string/fragment_description"
             android:fontFamily="sans-serif"
             android:textColor="#333"
@@ -105,6 +125,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="@string/fragment_participants"
             android:fontFamily="sans-serif"
             android:textColor="#333"
@@ -121,7 +142,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="@string/fragment_rejoindre"/>
+            android:layout_marginRight="10dp"
+            android:layout_weight="0"
+            android:background="@drawable/buttonshapesortie"
+
+            android:text="@string/fragment_rejoindre"
+            android:textColor="#878787" />
 
     </LinearLayout>
 
