@@ -9,24 +9,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 /**
  * Created by Lorane on 01/12/2017.
  */
 
 public class TablesFragment extends GeneralFragment {
 
-    private GeneralStructure[] mDataset;
-    private int[] mDatasetTypes; //view types
+    private List<GeneralStructure> mDataset;
+    private List<Integer> mDatasetTypes;
 
     public TablesFragment(){}
 
-    public static TablesFragment newInstance(GeneralStructure[] mDataset, int[] mDatasetTypes){
+    public static TablesFragment newInstance(List<GeneralStructure> mDataset, List<Integer> mDatasetTypes){
         TablesFragment fragment = new TablesFragment();
         fragment.setDatas(mDataset, mDatasetTypes);
         return fragment;
     }
 
-    public void setDatas(GeneralStructure[] mDataset, int[] mDatasetTypes){
+    public void setDatas(List<GeneralStructure> mDataset, List<Integer> mDatasetTypes){
         this.mDataset = mDataset;
         this.mDatasetTypes = mDatasetTypes;
     }

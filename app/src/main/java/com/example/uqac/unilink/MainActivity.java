@@ -72,8 +72,6 @@ public class MainActivity extends AppCompatActivity
         email.setText(user.getEmail());
         displayName.setText(name);
 
-        //TODO rajouter code pour stocker les infos de l'utilisateur dans firebase
-
         fragment = new AccueilFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
@@ -193,8 +191,6 @@ public class MainActivity extends AppCompatActivity
 
     public void onTableAll(){
 
-        //TODO classer par date
-
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
         ValueEventListener listener = new ValueEventListener() {
@@ -225,13 +221,6 @@ public class MainActivity extends AppCompatActivity
 
     public void onTableLaunch(List<GeneralStructure> dataset, List<Integer> datasetTypes){
 
-        final GeneralStructure[] newDataset = new GeneralStructure[dataset.size()];
-        final int[] newDatasetType = new int[datasetTypes.size()];
-        for(int i=0; i<dataset.size();i++) {
-            newDataset[i] = dataset.get(i);
-            newDatasetType[i] = datasetTypes.get(i);
-        }
-
         if(dataset.size() == 0){
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
             newDialog.setTitle("Nouveau Link Table");
@@ -252,7 +241,7 @@ public class MainActivity extends AppCompatActivity
             newDialog.show();
         }
         else{
-            fragment = TablesFragment.newInstance(newDataset, newDatasetType);
+            fragment = TablesFragment.newInstance(dataset, datasetTypes);
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
         }
     }
@@ -270,7 +259,6 @@ public class MainActivity extends AppCompatActivity
 
     public void onSortieAll(){
 
-        //TODO classer par date
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
@@ -302,13 +290,6 @@ public class MainActivity extends AppCompatActivity
 
     public void onSortieLaunch(List<GeneralStructure> dataset, List<Integer> datasetTypes){
 
-        final GeneralStructure[] newDataset = new GeneralStructure[dataset.size()];
-        final int[] newDatasetType = new int[datasetTypes.size()];
-        for(int i=0; i<dataset.size();i++) {
-            newDataset[i] = dataset.get(i);
-            newDatasetType[i] = datasetTypes.get(i);
-        }
-
         if(dataset.size() == 0){
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
             newDialog.setTitle("Nouveau Link Sortie");
@@ -331,7 +312,7 @@ public class MainActivity extends AppCompatActivity
 
         }
         else{
-            fragment = SortiesFragment.newInstance(newDataset, newDatasetType);
+            fragment = SortiesFragment.newInstance(dataset, datasetTypes);
             fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
         }
     }

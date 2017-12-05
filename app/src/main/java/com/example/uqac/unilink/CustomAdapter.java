@@ -8,14 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 /**
  * Created by Lorane on 02/12/2017.
  */
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
-    private GeneralStructure[] mDataSet;
-    private int[] mDataSetTypes;
+    private List<GeneralStructure> mDataSet;
+    private List<Integer> mDataSetTypes;
 
     private Fragment mParentFragment;
 
@@ -95,7 +97,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
     }
 
-    public CustomAdapter(Fragment parentFragment, GeneralStructure[] dataSet, int[] dataSetTypes){
+    public CustomAdapter(Fragment parentFragment, List<GeneralStructure> dataSet, List<Integer> dataSetTypes){
         mParentFragment = parentFragment;
         mDataSet = dataSet;
         mDataSetTypes = dataSetTypes;
@@ -123,40 +125,40 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder viewHolder, final int position){
         if (viewHolder.getItemViewType() == TABLE) {
             TableViewHolder tableViewHolder = (TableViewHolder) viewHolder;
-            tableViewHolder.currentItem = (TableStructure) mDataSet[position];
+            tableViewHolder.currentItem = (TableStructure) mDataSet.get(position);
 
-            tableViewHolder.heure.setText(mDataSet[position].heure);
-            tableViewHolder.date.setText(mDataSet[position].date);
-            tableViewHolder.nbParticipants.setText(mDataSet[position].nombreParticipants);
-            tableViewHolder.nbMax.setText(mDataSet[position].nombreMax);
+            tableViewHolder.heure.setText(mDataSet.get(position).heure);
+            tableViewHolder.date.setText(mDataSet.get(position).date);
+            tableViewHolder.nbParticipants.setText(mDataSet.get(position).nombreParticipants);
+            tableViewHolder.nbMax.setText(mDataSet.get(position).nombreMax);
 
         }
         else
         if (viewHolder.getItemViewType() == SORTIE){
             SortieViewHolder sortieViewHolder = (SortieViewHolder) viewHolder;
-            sortieViewHolder.currentItem = (SortieStructure) mDataSet[position];
-            sortieViewHolder.heure.setText(mDataSet[position].heure);
-            sortieViewHolder.date.setText(mDataSet[position].date);
-            sortieViewHolder.nbParticipants.setText(mDataSet[position].nombreParticipants);
-            sortieViewHolder.nbMax.setText(mDataSet[position].nombreMax);
+            sortieViewHolder.currentItem = (SortieStructure) mDataSet.get(position);
+            sortieViewHolder.heure.setText(mDataSet.get(position).heure);
+            sortieViewHolder.date.setText(mDataSet.get(position).date);
+            sortieViewHolder.nbParticipants.setText(mDataSet.get(position).nombreParticipants);
+            sortieViewHolder.nbMax.setText(mDataSet.get(position).nombreMax);
         }
         else if (viewHolder.getItemViewType() == TRAJET){
             TrajetViewHolder trajetViewHolder = (TrajetViewHolder) viewHolder;
-            //holder.textViewTrajet.setText(mDataSet[position].getClass().toString());
+            //holder.textViewTrajet.setText(mDataSet.get(position).getClass().toString());
         }
         else {
             CovoiturageViewHolder covoiturageViewHolder = (CovoiturageViewHolder) viewHolder;
-            //holder.textViewCovoiturage.setText(mDataSet[position].getClass().toString());
+            //holder.textViewCovoiturage.setText(mDataSet.get(position).getClass().toString());
         }
     }
 
     @Override
     public int getItemCount() {
-        return mDataSet.length;
+        return mDataSet.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        return mDataSetTypes[position];
+        return mDataSetTypes.get(position);
     }
 }

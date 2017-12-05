@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -30,8 +31,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    //TODO ajouter lien "créer un compte"
-
     private static final String TAG = "LoginActivity";
 
     //defining views
@@ -47,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private LoginButton buttonFacebook;
     private CallbackManager callbackManager;
+    private TextView creerCompte;
 
 
     @Override
@@ -73,13 +73,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         buttonSignIn = (Button) findViewById(R.id.buttonSignin);
-
         buttonFacebook = (LoginButton) findViewById(R.id.buttonFacebook);
+        creerCompte = (TextView) findViewById(R.id.creerCompte);
 
         progressDialog = new ProgressDialog(this);
 
         //attaching click listener
         buttonSignIn.setOnClickListener(this);
+        creerCompte.setOnClickListener(this);
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -187,6 +188,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         if(view == buttonSignIn){
             userLogin();
+        }
+        else if(view == creerCompte){
+            startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
         }
     }
 }
