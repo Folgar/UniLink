@@ -20,6 +20,11 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import static com.example.uqac.unilink.CustomAdapter.SORTIE;
 import static com.example.uqac.unilink.CustomAdapter.TABLE;
@@ -237,18 +242,60 @@ public class MainActivity extends AppCompatActivity
 
         //TODO Faire la requête firebase qui récupère les links sortie classés par date
 
-        // Data temporaires pour Tables
-        GeneralStructure[] mDatasetSorties = {new SortieStructure("10/12/17", "12:30","UQAC","test1","5"),
-                new SortieStructure("12/12/17", "12:30","UQAC","test2","10")};
-        int[] mDatasetTypesSorties = {SORTIE, SORTIE}; //view types
 
-        fragment = SortiesFragment.newInstance(mDatasetSorties, mDatasetTypesSorties);
-        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference();
+
+        ref.child("sortie").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                               @Override
+                                                               public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                   // Data temporaires pour Tables
+                                                                   final GeneralStructure[] mDatasetSorties = new GeneralStructure[(int) Math.min(dataSnapshot.getChildrenCount(),6)];
+                                                                   final int[] mDatasetTypesSorties = new int[(int) Math.min(dataSnapshot.getChildrenCount(),6)]; //view types
+
+                                                                   int i = 0;
+                                                                   for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
+                                                                       if (i <= 5) {
+
+                                                                           SortieStructure sortie = eventSnapshot.getValue(SortieStructure.class);
+
+                                                                           mDatasetSorties[i] = sortie;
+                                                                           mDatasetTypesSorties[i] = SORTIE;
+                                                                       i++;
+                                                                       }
+                                                                   }
+
+                                                                   int taille = 0;
+                                                                   for(i = 0; i < mDatasetSorties.length; i++){
+                                                                       if(mDatasetSorties[i] != null)
+                                                                           taille++;
+                                                                   }
+
+                                                                   GeneralStructure[] dataset = new GeneralStructure[taille];
+                                                                   int[] datasetTypes = new int[taille];
+
+                                                                   for(i=0; i<taille;i++)
+                                                                       dataset[i] = mDatasetSorties[i];
+
+                                                                   for(i=0; i<taille;i++)
+                                                                       datasetTypes[i] = mDatasetTypesSorties[i];
+
+                                                                   fragment = SortiesFragment.newInstance(mDatasetSorties, mDatasetTypesSorties);
+                                                                   fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                                                               }
+
+                                                               @Override
+                                                               public void onCancelled(DatabaseError databaseError) {
+                                                                   System.out.println("The read failed: " + databaseError.getCode());
+                                                               }
+                                                           });
+
+
     }
 
     public void onSortieLaunch(GeneralStructure[] dataset, int[] datasetTypes){
 
-        if(dataset.length == 0 || dataset[0] == null){
+        if(dataset.length == 0){
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
             newDialog.setTitle("Nouveau Link Sortie");
             newDialog.setMessage("Aucun Link ne correspond à vos critères de recherche. Voulez vous en créer un?");
