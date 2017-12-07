@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:maxWidth="@dimen/activity_horizontal_margin"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="119dp">
+
+        <DatePicker
+            android:id="@+id/dialog_date_picker"
+            android:layout_width="332dp"
+            android:layout_height="wrap_content"
+            android:headerBackground="@color/colorCalendar"
+            tools:headerDayOfMonthTextAppearance="@style/@drawable/com_facebook_auth_dialog_cancel_background"
+            tools:layout_editor_absoluteX="18dp"
+            tools:layout_editor_absoluteY="39dp" />
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>
